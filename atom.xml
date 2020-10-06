@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>月色很柔</title>
+  
+  <subtitle>没事早点睡，有空多学习。就能和月色一样柔</subtitle>
+  <link href="https://kleinlsl.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://kleinlsl.github.io/"/>
+  <updated>2020-10-04T01:37:03.545Z</updated>
+  <id>https://kleinlsl.github.io/</id>
+  
+  <author>
+    <name>卢松林</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>nCov项目总结文档</title>
+    <link href="https://kleinlsl.github.io/2020/10/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/"/>
+    <id>https://kleinlsl.github.io/2020/10/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/</id>
+    <published>2020-10-06T05:50:44.790Z</published>
+    <updated>2020-10-04T01:37:03.545Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;﻿&lt;a href=&quot;http://39.99.140.59:8002/&quot;&gt;TOC&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;通过Flask搭建web/Echarts可视化大屏，并定时获取数据。&lt;/p&gt;
+&lt;p&gt;参考视频：&lt;a href=&quot;https://www.bilibili.com/video/BV177411j7qJ?p=1&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;参考效果：&lt;a href=&quot;http://cov.aiiyx.cn/&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Intellij  连接远程服务器代码实时同步</title>
+    <link href="https://kleinlsl.github.io/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/"/>
+    <id>https://kleinlsl.github.io/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/</id>
+    <published>2020-10-05T00:14:16.000Z</published>
+    <updated>2020-10-06T00:31:14.838Z</updated>
+    
+    
+    <summary type="html">Intellij  连接远程服务器代码实时同步</summary>
+    
+    
+    
+    
+    <category term="Idea" scheme="https://kleinlsl.github.io/tags/Idea/"/>
+    
+    <category term="Ubuntu" scheme="https://kleinlsl.github.io/tags/Ubuntu/"/>
+    
+    <category term="Vmware" scheme="https://kleinlsl.github.io/tags/Vmware/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu18.04 Server搭建和使用记录</title>
+    <link href="https://kleinlsl.github.io/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/"/>
+    <id>https://kleinlsl.github.io/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/</id>
+    <published>2020-10-03T11:14:16.000Z</published>
+    <updated>2020-10-04T01:55:43.618Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;记录自己搭建Ubuntu18.04 Server的全部过程，有不足之处请见谅！！！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;1、前置工作&quot;&gt;&lt;a href=&quot;#1、前置工作&quot; class=&quot;headerlink&quot; title=&quot;1、前置工作&quot;&gt;&lt;/a&gt;1、前置工作&lt;/h2&gt;&lt;p&gt;本文做出以下假设：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;您已熟悉Linux操作系统&lt;/li&gt;
+&lt;li&gt;您拥有(或能够独立创建)一台Ubuntu Server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本文采用Vmware 虚拟机创建Ubuntu 18.04 Server&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;镜像获取：&lt;a href=&quot;http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/?_ga=2.128866185.407240186.1601692120-588330145.1601692120&quot;&gt;Ubuntu 18.04.5 LTS (Bionic Beaver)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Vmware：&lt;a href=&quot;https://www.vmware.com/cn/products/workstation-pro/workstation-pro-evaluation.html&quot;&gt;VMware15.5&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;SecureCRT：&lt;a href=&quot;https://www.vandyke.com/download/securecrt/6.7/index.html&quot;&gt;SecureCRT&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;搭建Ubuntu18.04 Server 教程：&lt;a href=&quot;https://blog.csdn.net/qq_41971768/article/details/108908496&quot;&gt;VMware 安装 Ubuntu Server 18.04.5 LTS&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>大数据平台核心技术-实验记录</title>
+    <link href="https://kleinlsl.github.io/2020/05/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/"/>
+    <id>https://kleinlsl.github.io/2020/05/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/</id>
+    <published>2020-05-20T03:14:16.000Z</published>
+    <updated>2020-10-04T01:34:35.211Z</updated>
+    
+    
+    <summary type="html">&lt;hr&gt;
+&lt;center&gt;&lt;font size=5 face=&quot;华文行楷&quot;&gt;**有问题多尝试解决，可评论留言遇到的问题**&lt;/font&gt;&lt;/center&gt;
+&lt;center&gt;&lt;font size=5 face=&quot;华文行楷&quot;&gt;**博客表述不清的地方请留言，看到后会更新博客**&lt;/font&gt;&lt;/center&gt;
+&lt;center&gt;&lt;font size=5 face=&quot;华文行楷&quot;&gt;**本文仅供参考**&lt;/font&gt;&lt;/center&gt;
+---
+
+
+&lt;h1 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot; title=&quot;一、前言&quot;&gt;&lt;/a&gt;一、前言&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;学校：许昌学院&lt;br&gt;学院：信息工程学院&lt;br&gt;实验环境：&lt;br&gt;操作系统：Linux (CentOS 6.7)   JDK版本：1.8 (8u161)   Hadoop版本：2.7.4&lt;br&gt;虚拟机：VMware Workstation Pro 15.5&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>使用百度 Ai Studio GPU算力</title>
+    <link href="https://kleinlsl.github.io/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/"/>
+    <id>https://kleinlsl.github.io/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/</id>
+    <published>2020-04-20T14:14:16.000Z</published>
+    <updated>2020-10-04T01:36:32.979Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;@&lt;a href=&quot;https://blog.csdn.net/qq_41971768/article/details/105645906&quot;&gt;TOC&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;继上次找到Google Colab 免费GPU之后，又发现了&lt;a href=&quot;https://aistudio.baidu.com/aistudio/usercenter&quot;&gt;百度AI studio&lt;/a&gt;云平台的GPU算力。&lt;/p&gt;
+&lt;p&gt;百度的是相当优惠：每日使用gpu就可以获得12小时的算力卡，连续五天还可以额外获得48小时算力卡。&lt;/p&gt;
+&lt;p&gt;搭载的是 飞桨PaddlePaddle 框架，目前并不支持tensorflow-gpu。但是自己可以通过以下配置来使用tensorflow-gpu.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Google Colab 免费GPU算力</title>
+    <link href="https://kleinlsl.github.io/2020/04/20/%E4%BD%BF%E7%94%A8Google%20Colab%20%E5%85%8D%E8%B4%B9GPU/"/>
+    <id>https://kleinlsl.github.io/2020/04/20/%E4%BD%BF%E7%94%A8Google%20Colab%20%E5%85%8D%E8%B4%B9GPU/</id>
+    <published>2020-04-20T04:14:16.000Z</published>
+    <updated>2020-10-04T01:36:13.175Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;﻿@&lt;a href=&quot;https://blog.csdn.net/qq_41971768/article/details/105639794&quot;&gt;TOC&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;1、前言&quot;&gt;&lt;a href=&quot;#1、前言&quot; class=&quot;headerlink&quot; title=&quot;1、前言&quot;&gt;&lt;/a&gt;1、前言&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;最近在做一些需要GPU算力的项目，自己的电脑的算力不够用。找到了 &lt;a href=&quot;https://research.google.com/colaboratory/unregistered.html&quot;&gt;Google Colab（Colaboratory）&lt;/a&gt; ，作为Google推出的免费的云端GPU服务。&lt;/p&gt;
+&lt;p&gt;官方对其的说明是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Colaboratory 是一个研究项目，可免费使用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>hexo+github搭建个人博客</title>
+    <link href="https://kleinlsl.github.io/2020/01/15/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://kleinlsl.github.io/2020/01/15/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
+    <published>2020-01-15T11:14:16.000Z</published>
+    <updated>2020-10-06T04:00:49.777Z</updated>
+    
+    
+    <summary type="html">记录使用 hexo+GitHub搭建个人博客</summary>
+    
+    
+    
+    <category term="Hexo" scheme="https://kleinlsl.github.io/categories/Hexo/"/>
+    
+    
+    <category term="Hexo" scheme="https://kleinlsl.github.io/tags/Hexo/"/>
+    
+    <category term="Node.js" scheme="https://kleinlsl.github.io/tags/Node-js/"/>
+    
+    <category term="git" scheme="https://kleinlsl.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://kleinlsl.github.io/2020/01/15/hello-world/"/>
+    <id>https://kleinlsl.github.io/2020/01/15/hello-world/</id>
+    <published>2020-01-15T09:14:16.000Z</published>
+    <updated>2020-10-04T01:39:04.385Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;code class=&quot;hljs bash&quot;&gt;$ hexo new &lt;span class=&quot;hljs-string&quot;&gt;&amp;quot;My New Post&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>图书查询系统</title>
+    <link href="https://kleinlsl.github.io/2019/03/21/%E5%9B%BE%E4%B9%A6%E6%9F%A5%E8%AF%A2%E7%B3%BB%E7%BB%9F/"/>
+    <id>https://kleinlsl.github.io/2019/03/21/%E5%9B%BE%E4%B9%A6%E6%9F%A5%E8%AF%A2%E7%B3%BB%E7%BB%9F/</id>
+    <published>2019-03-21T11:14:16.000Z</published>
+    <updated>2020-06-16T02:37:01.553Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;@&lt;a href=&quot;https://blog.csdn.net/qq_41971768/article/details/88713826&quot;&gt;TOC&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;1、数据结构课程设计&quot;&gt;&lt;a href=&quot;#1、数据结构课程设计&quot; class=&quot;headerlink&quot; title=&quot;1、数据结构课程设计&quot;&gt;&lt;/a&gt;1、数据结构课程设计&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20190321191903232.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70&quot; alt=&quot;在这里插入图片描述&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;2、题目要求&quot;&gt;&lt;a href=&quot;#2、题目要求&quot; class=&quot;headerlink&quot; title=&quot;2、题目要求&quot;&gt;&lt;/a&gt;2、题目要求&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20190321191311187.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70&quot; alt=&quot;在这里插入图片描述&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+</feed>
