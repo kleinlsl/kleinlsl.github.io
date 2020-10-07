@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>基于MapReduce编程模型的内连接算法设计与实现</title>
+    <url>/2020/10/07/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h2 align=center>摘  要</h2>
+<p>
+    信息技术和互联网的发展使得每天都会产生海量的数据，这些数据具有结构复杂、数据量大的特性。连接操作是大数据中常用的且耗时的操作。Map Reduce编程模型的提出，使得大数据处理有了基本的思路。本文通过Map Reduce编程模型设计算法实现内连接操作，并通过TPC-H基准程序生成的数据集，进行算法的正确性检验和算法的性能测试。实验结果表明，本文所设计算法是正确可行的，并且在Map Reduce编程模型下其处理大量数据时有明显的优势，
+</p>
+
+<blockquote>
+<p>关键词：MapReduce；Hadoop；内连接；HDFS；TPC-H</p>
+</blockquote>
+<a id="more"></a>
+
+
+<p><img src="/images/blog-images/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/MapReduce-00.png"></p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p><img src="/images/blog-images/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/MapReduce-01.png"></p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><img src="/images/blog-images/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/MapReduce-02.png"></p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p><img src="/images/blog-images/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/MapReduce-03.png"></p>
+]]></content>
+      <categories>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>MapReduce</tag>
+        <tag>内连接</tag>
+        <tag>Hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo+github搭建个人博客</title>
     <url>/2020/01/15/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<blockquote>
