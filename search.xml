@@ -358,7 +358,7 @@
 <ul>
 <li>在主题配置文件 <code>ocean/_config.yml</code> 中开启</li>
 </ul>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># Toctoc: true</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># Toc</span><br><span class="hljs-attr">toc:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>在 Post 中关闭 Toc</li>
