@@ -189,6 +189,14 @@
 </li>
 <li><p>安装python3、pip3：<code>apt-get install python3</code>、<code>apt-get install python3-pip</code></p>
 </li>
+<li><p>收集和安装依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">pip：<br>  <br>pip freeze &gt; requirements.txt<br>  pip install -r requirements.txt<br>  <br>  <br>  conda：<br>  <br>conda list -e &gt; requirements.txt<br>  conda install --yes --file requirements.txt<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
 <li><p>安装conda环境：<a target="_blank" rel="noopener" href="https://www.anaconda.com/products/individual">官网</a></p>
 <ul>
 <li><p>选择合适的Anaconda版本地址：<a target="_blank" rel="noopener" href="https://repo.anaconda.com/archive/Anaconda3-2020.07-Linux-x86_64.sh">https://repo.anaconda.com/archive/Anaconda3-2020.07-Linux-x86_64.sh</a></p>
@@ -210,6 +218,9 @@
 </li>
 <li><p>更新 <code>.bashrc</code> 使得环境变量生效： <code>source ~/.bashrc</code> </p>
 </li>
+<li><p>升级conda：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">conda update conda<br>  conda update anaconda<br>conda update python<br></code></pre></td></tr></table></figure>
+</li>
 <li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/22678445">conda管理python环境</a>：</p>
 <ul>
 <li><p>环境管理：</p>
@@ -218,7 +229,8 @@
 <li>查看当前系统下的环境</li>
 </ul>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">conda info -e<br></code></pre></td></tr></table></figure>
-
+</li>
+</ul>
 <ul>
 <li>创建新的环境</li>
 </ul>
@@ -227,31 +239,29 @@
 <ul>
 <li>环境切换</li>
 </ul>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text"># 切换到新环境# linux/Mac下需要使用source activate env_name<br>activate env_name<br>#退出环境，也可以使用`activate root`切回root环境<br>deactivate env_name<br></code></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">  # 切换到新环境# linux/Mac下需要使用source activate env_name<br>  activate env_name<br>  #退出环境，也可以使用`activate root`切回root环境<br>deactivate env_name<br></code></pre></td></tr></table></figure>
 
 <ul>
-<li>移除环境</li>
-</ul>
+<li><p>移除环境</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">conda remove -n env_name --all<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li>给某个特定环境安装package </li>
+</li>
 </ul>
+<ul>
+<li><p>给某个特定环境安装package </p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">conda install -n env_name pandas<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li>查看已经安装的package</li>
+</li>
 </ul>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">conda list<br># 指定查看某环境下安装的package<br>conda list -n env_name<br></code></pre></td></tr></table></figure>
-
 <ul>
-<li>查找包</li>
-</ul>
+<li><p>查看已经安装的package</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">  conda list<br>  # 指定查看某环境下安装的package<br>conda list -n env_name<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查找包</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">conda search pyqtgraph<br></code></pre></td></tr></table></figure>
 
-<ul>
-<li>更新包</li>
+</li>
 </ul>
+<ul>
+<li><p>更新包</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">conda update numpy<br>conda update anaconda<br></code></pre></td></tr></table></figure>
 
 <ul>
