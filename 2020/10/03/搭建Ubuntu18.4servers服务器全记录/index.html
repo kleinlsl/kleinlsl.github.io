@@ -112,18 +112,21 @@
 </li>
 </ul>
 <ul>
-<li>执行更新命令 : <code>sudo apt-get clean</code>  、<code>sudo apt-get update</code></li>
-</ul>
-<ul>
+<li><p>执行更新命令 : <code>sudo apt-get clean</code>  、<code>sudo apt-get update</code></p>
+</li>
 <li><p>查看Java、Python、MySql、Tomcat、nginx、SqlServer环境</p>
-<ul>
-<li>Java: <code>java -version</code></li>
-<li>Python: <code>python 或 python3</code></li>
-<li>MySql：<code>mysql -version</code></li>
-<li>Tomcat：{待补充}</li>
-<li>nginx：{待补充}</li>
-<li>SqlServer：{待补充}</li>
-</ul>
+</li>
+<li><p>Java: <code>java -version</code></p>
+</li>
+<li><p>Python: <code>python 或 python3</code></p>
+</li>
+<li><p>MySql：<code>mysql -version</code></p>
+</li>
+<li><p>Tomcat：{待补充}</p>
+</li>
+<li><p>nginx：{待补充}</p>
+</li>
+<li><p>SqlServer：{待补充}</p>
 </li>
 </ul>
 <h3 id="2-0-安装文件上传工具"><a href="#2-0-安装文件上传工具" class="headerlink" title="2.0 安装文件上传工具"></a>2.0 安装文件上传工具</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">安装命令：apt-get install lrzsz -y<br><br>使用命令：rz # 上传<br><br></code></pre></td></tr></table></figure>
@@ -190,12 +193,12 @@
 <li><p>安装python3、pip3：<code>apt-get install python3</code>、<code>apt-get install python3-pip</code></p>
 </li>
 <li><p>收集和安装依赖：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">pip：<br>  <br>pip freeze &gt; requirements.txt<br>  pip install -r requirements.txt<br>  <br>  <br>  conda：<br>  <br>conda list -e &gt; requirements.txt<br>  conda install --yes --file requirements.txt<br></code></pre></td></tr></table></figure>
-
-
-
 </li>
 </ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip： <br><br>pip freeze &gt; requirements.txt<br>pip install -r requirements.txt<br><br>conda：<br><br>conda list -e &gt; requirements.txt<br>conda install --yes --file requirements.txt<br><br></code></pre></td></tr></table></figure>
+
+
+
 <ul>
 <li><p>安装conda环境：<a target="_blank" rel="noopener" href="https://www.anaconda.com/products/individual">官网</a></p>
 <ul>
@@ -204,10 +207,15 @@
 <li><p>下载安装包：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /export/software/<br>wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh<br>bash Anaconda3-4.4.0-Linux-x86_64.sh<br></code></pre></td></tr></table></figure>
 
+
+</li>
+</ul>
+</li>
+</ul>
 <blockquote>
 <p>一路回车；</p>
 </blockquote>
-</li>
+<ul>
 <li><p>修改环境变量：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">vi ~/.bashrc<br></code></pre></td></tr></table></figure>
 
@@ -218,8 +226,16 @@
 </li>
 <li><p>更新 <code>.bashrc</code> 使得环境变量生效： <code>source ~/.bashrc</code> </p>
 </li>
+<li><p>更改镜像源：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">修改了清华源，<br><br>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/<br>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/<br>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/<br>conda config --set show_channel_urls yes<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
 <li><p>升级conda：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">conda update conda<br>  conda update anaconda<br>conda update python<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">conda update conda<br>conda update anaconda<br>conda update python<br></code></pre></td></tr></table></figure>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/22678445">conda管理python环境</a>：</p>
 <ul>
@@ -269,8 +285,6 @@
 </ul>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">conda remove numpy<br></code></pre></td></tr></table></figure>
 
-</li>
-</ul>
 </li>
 </ul>
 </li>
@@ -383,7 +397,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="https://kleinlsl.github.io/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/" data-id="ckfyzlxjc000pkkvchgdg9h09" class="article-share-link">
+                                        <a data-url="https://kleinlsl.github.io/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/" data-id="ckga9nt0i000w48vchfzecfmb" class="article-share-link">
                                             Share
                                         </a>
                                         

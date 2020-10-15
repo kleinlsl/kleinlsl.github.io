@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>IDEA和maven配置多仓库的解决方案</title>
+    <url>/2020/10/15/IDEA%E5%92%8Cmaven%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<blockquote>
+<p>maven的配置文件优先级： <strong>pom.xml&gt; user settings &gt; global settings</strong> ;</p>
+<p>通过maven的配置文件优先级和IDEA的settings(设置)实现多仓库;</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h1><blockquote>
+<p>公司内部开发项目时一般会有一个公司的Maven私服，这个私服只能在公司内网中使用；如果，我们不再公司的情况下可能需要下载一些其他 jar 包。基于这种情况，我们可以配置两个本地仓库：公司使用（{basedir}/.m2/repository/） 和 自己使用（{basedir}/.aliyun/repository/）。在切换maven配置文件settings.xml时，一定要清楚优先级关系。</p>
+</blockquote>
+<h1 id="2、配置文件优先级"><a href="#2、配置文件优先级" class="headerlink" title="2、配置文件优先级"></a>2、配置文件优先级</h1><ul>
+<li>maven的配置文件优先级： <strong>pom.xml&gt; user settings &gt; global settings</strong> ;<ul>
+<li>user settings：  user.home/.m2/settings.xml </li>
+<li>global settings：${M2_HOME}/conf/settings.xml</li>
+<li>用户配置优先于全局配置，存在覆盖配置问题</li>
+</ul>
+</li>
+</ul>
+<h1 id="3、解决方案"><a href="#3、解决方案" class="headerlink" title="3、解决方案"></a>3、解决方案</h1><h2 id="3-1-settings-xml文件示例："><a href="#3-1-settings-xml文件示例：" class="headerlink" title="3.1 settings.xml文件示例："></a>3.1 settings.xml文件示例：</h2><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml">  <span class="hljs-comment">&lt;!-- localRepository # 本地仓库位置</span><br><span class="hljs-comment">   | The path to the local repository maven will use to store artifacts.</span><br><span class="hljs-comment">   |</span><br><span class="hljs-comment">   | Default: $&#123;user.home&#125;/.m2/repository</span><br><span class="hljs-comment">  &lt;localRepository&gt;/path/to/local/repo&lt;/localRepository&gt;</span><br><span class="hljs-comment">  --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">localRepository</span>&gt;</span>D:/Users/24458/ideaCaches/.aliyun/repository<span class="hljs-tag">&lt;/<span class="hljs-name">localRepository</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">mirrors</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- mirror # 镜像</span><br><span class="hljs-comment">   | Specifies a repository mirror site to use instead of a given repository. The repository that</span><br><span class="hljs-comment">   | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used</span><br><span class="hljs-comment">   | for inheritance and direct lookup purposes, and must be unique across the set of mirrors.</span><br><span class="hljs-comment">   |</span><br><span class="hljs-comment">  &lt;mirror&gt;</span><br><span class="hljs-comment">    &lt;id&gt;mirrorId&lt;/id&gt;</span><br><span class="hljs-comment">    &lt;mirrorOf&gt;repositoryId&lt;/mirrorOf&gt;</span><br><span class="hljs-comment">    &lt;name&gt;Human Readable Name for this Mirror.&lt;/name&gt;</span><br><span class="hljs-comment">    &lt;url&gt;http://my.repository.com/repo/path&lt;/url&gt;</span><br><span class="hljs-comment">  &lt;/mirror&gt;</span><br><span class="hljs-comment">   --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">mirror</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>aliyun-public<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">mirrorOf</span>&gt;</span>*<span class="hljs-tag">&lt;/<span class="hljs-name">mirrorOf</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>aliyun public<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>https://maven.aliyun.com/repository/public<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">mirror</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">mirror</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>aliyun-central<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">mirrorOf</span>&gt;</span>*<span class="hljs-tag">&lt;/<span class="hljs-name">mirrorOf</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>aliyun central<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>https://maven.aliyun.com/repository/central<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">mirror</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">mirror</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>aliyun-spring<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">mirrorOf</span>&gt;</span>*<span class="hljs-tag">&lt;/<span class="hljs-name">mirrorOf</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>aliyun spring<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>https://maven.aliyun.com/repository/spring<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">mirror</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">mirror</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>aliyun-spring-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">mirrorOf</span>&gt;</span>*<span class="hljs-tag">&lt;/<span class="hljs-name">mirrorOf</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>aliyun spring-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>https://maven.aliyun.com/repository/spring-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">mirror</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">mirrors</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--配置jdk版本--&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">profiles</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">profile</span>&gt;</span><br>     <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>jdk-1.8<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>     <span class="hljs-tag">&lt;<span class="hljs-name">activation</span>&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">activeByDefault</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">activeByDefault</span>&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">jdk</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">jdk</span>&gt;</span><br>     <span class="hljs-tag">&lt;/<span class="hljs-name">activation</span>&gt;</span><br>     <span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.source</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.source</span>&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.target</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.target</span>&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.compilerVersion</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.compilerVersion</span>&gt;</span><br>     <span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br>   <span class="hljs-tag">&lt;/<span class="hljs-name">profile</span>&gt;</span><br> <span class="hljs-tag">&lt;/<span class="hljs-name">profiles</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="3-2-配置不同仓库的配置文件"><a href="#3-2-配置不同仓库的配置文件" class="headerlink" title="3.2 配置不同仓库的配置文件"></a>3.2 配置不同仓库的配置文件</h2><blockquote>
+<p>主要配置本地仓库位置和镜像</p>
+</blockquote>
+<ul>
+<li><p>settings.xml  :  公司配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">&lt;localRepository&gt;D:&#x2F;Users&#x2F;24458&#x2F;ideaCaches&#x2F;.m2&#x2F;repository&lt;&#x2F;localRepository&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>settings.me.xml  :  自己的配置</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">localRepository</span>&gt;</span>D:/Users/24458/ideaCaches/.aliyun/repository<span class="hljs-tag">&lt;/<span class="hljs-name">localRepository</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="3-3-IDEA选择要使用的配置文件"><a href="#3-3-IDEA选择要使用的配置文件" class="headerlink" title="3.3 IDEA选择要使用的配置文件"></a>3.3 IDEA选择要使用的配置文件</h2><blockquote>
+<p>打开： file –&gt; settings –&gt; Maven:</p>
+</blockquote>
+<p><img src="/images/blog-images/IDEA%E5%92%8Cmaven%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/IDEA-settings.png"></p>
+<h2 id="3-4-查看当前所用settings-xml内容"><a href="#3-4-查看当前所用settings-xml内容" class="headerlink" title="3.4 查看当前所用settings.xml内容"></a>3.4 查看当前所用settings.xml内容</h2><p><img src="/images/blog-images/IDEA%E5%92%8Cmaven%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/effective-settings.png" alt="1602730526685"></p>
+<p><img src="/images/blog-images/IDEA%E5%92%8Cmaven%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/effective-settings-01.png"></p>
+]]></content>
+      <categories>
+        <category>Maven</category>
+      </categories>
+      <tags>
+        <tag>Maven</tag>
+        <tag>IDEA</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于MapReduce编程模型的内连接算法设计与实现</title>
     <url>/2020/10/07/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<h2 align=center>摘  要</h2>
@@ -740,18 +795,21 @@
 </li>
 </ul>
 <ul>
-<li>执行更新命令 : <code>sudo apt-get clean</code>  、<code>sudo apt-get update</code></li>
-</ul>
-<ul>
+<li><p>执行更新命令 : <code>sudo apt-get clean</code>  、<code>sudo apt-get update</code></p>
+</li>
 <li><p>查看Java、Python、MySql、Tomcat、nginx、SqlServer环境</p>
-<ul>
-<li>Java: <code>java -version</code></li>
-<li>Python: <code>python 或 python3</code></li>
-<li>MySql：<code>mysql -version</code></li>
-<li>Tomcat：{待补充}</li>
-<li>nginx：{待补充}</li>
-<li>SqlServer：{待补充}</li>
-</ul>
+</li>
+<li><p>Java: <code>java -version</code></p>
+</li>
+<li><p>Python: <code>python 或 python3</code></p>
+</li>
+<li><p>MySql：<code>mysql -version</code></p>
+</li>
+<li><p>Tomcat：{待补充}</p>
+</li>
+<li><p>nginx：{待补充}</p>
+</li>
+<li><p>SqlServer：{待补充}</p>
 </li>
 </ul>
 <h3 id="2-0-安装文件上传工具"><a href="#2-0-安装文件上传工具" class="headerlink" title="2.0 安装文件上传工具"></a>2.0 安装文件上传工具</h3><figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">安装命令：apt-get install lrzsz -y<br><br>使用命令：rz # 上传<br><br></code></pre></td></tr></table></figure>
@@ -818,12 +876,12 @@
 <li><p>安装python3、pip3：<code>apt-get install python3</code>、<code>apt-get install python3-pip</code></p>
 </li>
 <li><p>收集和安装依赖：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">pip：<br>  <br>pip freeze &gt; requirements.txt<br>  pip install -r requirements.txt<br>  <br>  <br>  conda：<br>  <br>conda list -e &gt; requirements.txt<br>  conda install --yes --file requirements.txt<br></code></pre></td></tr></table></figure>
-
-
-
 </li>
 </ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">pip： <br><br>pip freeze &gt; requirements.txt<br>pip install -r requirements.txt<br><br>conda：<br><br>conda list -e &gt; requirements.txt<br>conda install --yes --file requirements.txt<br><br></code></pre></td></tr></table></figure>
+
+
+
 <ul>
 <li><p>安装conda环境：<a href="https://www.anaconda.com/products/individual">官网</a></p>
 <ul>
@@ -832,10 +890,15 @@
 <li><p>下载安装包：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">cd /export/software/<br>wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh<br>bash Anaconda3-4.4.0-Linux-x86_64.sh<br></code></pre></td></tr></table></figure>
 
+
+</li>
+</ul>
+</li>
+</ul>
 <blockquote>
 <p>一路回车；</p>
 </blockquote>
-</li>
+<ul>
 <li><p>修改环境变量：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">vi ~/.bashrc<br></code></pre></td></tr></table></figure>
 
@@ -846,8 +909,16 @@
 </li>
 <li><p>更新 <code>.bashrc</code> 使得环境变量生效： <code>source ~/.bashrc</code> </p>
 </li>
+<li><p>更改镜像源：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">修改了清华源，<br><br>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/<br>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/<br>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/<br>conda config --set show_channel_urls yes<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
 <li><p>升级conda：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">conda update conda<br>  conda update anaconda<br>conda update python<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">conda update conda<br>conda update anaconda<br>conda update python<br></code></pre></td></tr></table></figure>
 </li>
 <li><p><a href="https://zhuanlan.zhihu.com/p/22678445">conda管理python环境</a>：</p>
 <ul>
@@ -897,8 +968,6 @@
 </ul>
 <figure class="highlight text"><table><tr><td class="code"><pre><code class="hljs text">conda remove numpy<br></code></pre></td></tr></table></figure>
 
-</li>
-</ul>
 </li>
 </ul>
 </li>
