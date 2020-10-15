@@ -56,135 +56,147 @@
       </tags>
   </entry>
   <entry>
-    <title>基于MapReduce编程模型的内连接算法设计与实现</title>
-    <url>/2020/10/07/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h2 align=center>摘  要</h2>
-<p>
-    信息技术和互联网的发展使得每天都会产生海量的数据，这些数据具有结构复杂、数据量大的特性。连接操作是大数据中常用的且耗时的操作。Map Reduce编程模型的提出，使得大数据处理有了基本的思路。本文通过Map Reduce编程模型设计算法实现内连接操作，并通过TPC-H基准程序生成的数据集，进行算法的正确性检验和算法的性能测试。实验结果表明，本文所设计算法是正确可行的，并且在Map Reduce编程模型下其处理大量数据时有明显的优势。
-</p>
+    <title>Hello World</title>
+    <url>/2020/01/15/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
 
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<a id="more"></a>
+
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Intellij  连接远程服务器代码实时同步</title>
+    <url>/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>使用IDEA 或 Pycharm等工具实现，连接远程服务器并实时同步代码。</p>
 <blockquote>
-<p>关键词：MapReduce；Hadoop；内连接；HDFS；TPC-H</p>
+<p>前提条件</p>
+<ul>
+<li>Intellij 产品需为专业版</li>
+<li>远程主机需能够远程登录</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>本文环境</p>
+<ul>
+<li>主机：windows 10 home</li>
+<li>远程服务器：Ubuntu 18.4 servers</li>
+<li>虚拟机：Vmware 15.5 pro</li>
+<li>其他软件：SecureCRT、Pycharm 2019.2(Professional Edition)</li>
+</ul>
 </blockquote>
 <a id="more"></a>
 
-
-<p><img src="/images/blog-images/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/MapReduce-00.png"></p>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p><img src="/images/blog-images/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/MapReduce-01.png"></p>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><img src="/images/blog-images/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/MapReduce-02.png"></p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p><img src="/images/blog-images/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/MapReduce-03.png"></p>
+<h2 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h2><p>1、打开SecureCRT确保可以连接至服务器,如图:</p>
+<p><img src="/images/blog-images/images-Intellij/%E6%B5%8B%E8%AF%95SecureCRT.png"></p>
+<p>2、打开Pycharm 进行配置</p>
+<ul>
+<li><p>Pycharm打开一下ssh session测试</p>
+<blockquote>
+<p>选择：tools–&gt;Start SSH session</p>
+<p><img src="/images/blog-images/images-Intellij/pycharm-ssh.png"></p>
+<p>能看到在isdea的下方开启了一个终端 </p>
+<p><img src="/images/blog-images/images-Intellij/ssh-%E6%88%90%E5%8A%9F.png"></p>
+</blockquote>
+</li>
+<li><p>打开项目，选择：tools-&gt;deployment-&gt;brower remote host ，如图：</p>
+<p><img src="/images/blog-images/images-Intellij/%E9%80%89%E6%8B%A9%E7%A4%BA%E6%84%8F%E5%9B%BE.png"></p>
+</li>
+<li><p>新建连接，如图：</p>
+<p><img src="/images/blog-images/images-Intellij/%E6%89%93%E5%BC%80%E9%85%8D%E7%BD%AE%E7%A4%BA%E6%84%8F%E5%9B%BE.png"></p>
+</li>
+<li><p>填写服务器信息，如下图：</p>
+<p><img src="/images/blog-images/images-Intellij/%E9%85%8D%E7%BD%AE%E8%AF%A6%E6%83%85.png"></p>
+</li>
+<li><p>一定要配置Mappings,如下图：</p>
+<p><img src="/images/blog-images/images-Intellij/addMappings.png"></p>
+</li>
+<li><p>更新服务器文件：</p>
+<p><img src="/images/blog-images/images-Intellij/%E6%9B%B4%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%96%87%E4%BB%B6.png"></p>
+</li>
+<li><p>配置自动更新:</p>
+<p><img src="/images/blog-images/images-Intellij/%E9%85%8D%E7%BD%AE%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0.png"></p>
+</li>
+</ul>
+<h2 id="配置效果展示"><a href="#配置效果展示" class="headerlink" title="配置效果展示"></a>配置效果展示</h2><p><img src="/images/blog-images/images-Intellij/%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA.png"></p>
 ]]></content>
-      <categories>
-        <category>Hadoop</category>
-      </categories>
       <tags>
-        <tag>MapReduce</tag>
-        <tag>内连接</tag>
-        <tag>Hadoop</tag>
+        <tag>Idea</tag>
+        <tag>Ubuntu</tag>
+        <tag>Vmware</tag>
       </tags>
   </entry>
   <entry>
-    <title>正版免费激活 Windows 10安装教程</title>
-    <url>/2020/06/09/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BB%20Windows%2010%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<blockquote>
-<p>现在对于大多数人来说，购买的电脑都是Windows 10正版系统，但是Windows使用一段时间后会出现一些疑难杂症(尤其是刚开始使用的用户)。在这种情况下，重装系统无疑可以解决所有问题。那么，目前网上的教程也是很多，许多教程都提供了Windows激活工具（注：个人认为系统本身就是正版的不需要通过激活工具激活系统，使用Windows的数字密钥即可）。</p>
+    <title>Google Colab 免费GPU算力</title>
+    <url>/2020/04/20/%E4%BD%BF%E7%94%A8Google%20Colab%20%E5%85%8D%E8%B4%B9GPU/</url>
+    <content><![CDATA[<p>﻿@<a href="https://blog.csdn.net/qq_41971768/article/details/105639794">TOC</a></p>
+<h1 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h1><blockquote>
+<p>最近在做一些需要GPU算力的项目，自己的电脑的算力不够用。找到了 <a href="https://research.google.com/colaboratory/unregistered.html">Google Colab（Colaboratory）</a> ，作为Google推出的免费的云端GPU服务。</p>
+<p>官方对其的说明是：</p>
+<blockquote>
+<p>Colaboratory 是一个研究项目，可免费使用。</p>
+</blockquote>
 </blockquote>
 <blockquote>
-<p>本文就是介绍如何使用Windows 官方教程重装Windows 10系统。</p>
-<p>本文将分为三部分：</p>
-<p>1、使用Windows 10的恢复功能重装</p>
-<p>2、使用Windows官方安装工具重装</p>
-<p>3、使用Windows官方安装工具为其他电脑重装</p>
-</blockquote>
 <a id="more"></a>
+</blockquote>
+<h1 id="2、Google-Colab特征"><a href="#2、Google-Colab特征" class="headerlink" title="2、Google Colab特征"></a>2、Google Colab特征</h1><ul>
+<li>Colaboratory 是一个 Google 研究项目，旨在帮助传播机器学习培训和研究成果。它是一个 Jupyter 笔记本环境，不需要进行任何设置(自带大部分python库)就可以使用，并且完全在云端运行。</li>
+<li>Colaboratory 笔记本存储在 Google 云端硬盘中，并且可以共享，就如同您使用 Google 文档或表格一样。Colaboratory 可免费使用。</li>
+<li>利用Colaboratory ，可以方便的使用Keras、TensorFlow、PyTorch等框架进行深度学习应用的开发。</li>
+</ul>
+<h1 id="3、使用"><a href="#3、使用" class="headerlink" title="3、使用"></a>3、使用</h1><blockquote>
+<p>注意：使用google服务可能需要梯子</p>
+</blockquote>
+<h2 id="3-1在谷歌云盘上创建文件夹"><a href="#3-1在谷歌云盘上创建文件夹" class="headerlink" title="3.1在谷歌云盘上创建文件夹"></a>3.1在谷歌云盘上创建文件夹</h2><p>当登录账号进 入<a href="https://drive.google.com/drive/my-drive">谷歌云盘</a>时 ，系统会给予15G免费空间大小。由于Colab需要依靠谷歌云盘，故需要在云盘上新建一个文件夹。</p>
+<p>选择新建文件夹，文件夹名称可自定义。</p>
+<h2 id="3-2创建Colaboratory"><a href="#3-2创建Colaboratory" class="headerlink" title="3.2创建Colaboratory"></a>3.2创建Colaboratory</h2><p>进入创建好的文件夹，点开我的云盘-更多。<br><img src="https://img-blog.csdnimg.cn/20200420172221824.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>如果在更多栏里没有发现Colaboratory，选择关联更多应用，搜索Colaboratory，选择关联。</p>
+<h2 id="3-3创建完成"><a href="#3-3创建完成" class="headerlink" title="3.3创建完成"></a>3.3创建完成</h2><p>创建完成后，会自动生成一个jupyter笔记本</p>
+<h1 id="4、设置GPU运行"><a href="#4、设置GPU运行" class="headerlink" title="4、设置GPU运行"></a>4、设置GPU运行</h1><ul>
+<li>选择 修改-笔记本设置<br><img src="https://img-blog.csdnimg.cn/20200420172504794.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+<li>将硬件加速器设置为GPU即可</li>
+</ul>
+<h1 id="5、运行-py文件"><a href="#5、运行-py文件" class="headerlink" title="5、运行.py文件"></a>5、运行.py文件</h1><h2 id="5-1安装必要库"><a href="#5-1安装必要库" class="headerlink" title="5.1安装必要库"></a>5.1安装必要库</h2><p>输入相应代码，并执行（crtl+F9）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">!apt-get install -y -qq software-properties-common python-software-properties module-init-tools<br>!add-apt-repository -y ppa:alessandro-strada&#x2F;ppa 2&gt;&amp;1 &gt; &#x2F;dev&#x2F;null<br>!apt-get update -qq 2&gt;&amp;1 &gt; &#x2F;dev&#x2F;null<br>!apt-get -y install -qq google-drive-ocamlfuse fuse<br>from google.colab import auth<br>auth.authenticate_user()<br>from oauth2client.client import GoogleCredentials<br>creds &#x3D; GoogleCredentials.get_application_default()<br>import getpass<br>!google-drive-ocamlfuse -headless -id&#x3D;&#123;creds.client_id&#125; -secret&#x3D;&#123;creds.client_secret&#125; &lt; &#x2F;dev&#x2F;null 2&gt;&amp;1 | grep URL<br>vcode &#x3D; getpass.getpass()<br>!echo &#123;vcode&#125; | google-drive-ocamlfuse -headless -id&#x3D;&#123;creds.client_id&#125; -secret&#x3D;&#123;creds.client_secret&#125;<br><br></code></pre></td></tr></table></figure>
 
-<h2 id="1、使用Windows-10的恢复功能重装"><a href="#1、使用Windows-10的恢复功能重装" class="headerlink" title="1、使用Windows 10的恢复功能重装"></a>1、使用Windows 10的恢复功能重装</h2><blockquote>
-<p>打开开始菜单–&gt;设置–&gt;更新与安全–&gt;恢复:</p>
-<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows%E6%81%A2%E5%A4%8D%E5%8A%9F%E8%83%BD.png"></p>
-</blockquote>
-<h2 id="2、使用Windows官方安装工具重装"><a href="#2、使用Windows官方安装工具重装" class="headerlink" title="2、使用Windows官方安装工具重装"></a>2、使用Windows官方安装工具重装</h2><blockquote>
-<ul>
-<li><p>安装工具下载链接：<a href="https://www.microsoft.com/zh-cn/software-download/windows10?36261b60-2f68-4336-abe2-4b00f210b6aa=True">here</a></p>
-</li>
-<li><p>网页界面展示：</p>
-<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows10%E5%AE%98%E6%96%B9%E8%AF%B4%E6%98%8E.png"></p>
-</li>
-</ul>
-</blockquote>
+
+
 <blockquote>
-<ul>
-<li><p>点击立即下载工具即可下载：</p>
-</li>
-<li><p>打开下载的：MediaCreationTool.exe</p>
-<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F01.png"></p>
-<ul>
-<li>点击立即升级这台电脑，即可自动升级</li>
-</ul>
-</li>
-</ul>
+<p>运行后，先点开相应的链接，选择自己的谷歌账号，并允许，最后会得到相应的代码，输入相应的框中即可</p>
 </blockquote>
-<h2 id="3、使用Windows官方安装工具为其他电脑重装"><a href="#3、使用Windows官方安装工具为其他电脑重装" class="headerlink" title="3、使用Windows官方安装工具为其他电脑重装"></a>3、使用Windows官方安装工具为其他电脑重装</h2><p>1 ）获取安装介质</p>
-<blockquote>
-<ul>
-<li><p>打开第二步的安装介质–&gt;选择为另一台电脑创建安装介质</p>
-</li>
-<li><p>选择系统配置（注：应选择当前系统配置）</p>
-<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7%E9%80%89%E6%8B%A9%E9%85%8D%E7%BD%AE.png"></p>
-</li>
-<li><p>选择安装介质（我这里选择ISO，因为本文操作在Vm ware进行）</p>
-</li>
+<p><img src="https://img-blog.csdnimg.cn/20200420172555986.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="5-2-挂载云端硬盘"><a href="#5-2-挂载云端硬盘" class="headerlink" title="5.2 挂载云端硬盘"></a>5.2 挂载云端硬盘</h2><p>同上，输入下面命令，执行即可</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">!mkdir -p drive<br>!google-drive-ocamlfuse drive  -o nonempty<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-3-安装Keras"><a href="#5-3-安装Keras" class="headerlink" title="5.3 安装Keras"></a>5.3 安装Keras</h2><p>同理，输入命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">!pip install -q keras<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="6、训练自己的代码"><a href="#6、训练自己的代码" class="headerlink" title="6、训练自己的代码"></a>6、训练自己的代码</h1><h3 id="6-1上传项目代码到Google-云盘"><a href="#6-1上传项目代码到Google-云盘" class="headerlink" title="6.1上传项目代码到Google 云盘"></a>6.1上传项目代码到Google 云盘</h3><h3 id="6-2-将云盘代码拷贝至分配的虚拟目录"><a href="#6-2-将云盘代码拷贝至分配的虚拟目录" class="headerlink" title="6.2 将云盘代码拷贝至分配的虚拟目录"></a>6.2 将云盘代码拷贝至分配的虚拟目录</h3><figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">!cp -r dir1 dir2  #将目录dir1 拷贝至 目录dir2下<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-3-使用python命令运行py脚本"><a href="#6-3-使用python命令运行py脚本" class="headerlink" title="6.3 使用python命令运行py脚本"></a>6.3 使用python命令运行py脚本</h3><figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">!python main.py<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-4-注意事项"><a href="#6-4-注意事项" class="headerlink" title="6.4 注意事项"></a>6.4 注意事项</h3><ul>
+<li>Google 训练自己的代码，需要修改代码中有关路径的部分为绝对路径</li>
+<li>Google训练过程中不可关闭网页，不然会断开连接导致训练中断</li>
 </ul>
-<p>  <img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F%E9%80%89%E6%8B%A9%E5%AE%89%E8%A3%85%E4%BB%8B%E8%B4%A8.png"></p>
-<ul>
-<li><p>选择安装介质保存路径：</p>
-<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F%E9%80%89%E6%8B%A9%E4%BF%9D%E5%AD%98%E8%B7%AF%E5%BE%84.png"></p>
-</li>
-<li><p>下载安装介质：</p>
-<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%BB%8B%E8%B4%A8.png"></p>
-</li>
-<li><p>等待下载成功</p>
-</li>
-</ul>
-</blockquote>
-<p>2）进行安装：</p>
-<blockquote>
-<p>由于写博客，我将使用Vmware进行安装一台Windows10虚拟机为例。(安装过程有疑问可留言)</p>
-</blockquote>
-<blockquote>
-<ul>
-<li><p>创建虚拟机（注：固件类型选择：BIOS）：</p>
-<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%85%8D%E7%BD%AE.png"></p>
-</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>开启虚拟机进行安装</li>
-</ul>
-<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8501.png"></p>
-<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8502.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8503.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8504.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8505.png"></p>
-</blockquote>
-<ul>
-<li>召唤小娜配置（按小娜提示进行）</li>
-</ul>
-<blockquote>
-<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8506.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8507.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8508.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8509.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8510.png"></p>
-</blockquote>
-<ul>
-<li>安装成功</li>
-</ul>
-<blockquote>
-<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8511.png"></p>
-<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8512.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8513.png"></p>
-</blockquote>
-<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>希望可以帮助到您！！！</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://medium.com/deep-learning-turkey/google-colab-free-gpu-tutorial-e113627b9f5d">https://medium.com/deep-learning-turkey/google-colab-free-gpu-tutorial-e113627b9f5d</a></p>
+<p><a href="https://blog.csdn.net/cocoaqin/article/details/79184540?depth_1-utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1&utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1#51%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E5%BA%93">Google Colab 免费GPU服务器使用教程</a></p>
 ]]></content>
-      <categories>
-        <category>工具篇</category>
-      </categories>
-      <tags>
-        <tag>Windows</tag>
-      </tags>
   </entry>
   <entry>
     <title>hexo+github搭建个人博客</title>
@@ -449,11 +461,22 @@
 <h2 id="推荐主题"><a href="#推荐主题" class="headerlink" title="推荐主题"></a>推荐主题</h2><ul>
 <li><p><a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></p>
 <ul>
-<li><p>克隆： <code> git clone https://github.com/zhwangart/hexo-theme-ocean.git themes/ocean</code></p>
+<li>克隆： <code> git clone https://github.com/zhwangart/hexo-theme-ocean.git themes/ocean</code></li>
+</ul>
 </li>
 <li><p>配置文档：<a href="https://zhwangart.github.io/2018/11/30/Ocean/">https://zhwangart.github.io/2018/11/30/Ocean/</a></p>
+<ul>
+<li>展示：<a href="https://zhwangart.github.io/">https://zhwangart.github.io/</a></li>
+</ul>
 </li>
-<li><p>展示：<a href="https://zhwangart.github.io/">https://zhwangart.github.io/</a></p>
+</ul>
+<h2 id="错误解决"><a href="#错误解决" class="headerlink" title="错误解决"></a>错误解决</h2><ul>
+<li><p>错误：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell">D:\Workspaces\blog&gt;hexo version<br>INFO  Validating config<br>WARN  Deprecated config detected: <span class="hljs-string">&quot;use_date_for_updated&quot;</span> is deprecated, please use <span class="hljs-string">&quot;updated_option&quot;</span> instead. See https://hexo.io/docs/configuration <span class="hljs-keyword">for</span> more details.<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>解决方案：</p>
+<p>​    找到hexo的配置文件：<code>_config.yml</code> 更改其中的：<code>use_date_for_updated</code> 为 <code>updated_option</code></p>
 </li>
 </ul>
 </li>
@@ -469,292 +492,81 @@
       </tags>
   </entry>
   <entry>
-    <title>nCov项目总结文档</title>
-    <url>/2020/10/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/</url>
-    <content><![CDATA[<p>﻿<a href="http://39.99.140.59:8002/">TOC</a></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通过Flask搭建web/Echarts可视化大屏，并定时获取数据。</p>
-<p>参考视频：<a href="https://www.bilibili.com/video/BV177411j7qJ?p=1">here</a></p>
-<p>参考效果：<a href="http://cov.aiiyx.cn/">here</a></p>
+    <title>使用百度 Ai Studio GPU算力</title>
+    <url>/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/</url>
+    <content><![CDATA[<p>@<a href="https://blog.csdn.net/qq_41971768/article/details/105645906">TOC</a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>继上次找到Google Colab 免费GPU之后，又发现了<a href="https://aistudio.baidu.com/aistudio/usercenter">百度AI studio</a>云平台的GPU算力。</p>
+<p>百度的是相当优惠：每日使用gpu就可以获得12小时的算力卡，连续五天还可以额外获得48小时算力卡。</p>
+<p>搭载的是 飞桨PaddlePaddle 框架，目前并不支持tensorflow-gpu。但是自己可以通过以下配置来使用tensorflow-gpu.</p>
+</blockquote>
 <blockquote>
 <a id="more"></a>
 </blockquote>
-<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>基于Python+Flask+Echarts的Epidemic监控系统，主要技术路线如下：</p>
-<ul>
-<li><p>Python爬虫</p>
-</li>
-<li><p>Python操作MySql数据库</p>
-</li>
-<li><p>使用Flask构建web项目</p>
-</li>
-<li><p>基于Echarts的数据可视化展示</p>
-</li>
-<li><p>在Linux上部署web项目以及定时获取数据</p>
-</li>
-<li><p>nCov数据可视化大屏流程：</p>
-</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20200607183134565.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70#pic_center%EF%BC%8C%22" alt="在这里插入图片描述"></p>
-<ul>
-<li><p>项目结构安排：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">├── app.py    #Flask启动文件<br>├── chromedriver_win32    #chrome浏览器驱动<br>│   └── chromedriver.exe<br>├── db.py     #数据库连接配置<br>├── log       #存放爬虫日志<br>│   └── log_his<br>├── __pycache__<br>│   ├── app.cpython-36.pyc<br>│   ├── db.cpython-36.pyc<br>│   └── utils.cpython-36.pyc<br>├── requirements.txt    #收集到的依赖包<br>├── sh		 #shell脚本用于快速启动爬虫<br>│   ├── start_by_gunicorn.sh<br>│   ├── up_det.sh<br>│   ├── up_his.sh<br>│   └── up_hot.sh<br>├── spider.py  #爬虫文件<br>├── sqlfile    #相应的数据库脚本文件<br>│   ├── 000-details.sql<br>│   ├── 001-history.sql<br>│   ├── 002-hotsearch.sql<br>│   ├── 003-word.sql<br>│   ├── cov.sql<br>│   └── getCityTop5.sql<br>├── static    #静态资源<br>│   ├── css<br>│   │   └── main.css<br>│   │   └── word.css<br>│   ├── image<br>│   │   ├── bgg.png<br>│   │   ├── footer.png<br>│   │   ├── icon.jpg<br>│   │   └── header.png<br>│   └── js<br>│       ├── api<br>│       │   └── Tencent_api.js<br>│       ├── china.js<br>│       ├── controller.js<br>│       ├── ec_center.js<br>│       ├── echarts.min.js<br>│       ├── ec_left1.js<br>│       ├── ec_left2.js<br>│       ├── ec_right1.js<br>│       ├── ec_right2.js<br>│       ├── jquery.js<br>│       ├── word<br>│       │   ├── controller_w.js<br>│       │   ├── ecc_world.js<br>│       │   ├── ec_world.js<br>│       │   ├── vintage.js<br>│       │   └── world.js<br>│       └── worldcloud.js<br>├── templates<br>│   ├── word.html<br>│   └── index.html   # 主页面<br>└── utils.py   #工具脚本，获取MySQL数据<br></code></pre></td></tr></table></figure>
+<h2 id="1、选择版本"><a href="#1、选择版本" class="headerlink" title="1、选择版本"></a>1、选择版本</h2><blockquote>
+<p>其实AI Studio我们可以理解为一台免费的云服务器，这样我们就可以在里面配置相应的环境，就和自己本机配置tensorflow环境基本一致。</p>
+</blockquote>
+<blockquote>
+<p> 安装之前注意自己的python版本，tensorflow版本，cuda版本，cudnn版本，一定要相互匹配 </p>
+<p>可以参考以下版本：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">python 3.6<br>tensorflow 1.12.0<br>cuda 9.0<br>cudnn 7.4.1<br>Linux 16.04 (ai studio系统版本)<br></code></pre></td></tr></table></figure>
 
+<h2 id="2、下载配置文件"><a href="#2、下载配置文件" class="headerlink" title="2、下载配置文件"></a>2、下载配置文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">1 在ai studio或者notebook下载cuda<br>!wget https:&#x2F;&#x2F;developer.nvidia.com&#x2F;compute&#x2F;cuda&#x2F;9.0&#x2F;Prod&#x2F;local_installers&#x2F;cuda_9.0.176_384.81_linux-run<br> <br>2 新建一个目录~&#x2F;cuda-9.0&#x2F;<br> <br>3 将下载的cuda安装到上述新建的目录中<br>!sh cuda_9.0.176_linux-run --silent --toolkit --toolkitpath&#x3D;$HOME&#x2F;cuda-9.0<br> <br>4 下载cudnn，注意这个需要去官网注册账号，事先下载到自己的电脑然后，<br>  注意版本要对，然后通过新建数据集上传到ai studio的data&#x2F;目录下，名字尽量短，下载之后是一个tgz格式   的文件，我把名字改为cudnn-9.0.tgz<br> <br>5 解压4步下载的文件到根目录,解压之后的cudnn文件名默认为cuda，<br>!tar -zxvf &#x2F;home&#x2F;aistudio&#x2F;data&#x2F;data25688&#x2F;cudnn-9.0.tgz <br> <br>6 解压把cudnn的指定文件copy到cuda安装文件对应的目录中注意目录要对，这一步只需要做一次就可以<br>!cp cuda&#x2F;include&#x2F;cudnn.h cuda-9.0&#x2F;include&#x2F;<br>!cp cuda&#x2F;lib64&#x2F;libcudnn* cuda-9.0&#x2F;lib64&#x2F;<br> <br>至此准备工作完成，这些工作只需要一次就可以，接下来进行环境配置阶段<br></code></pre></td></tr></table></figure>
 
-
-</li>
-</ul>
-<h2 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h2><ul>
-<li><p>数据获取可以从各地区卫健委获取，也可通过腾讯、百度、天行数据的免费接口或网易实时数据接口。</p>
-</li>
-<li><p>本文采用腾讯数据和百度的热搜数据进行存储</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">self.url1 = <span class="hljs-string">&quot;https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5&quot;</span>   <span class="hljs-comment">#实时数据</span><br>self.url2 = <span class="hljs-string">&quot;https://view.inews.qq.com/g2/getOnsInfo?name=disease_other&quot;</span>  <span class="hljs-comment">#历史数据</span><br></code></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">self.url = <span class="hljs-string">&quot;https://voice.baidu.com/act/virussearch/virussearch?from=osari_map&amp;tab=0&amp;infomore=1&quot;</span>   <span class="hljs-comment">#百度热搜数据页面</span><br></code></pre></td></tr></table></figure>
-
-  <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">self.url3 = <span class="hljs-string">&quot;https://api.inews.qq.com/newsqa/v1/automation/foreign/country/ranklist&quot;</span> <span class="hljs-comment">#腾讯国外数据接口，实时。国家：182</span><br>self.url4 = <span class="hljs-string">&quot;https://voice.baidu.com/newpneumonia/get?target=trend&amp;isCaseIn=1&amp;stage=publish&quot;</span> <span class="hljs-comment">#百度国外数据接口，至前一日。国家：207</span><br></code></pre></td></tr></table></figure>
+<h2 id="3、环境配置"><a href="#3、环境配置" class="headerlink" title="3、环境配置"></a>3、环境配置</h2><ul>
+<li><p>新建虚拟环境</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">1 在当前目录新建一个文件命名为envm,运行一下脚本，注意文件名即可<br>!echo &#39;export PATH&#x3D;$HOME&#x2F;cuda-9.0&#x2F;bin:$PATH\nexport LD_LIBRARY_PATH&#x3D;$LD_LIBRARY_PATH:$HOME&#x2F;cuda-9.0&#x2F;lib64&#39; &gt; ~&#x2F;envm<br>(修正)：此处使用以上路径会导致无法使用 ls 命令，应在envm文件更改为以下内容：<br>export PATH&#x3D;$HOME&#x2F;cuda-9.0&#x2F;bin$&#123;PATH:+:$&#123;PATH&#125;&#125; <br>export LD_LIBRARY_PATH&#x3D;$HOME&#x2F;cuda-9.0&#x2F;lib64$&#123;LD_LIBRARY_PATH:+:$&#123;LD_LIBRARY_PATH&#125;&#125;<br> <br>2 在终端新建虚拟环境,这里选择与tensorflow版本匹配的python版本<br>依次,这个需要每次都重新做，我还不知道怎么把这个放到一个shell脚本中，所以只能分开了<br>conda create -n env_name python&#x3D;3.6<br>安装过程选择yes输入y<br>source activate env_name<br></code></pre></td></tr></table></figure>
 
 
 
 </li>
 </ul>
 <ul>
-<li><p>思路：分别在spider.py中创建：Word_data、Tencent_Data 和 Badidu_Hot 类用于操作爬取数据，并将爬取到的数据预处理后存入MySQL数据库。</p>
-</li>
-<li><p>数据存储：创建details、history、hotsearch、word表，用于存储爬取到的数据</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> details<br>(<br>	<span class="hljs-keyword">id</span> <span class="hljs-built_in">int</span> auto_increment <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;主键自增长&#x27;</span><br>		primary <span class="hljs-keyword">key</span>,<br>	update_time datetime <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;更新时间&#x27;</span>,<br>	province <span class="hljs-built_in">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;省份&#x27;</span>,<br>	city <span class="hljs-built_in">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;城市&#x27;</span>,<br>	<span class="hljs-keyword">confirm</span> <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;累计确诊&#x27;</span>,<br>	confirm_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增确诊&#x27;</span>,<br>	heal <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;治愈&#x27;</span>,<br>	dead <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;死亡&#x27;</span><br>)<br><span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;详细数据&#x27;</span>;<br></code></pre></td></tr></table></figure>
-
-   <figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"> <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> history<br> (<br>  	ds datetime <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;日期&#x27;</span><br>  		primary <span class="hljs-keyword">key</span>,<br>  	<span class="hljs-keyword">confirm</span> <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;累积确诊&#x27;</span>,<br>  	confirm_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增确诊&#x27;</span>,<br>  	suspect <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;疑似&#x27;</span>,<br>  	suspect_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增疑似&#x27;</span>,<br>  	heal <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;治愈&#x27;</span>,<br>  	heal_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增治愈&#x27;</span>,<br>  	dead <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;死亡&#x27;</span>,<br>  	dead_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增死亡&#x27;</span>,<br>  	importedCase <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;累计境外输入&#x27;</span>,<br>  	importedCase_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增境外输入&#x27;</span><br>)<br> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;历史数据记录&#x27;</span>;<br><br></code></pre></td></tr></table></figure>
-
-   <figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> hotsearch<br>(<br> 	<span class="hljs-keyword">id</span> <span class="hljs-built_in">int</span> auto_increment,<br> 	dt datetime <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;时间&#x27;</span>,<br> 	<span class="hljs-keyword">content</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;内容&#x27;</span>,<br>primary <span class="hljs-keyword">key</span> (<span class="hljs-keyword">id</span>, dt)<br>)<br><span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;百度热搜数据&#x27;</span>;<br></code></pre></td></tr></table></figure>
-
-   <figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> word<br> (<br>  	<span class="hljs-keyword">id</span> <span class="hljs-built_in">int</span> auto_increment<br>  		primary <span class="hljs-keyword">key</span>,<br>  	<span class="hljs-keyword">name</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-literal">null</span>,<br>  	update_time datetime <span class="hljs-literal">null</span>,<br>  	confirm_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增确诊&#x27;</span>,<br>  	<span class="hljs-keyword">confirm</span> <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;累计确诊&#x27;</span>,<br>  	heal <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;治愈&#x27;</span>,<br>  	dead <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;死亡&#x27;</span><br> )<br> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;世界数据&#x27;</span>;<br></code></pre></td></tr></table></figure>
-
+<li><p>激活环境</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain"> <br>2 新建脚本命名为chmod_cuda90.sh,加入以下脚本，注意你自己的目录<br>#!&#x2F;bin&#x2F;bash<br>chmod a+r ~&#x2F;cuda-9.0&#x2F;include&#x2F;cudnn.h<br>chmod a+r ~&#x2F;cuda-9.0&#x2F;lib64&#x2F;libcudnn*<br>source ~&#x2F;envm<br>pip install -i https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple tensorflow-gpu&#x3D;&#x3D;1.12.0<br> <br>3 在终端进入自己的虚拟环境运行上述脚本<br>source chmod_cuda90.sh就可以使用gpu进行加速了<br></code></pre></td></tr></table></figure>
 
 
 
 </li>
 </ul>
-<h2 id="Web程序开发-可视化展示"><a href="#Web程序开发-可视化展示" class="headerlink" title="Web程序开发:可视化展示"></a>Web程序开发:可视化展示</h2><ul>
-<li><p>通过Flask、h5和Echarts进行可视化的开发，前端页面数据获取通过Ajax进行请求，并通过js给Echarts组件赋值展示。</p>
-</li>
-<li><p>主界面：index.html</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>ncov<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/jquery.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/echarts.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/china.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/worldcloud.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;../static/css/main.css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> /&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;gyroContain&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;data&quot;</span>&gt;</span><span class="hljs-comment">&lt;!--其他信息--&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>CSDN<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>                    <span class="hljs-symbol">&amp;nbsp;</span>|<span class="hljs-symbol">&amp;nbsp;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>世界Epidemic实时追踪<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>                    数据来源 : 腾讯 &amp; 百度<br>                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;title&quot;</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>全国Epidemic实时跟踪<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;time&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;footer&quot;</span>&gt;</span><span class="hljs-comment">&lt;!--页面低端--&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;l1&quot;</span>&gt;</span>我是左1<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;l2&quot;</span>&gt;</span>我是左2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;c1&quot;</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;num&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;num1&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;num&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;num2&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;num&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;num3&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;num&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;num4&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;txt&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>累积确诊<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;txt&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>剩余疑似<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;txt&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>累积治愈<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;txt&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>累积死亡<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;c2&quot;</span>&gt;</span>我是中2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;r1&quot;</span>&gt;</span>我是右1<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;r2&quot;</span>&gt;</span>我是右2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_center.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_left1.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_left2.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_right1.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_right2.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/controller.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>效果展示：（若需要更好的界面，需通过css进行控制）<br><img src="https://img-blog.csdnimg.cn/2020061211292474.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-</li>
-<li><p>word.html</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>nCov—word<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;icon&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;../static/image/icon.jpg&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;../static/css/word.css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/jquery.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/echarts.min.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/vintage.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/world.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/controller_w.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;gyroContain&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;area&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://aiiyx.cn&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;_blank&quot;</span>&gt;</span>博客<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>            <span class="hljs-symbol">&amp;nbsp;</span>|<span class="hljs-symbol">&amp;nbsp;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;_blank&quot;</span>&gt;</span>中国Epidemic实时追踪<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            数据来源：百度 &amp; 腾讯<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;tit&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>世界Epidemic实时追踪<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;tim&quot;</span>&gt;</span> 标题<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;left&quot;</span>&gt;</span> left<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;right&quot;</span>&gt;</span> right<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/ecc_world.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/ec_world.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>效果展示：<br><img src="https://img-blog.csdnimg.cn/20200612113338315.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-</li>
-</ul>
-<h2 id="项目部署"><a href="#项目部署" class="headerlink" title="项目部署"></a>项目部署</h2><p>项目部署需要一台Linux服务器，可选择Aliyun服务器或是使用Vmware 创建一台服务器均可。本文采用Vmware创建一台Ubuntu servers 18.4服务器。</p>
-<blockquote>
-<p>1、安装Vmware的教程网上挺多的，自行百度。</p>
-<p>2、安装Ubuntu servers 18.4推荐参考：<a href="https://blog.csdn.net/tjsxin/article/details/93199595?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase">Ubuntu 18.04 LTS Server服务器安装图文教程</a></p>
-<p>3、安装conda、并创建虚拟环境推荐参考：</p>
-<p> <strong><a href="https://blog.csdn.net/fengleqi/article/details/80752751">Ubuntu安装conda —–01</a></strong></p>
-<p><strong><a href="https://zhuanlan.zhihu.com/p/22678445">Ubuntu安装conda —–02</a></strong> </p>
-<p>4、安装文件上载工具：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">安装命令：yum install lrzsz -y<br><br>使用命令：rz<br></code></pre></td></tr></table></figure>
-
-<p>5、将项目上载至Ubuntu服务器</p>
-<p>6、Ubuntu安装MySQL，并配置远程连接，创建项目所需数据库</p>
-</blockquote>
-<h3 id="开发者模式部署"><a href="#开发者模式部署" class="headerlink" title="开发者模式部署"></a>开发者模式部署</h3><blockquote>
-<p>开发者模式部署，是正式上线前的测试部署，可以调试项目是否正常。</p>
-</blockquote>
-<blockquote>
-<p>1、安装项目依赖库</p>
-<p>2、更改db.py中的数据库连接配置</p>
-<p>3、运行spider.py进行一次爬虫获取数据</p>
-<p>4、运行app.py运行项目</p>
-<p>5、通过Windows浏览器访问web页面</p>
-</blockquote>
-<h3 id="生产模式部署"><a href="#生产模式部署" class="headerlink" title="生产模式部署"></a>生产模式部署</h3><blockquote>
-<p>部署Flask应用时，通常使用WSGI的应用服务器搭配Nginx作为反向代理</p>
-</blockquote>
-<blockquote>
-<p>常用的WSGI服务器：gunicorn、uwsgi</p>
-</blockquote>
-<blockquote>
-<p>正向和反向代理：<br><img src="https://img-blog.csdnimg.cn/20200607183645951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-</blockquote>
-<h4 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h4><blockquote>
-<p>静态服务器、动态服务、反向代理、负载均衡、缓存服务 </p>
-</blockquote>
-<ul>
-<li><p>apt安装：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">sudo apt install nginx<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>文件位置：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">/usr/sbin/nginx    :主程序<br>/etc/nginx         :配置文件<br>/usr/share/nginx   :存放静态文件<br>/var/log/nginx     :存放日志<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>nginx命令：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">service nginx start # 启动nginx<br>service nginx reload # 重新加载nginx配置文件<br>nginx -s reopen # 重启nginx<br>nginx -s stop # 停止nginx<br>nginx -v # 查看版本号<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>配置可参考：<a href="https://blog.csdn.net/qq_35571554/article/details/82848227?utm_medium=distribute.pc_relevant.none-task-blog-baidujs-1">here</a></p>
-<blockquote>
-<p>cd /etc/nginx/  ,备份nginx.conf,修改nginx.conf </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment"># 此处开始为配置反向代理</span></span><br>       upstream mysvr &#123;<br>               server 127.0.0.1:5000; ## 服务器地址1<br>       &#125;<br>       # error_page 404 /404.html<br><br>       server  &#123;<br>               # keepalive_requests 120;<br>               listen 8080; ## nginx监听端口号<br>               server_name 192.168.121.139;   #cn.nCov.com; ## nginx监听服务器名称(本机ip或域名)<br>               location / &#123;<br>                       proxy_pass http://mysvr;<br>               &#125;<br>       &#125;<br>       ## 设置反向代理结束<br></code></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/2020060718355055.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>注： 查看有关nginx的所有目录列表，输入命令  </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">rpm -ql nginx<br></code></pre></td></tr></table></figure>
-
-<p> 可以查看有关nginx目录信息，但是注意 这种命令只能是在基于yun安装的方式才可以。 </p>
-</blockquote>
-<p>1、安装 Gunicorn:  (python虚拟环境下)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">pip install gunicorn<br></code></pre></td></tr></table></figure>
-
-<p>2、启动 Gunicorn：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">gunicorn -b 127.0.0.1:8080 -D app:app<br></code></pre></td></tr></table></figure>
-
-<blockquote>
-<p>编写脚本执行</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">! /bin/bash</span><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov #env_nCov是conda创建的虚拟环境<br>cd /home/klein/workspace/nCOV/<br>gunicorn -b 127.0.0.1:5000 -D app:app<br></code></pre></td></tr></table></figure>
-<p>-w: 表示进程（worker）<br>-b: 表示绑定ip地址和端口号（bind）<br>-D: 以守护进程的形式启动，后台启动</p>
-</blockquote>
-<blockquote>
-<p>例：gunicorn -w 2 -b 127.0.0.1:5000 运行文件名称:Flask程序实例名</p>
-</blockquote>
-<blockquote>
-<p><a href="https://blog.csdn.net/y472360651/article/details/78538188">更多gunicorn配置链接</a></p>
-</blockquote>
-<blockquote>
-<p>查看后台进程：ps -ef | grep gunicorn</p>
-<p><a href="https://www.cnblogs.com/cutesnow/p/10609267.html">gunicorn开启、关闭和重启</a></p>
-<p>查询：首先执行如下命令获取Gunicorn进程树：</p>
-<p>pstree -ap|grep gunicorn</p>
-<p>关闭：首先执行如下命令获取Gunicorn进程树：</p>
-<p>pstree -ap|grep gunicorn</p>
-<p>之后输入如下指令关闭进程：</p>
-<p>kill -9 pid</p>
-<p>重启：输入如下指令重启进程：</p>
-<p>kill -HUP pid</p>
-</blockquote>
-</li>
-</ul>
-<p>  3、启动 Nginx在Windows下测试</p>
-<h4 id="定时获取数据"><a href="#定时获取数据" class="headerlink" title="定时获取数据"></a>定时获取数据</h4><ul>
-<li><p>Ubuntu安装chrome：<a href="https://www.jianshu.com/p/bface5e5a71e">here</a></p>
-</li>
-<li><p><strong>ubuntu三行命令安装chrome浏览器</strong> : <a href="https://yq.aliyun.com/articles/58040">https://yq.aliyun.com/articles/58040</a> </p>
-</li>
-<li><p>Ubuntu安装google Driver：<a href="https://blog.csdn.net/blueheart20/article/details/81566903">https://blog.csdn.net/blueheart20/article/details/81566903</a> </p>
-</li>
-<li><p>CENTOS7下使用SELENIUM进行网页自动化访问:<a href="http://aiiyx.cn/wz/1605/">http://aiiyx.cn/wz/1605/</a> </p>
-</li>
-<li><p>编写虫子脚本：</p>
-<ul>
-<li>up_his.sh</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/bash</span><br><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov  #env_nCov是conda创建的虚拟环境<br>python3 /home/klein/workspace/nCOV/spider.py up_his &gt;&gt; /home/klein/workspace/nCOV/log/log_his<br><br></code></pre></td></tr></table></figure>
-
-<ul>
-<li>up_hot.sh</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/bash</span><br><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov  #env_nCov是conda创建的虚拟环境<br>python3 /home/klein/workspace/nCOV/spider.py up_hot &gt;&gt; /home/klein/workspace/nCOV/log/log_hot<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li>up_det.sh</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/bash</span><br><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov  #env_nCov是conda创建的虚拟环境<br>python3 /home/klein/workspace/nCOV/spider.py up_det &gt;&gt; /home/klein/workspace/nCOV/log/log_det<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li>up_word.sh</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/bash</span><br><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov  #env_nCov是conda创建的虚拟环境<br>python3 /home/klein/workspace/nCOV/spider.py up_word &gt;&gt; /home/klein/workspace/nCOV/log/log_word<br><br></code></pre></td></tr></table></figure>
+<h2 id="4、使用tensorflow-gpu"><a href="#4、使用tensorflow-gpu" class="headerlink" title="4、使用tensorflow-gpu"></a>4、使用tensorflow-gpu</h2><ul>
+<li><p>每次重启环境只需要运行以下脚本 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">conda create -n env_name python&#x3D;3.6<br>source activate env_name<br>source chmod_cuda90.sh<br></code></pre></td></tr></table></figure>
 
 
 
 </li>
 </ul>
-<ul>
-<li><p>使用crontab定时虫子任务: <a href="https://blog.csdn.net/m0_38109046/article/details/87918111">https://blog.csdn.net/m0_38109046/article/details/87918111</a> </p>
-</li>
-<li><p>输入：crontab -e</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">30 * * * * bash /home/klein/workspace/nCOV/sh/up_his.sh 2&gt;&amp;1 &amp;<br>3 */2 * * * bash /home/klein/workspace/nCOV/sh/up_hot.sh 2&gt;&amp;1 &amp;<br>*/5 * * * * bash /home/klein/workspace/nCOV/sh/up_det.sh 2&gt;&amp;1 &amp;<br>* 1,5,9,13,17,21 * * * bash /home/klein/workspace/nCOV/sh/up_word.sh 2&gt;&amp;1 &amp; <br></code></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20200607183741388.png#pic_center" alt="在这里插入图片描述"></p>
-<h4 id="shell脚本激活conda虚拟环境"><a href="#shell脚本激活conda虚拟环境" class="headerlink" title="shell脚本激活conda虚拟环境"></a>shell脚本激活conda虚拟环境</h4><blockquote>
-<p>怎么用shell脚本激活conda虚拟环境？：</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/bash</span><br>source /YOUR_CONDA_PATH/bin/activate your_env<br>python --version<br></code></pre></td></tr></table></figure>
-
-
-
-<h4 id="从Linux服务器下载文件"><a href="#从Linux服务器下载文件" class="headerlink" title="从Linux服务器下载文件"></a>从Linux服务器下载文件</h4><ul>
-<li>下载文件<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">sz file<br></code></pre></td></tr></table></figure></li>
-<li>上传文件</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">rz <br></code></pre></td></tr></table></figure>
-
-<p><a href="https://blog.csdn.net/qq_37421762/article/details/86160119?ops_request_misc=%7B%22request_id%22:%22159142726319724846464177%22,%22scm%22:%2220140713.130102334.pc_all.%22%7D&request_id=159142726319724846464177&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-5-86160119.first_rank_v2_rank_v25&utm_term=ubuntu%E6%A0%A1%E5%87%86%E6%97%B6%E5%8C%BA">校正Ubuntu时间为北京时间</a> </p>
-<h2 id="部署地址："><a href="#部署地址：" class="headerlink" title="部署地址："></a>部署地址：</h2><p><a href="http://39.99.140.59:8002/">nCov</a></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://blog.csdn.net/firesolider/article/details/105023062?depth_1-utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromBaidu-8&utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromBaidu-8">百度AI studio配置tensorflow环境</a><br><a href="https://blog.csdn.net/qq_36666756/article/details/105252530#comments">白嫖百度AIstudio免费GPU</a></p>
 ]]></content>
   </entry>
   <entry>
-    <title>Intellij  连接远程服务器代码实时同步</title>
-    <url>/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>使用IDEA 或 Pycharm等工具实现，连接远程服务器并实时同步代码。</p>
+    <title>基于MapReduce编程模型的内连接算法设计与实现</title>
+    <url>/2020/10/07/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h2 align=center>摘  要</h2>
+<p>
+    信息技术和互联网的发展使得每天都会产生海量的数据，这些数据具有结构复杂、数据量大的特性。连接操作是大数据中常用的且耗时的操作。Map Reduce编程模型的提出，使得大数据处理有了基本的思路。本文通过Map Reduce编程模型设计算法实现内连接操作，并通过TPC-H基准程序生成的数据集，进行算法的正确性检验和算法的性能测试。实验结果表明，本文所设计算法是正确可行的，并且在Map Reduce编程模型下其处理大量数据时有明显的优势。
+</p>
+
 <blockquote>
-<p>前提条件</p>
-<ul>
-<li>Intellij 产品需为专业版</li>
-<li>远程主机需能够远程登录</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>本文环境</p>
-<ul>
-<li>主机：windows 10 home</li>
-<li>远程服务器：Ubuntu 18.4 servers</li>
-<li>虚拟机：Vmware 15.5 pro</li>
-<li>其他软件：SecureCRT、Pycharm 2019.2(Professional Edition)</li>
-</ul>
+<p>关键词：MapReduce；Hadoop；内连接；HDFS；TPC-H</p>
 </blockquote>
 <a id="more"></a>
 
-<h2 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h2><p>1、打开SecureCRT确保可以连接至服务器,如图:</p>
-<p><img src="/images/blog-images/images-Intellij/%E6%B5%8B%E8%AF%95SecureCRT.png"></p>
-<p>2、打开Pycharm 进行配置</p>
-<ul>
-<li><p>Pycharm打开一下ssh session测试</p>
-<blockquote>
-<p>选择：tools–&gt;Start SSH session</p>
-<p><img src="/images/blog-images/images-Intellij/pycharm-ssh.png"></p>
-<p>能看到在isdea的下方开启了一个终端 </p>
-<p><img src="/images/blog-images/images-Intellij/ssh-%E6%88%90%E5%8A%9F.png"></p>
-</blockquote>
-</li>
-<li><p>打开项目，选择：tools-&gt;deployment-&gt;brower remote host ，如图：</p>
-<p><img src="/images/blog-images/images-Intellij/%E9%80%89%E6%8B%A9%E7%A4%BA%E6%84%8F%E5%9B%BE.png"></p>
-</li>
-<li><p>新建连接，如图：</p>
-<p><img src="/images/blog-images/images-Intellij/%E6%89%93%E5%BC%80%E9%85%8D%E7%BD%AE%E7%A4%BA%E6%84%8F%E5%9B%BE.png"></p>
-</li>
-<li><p>填写服务器信息，如下图：</p>
-<p><img src="/images/blog-images/images-Intellij/%E9%85%8D%E7%BD%AE%E8%AF%A6%E6%83%85.png"></p>
-</li>
-<li><p>一定要配置Mappings,如下图：</p>
-<p><img src="/images/blog-images/images-Intellij/addMappings.png"></p>
-</li>
-<li><p>更新服务器文件：</p>
-<p><img src="/images/blog-images/images-Intellij/%E6%9B%B4%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%96%87%E4%BB%B6.png"></p>
-</li>
-<li><p>配置自动更新:</p>
-<p><img src="/images/blog-images/images-Intellij/%E9%85%8D%E7%BD%AE%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0.png"></p>
-</li>
-</ul>
-<h2 id="配置效果展示"><a href="#配置效果展示" class="headerlink" title="配置效果展示"></a>配置效果展示</h2><p><img src="/images/blog-images/images-Intellij/%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA.png"></p>
+
+<p><img src="/images/blog-images/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/MapReduce-00.png"></p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p><img src="/images/blog-images/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/MapReduce-01.png"></p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><img src="/images/blog-images/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/MapReduce-02.png"></p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p><img src="/images/blog-images/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/MapReduce-03.png"></p>
 ]]></content>
+      <categories>
+        <category>Hadoop</category>
+      </categories>
       <tags>
-        <tag>Idea</tag>
-        <tag>Ubuntu</tag>
-        <tag>Vmware</tag>
+        <tag>MapReduce</tag>
+        <tag>内连接</tag>
+        <tag>Hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -1076,6 +888,391 @@
 
 </li>
 </ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>正版免费激活 Windows 10安装教程</title>
+    <url>/2020/06/09/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BB%20Windows%2010%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<blockquote>
+<p>现在对于大多数人来说，购买的电脑都是Windows 10正版系统，但是Windows使用一段时间后会出现一些疑难杂症(尤其是刚开始使用的用户)。在这种情况下，重装系统无疑可以解决所有问题。那么，目前网上的教程也是很多，许多教程都提供了Windows激活工具（注：个人认为系统本身就是正版的不需要通过激活工具激活系统，使用Windows的数字密钥即可）。</p>
+</blockquote>
+<blockquote>
+<p>本文就是介绍如何使用Windows 官方教程重装Windows 10系统。</p>
+<p>本文将分为三部分：</p>
+<p>1、使用Windows 10的恢复功能重装</p>
+<p>2、使用Windows官方安装工具重装</p>
+<p>3、使用Windows官方安装工具为其他电脑重装</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="1、使用Windows-10的恢复功能重装"><a href="#1、使用Windows-10的恢复功能重装" class="headerlink" title="1、使用Windows 10的恢复功能重装"></a>1、使用Windows 10的恢复功能重装</h2><blockquote>
+<p>打开开始菜单–&gt;设置–&gt;更新与安全–&gt;恢复:</p>
+<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows%E6%81%A2%E5%A4%8D%E5%8A%9F%E8%83%BD.png"></p>
+</blockquote>
+<h2 id="2、使用Windows官方安装工具重装"><a href="#2、使用Windows官方安装工具重装" class="headerlink" title="2、使用Windows官方安装工具重装"></a>2、使用Windows官方安装工具重装</h2><blockquote>
+<ul>
+<li><p>安装工具下载链接：<a href="https://www.microsoft.com/zh-cn/software-download/windows10?36261b60-2f68-4336-abe2-4b00f210b6aa=True">here</a></p>
+</li>
+<li><p>网页界面展示：</p>
+<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows10%E5%AE%98%E6%96%B9%E8%AF%B4%E6%98%8E.png"></p>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>点击立即下载工具即可下载：</p>
+</li>
+<li><p>打开下载的：MediaCreationTool.exe</p>
+<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F01.png"></p>
+<ul>
+<li>点击立即升级这台电脑，即可自动升级</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="3、使用Windows官方安装工具为其他电脑重装"><a href="#3、使用Windows官方安装工具为其他电脑重装" class="headerlink" title="3、使用Windows官方安装工具为其他电脑重装"></a>3、使用Windows官方安装工具为其他电脑重装</h2><p>1 ）获取安装介质</p>
+<blockquote>
+<ul>
+<li><p>打开第二步的安装介质–&gt;选择为另一台电脑创建安装介质</p>
+</li>
+<li><p>选择系统配置（注：应选择当前系统配置）</p>
+<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7%E9%80%89%E6%8B%A9%E9%85%8D%E7%BD%AE.png"></p>
+</li>
+<li><p>选择安装介质（我这里选择ISO，因为本文操作在Vm ware进行）</p>
+</li>
+</ul>
+<p>  <img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F%E9%80%89%E6%8B%A9%E5%AE%89%E8%A3%85%E4%BB%8B%E8%B4%A8.png"></p>
+<ul>
+<li><p>选择安装介质保存路径：</p>
+<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F%E9%80%89%E6%8B%A9%E4%BF%9D%E5%AD%98%E8%B7%AF%E5%BE%84.png"></p>
+</li>
+<li><p>下载安装介质：</p>
+<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Windows%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%BB%8B%E8%B4%A8.png"></p>
+</li>
+<li><p>等待下载成功</p>
+</li>
+</ul>
+</blockquote>
+<p>2）进行安装：</p>
+<blockquote>
+<p>由于写博客，我将使用Vmware进行安装一台Windows10虚拟机为例。(安装过程有疑问可留言)</p>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>创建虚拟机（注：固件类型选择：BIOS）：</p>
+<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%85%8D%E7%BD%AE.png"></p>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>开启虚拟机进行安装</li>
+</ul>
+<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8501.png"></p>
+<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8502.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8503.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8504.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8505.png"></p>
+</blockquote>
+<ul>
+<li>召唤小娜配置（按小娜提示进行）</li>
+</ul>
+<blockquote>
+<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8506.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8507.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8508.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8509.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8510.png"></p>
+</blockquote>
+<ul>
+<li>安装成功</li>
+</ul>
+<blockquote>
+<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8511.png"></p>
+<p><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8512.png"><br><img src="/images/blog-images/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BBWindows10%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%8513.png"></p>
+</blockquote>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>希望可以帮助到您！！！</p>
+]]></content>
+      <categories>
+        <category>工具篇</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nCov项目总结文档</title>
+    <url>/2020/10/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/</url>
+    <content><![CDATA[<p>﻿<a href="http://39.99.140.59:8002/">TOC</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通过Flask搭建web/Echarts可视化大屏，并定时获取数据。</p>
+<p>参考视频：<a href="https://www.bilibili.com/video/BV177411j7qJ?p=1">here</a></p>
+<p>参考效果：<a href="http://cov.aiiyx.cn/">here</a></p>
+<blockquote>
+<a id="more"></a>
+</blockquote>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>基于Python+Flask+Echarts的Epidemic监控系统，主要技术路线如下：</p>
+<ul>
+<li><p>Python爬虫</p>
+</li>
+<li><p>Python操作MySql数据库</p>
+</li>
+<li><p>使用Flask构建web项目</p>
+</li>
+<li><p>基于Echarts的数据可视化展示</p>
+</li>
+<li><p>在Linux上部署web项目以及定时获取数据</p>
+</li>
+<li><p>nCov数据可视化大屏流程：</p>
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200607183134565.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70#pic_center%EF%BC%8C%22" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>项目结构安排：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">├── app.py    #Flask启动文件<br>├── chromedriver_win32    #chrome浏览器驱动<br>│   └── chromedriver.exe<br>├── db.py     #数据库连接配置<br>├── log       #存放爬虫日志<br>│   └── log_his<br>├── __pycache__<br>│   ├── app.cpython-36.pyc<br>│   ├── db.cpython-36.pyc<br>│   └── utils.cpython-36.pyc<br>├── requirements.txt    #收集到的依赖包<br>├── sh		 #shell脚本用于快速启动爬虫<br>│   ├── start_by_gunicorn.sh<br>│   ├── up_det.sh<br>│   ├── up_his.sh<br>│   └── up_hot.sh<br>├── spider.py  #爬虫文件<br>├── sqlfile    #相应的数据库脚本文件<br>│   ├── 000-details.sql<br>│   ├── 001-history.sql<br>│   ├── 002-hotsearch.sql<br>│   ├── 003-word.sql<br>│   ├── cov.sql<br>│   └── getCityTop5.sql<br>├── static    #静态资源<br>│   ├── css<br>│   │   └── main.css<br>│   │   └── word.css<br>│   ├── image<br>│   │   ├── bgg.png<br>│   │   ├── footer.png<br>│   │   ├── icon.jpg<br>│   │   └── header.png<br>│   └── js<br>│       ├── api<br>│       │   └── Tencent_api.js<br>│       ├── china.js<br>│       ├── controller.js<br>│       ├── ec_center.js<br>│       ├── echarts.min.js<br>│       ├── ec_left1.js<br>│       ├── ec_left2.js<br>│       ├── ec_right1.js<br>│       ├── ec_right2.js<br>│       ├── jquery.js<br>│       ├── word<br>│       │   ├── controller_w.js<br>│       │   ├── ecc_world.js<br>│       │   ├── ec_world.js<br>│       │   ├── vintage.js<br>│       │   └── world.js<br>│       └── worldcloud.js<br>├── templates<br>│   ├── word.html<br>│   └── index.html   # 主页面<br>└── utils.py   #工具脚本，获取MySQL数据<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h2><ul>
+<li><p>数据获取可以从各地区卫健委获取，也可通过腾讯、百度、天行数据的免费接口或网易实时数据接口。</p>
+</li>
+<li><p>本文采用腾讯数据和百度的热搜数据进行存储</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">self.url1 = <span class="hljs-string">&quot;https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5&quot;</span>   <span class="hljs-comment">#实时数据</span><br>self.url2 = <span class="hljs-string">&quot;https://view.inews.qq.com/g2/getOnsInfo?name=disease_other&quot;</span>  <span class="hljs-comment">#历史数据</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">self.url = <span class="hljs-string">&quot;https://voice.baidu.com/act/virussearch/virussearch?from=osari_map&amp;tab=0&amp;infomore=1&quot;</span>   <span class="hljs-comment">#百度热搜数据页面</span><br></code></pre></td></tr></table></figure>
+
+  <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">self.url3 = <span class="hljs-string">&quot;https://api.inews.qq.com/newsqa/v1/automation/foreign/country/ranklist&quot;</span> <span class="hljs-comment">#腾讯国外数据接口，实时。国家：182</span><br>self.url4 = <span class="hljs-string">&quot;https://voice.baidu.com/newpneumonia/get?target=trend&amp;isCaseIn=1&amp;stage=publish&quot;</span> <span class="hljs-comment">#百度国外数据接口，至前一日。国家：207</span><br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>思路：分别在spider.py中创建：Word_data、Tencent_Data 和 Badidu_Hot 类用于操作爬取数据，并将爬取到的数据预处理后存入MySQL数据库。</p>
+</li>
+<li><p>数据存储：创建details、history、hotsearch、word表，用于存储爬取到的数据</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> details<br>(<br>	<span class="hljs-keyword">id</span> <span class="hljs-built_in">int</span> auto_increment <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;主键自增长&#x27;</span><br>		primary <span class="hljs-keyword">key</span>,<br>	update_time datetime <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;更新时间&#x27;</span>,<br>	province <span class="hljs-built_in">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;省份&#x27;</span>,<br>	city <span class="hljs-built_in">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;城市&#x27;</span>,<br>	<span class="hljs-keyword">confirm</span> <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;累计确诊&#x27;</span>,<br>	confirm_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增确诊&#x27;</span>,<br>	heal <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;治愈&#x27;</span>,<br>	dead <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;死亡&#x27;</span><br>)<br><span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;详细数据&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+   <figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"> <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> history<br> (<br>  	ds datetime <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;日期&#x27;</span><br>  		primary <span class="hljs-keyword">key</span>,<br>  	<span class="hljs-keyword">confirm</span> <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;累积确诊&#x27;</span>,<br>  	confirm_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增确诊&#x27;</span>,<br>  	suspect <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;疑似&#x27;</span>,<br>  	suspect_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增疑似&#x27;</span>,<br>  	heal <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;治愈&#x27;</span>,<br>  	heal_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增治愈&#x27;</span>,<br>  	dead <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;死亡&#x27;</span>,<br>  	dead_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增死亡&#x27;</span>,<br>  	importedCase <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;累计境外输入&#x27;</span>,<br>  	importedCase_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增境外输入&#x27;</span><br>)<br> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;历史数据记录&#x27;</span>;<br><br></code></pre></td></tr></table></figure>
+
+   <figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> hotsearch<br>(<br> 	<span class="hljs-keyword">id</span> <span class="hljs-built_in">int</span> auto_increment,<br> 	dt datetime <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;时间&#x27;</span>,<br> 	<span class="hljs-keyword">content</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;内容&#x27;</span>,<br>primary <span class="hljs-keyword">key</span> (<span class="hljs-keyword">id</span>, dt)<br>)<br><span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;百度热搜数据&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+   <figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> word<br> (<br>  	<span class="hljs-keyword">id</span> <span class="hljs-built_in">int</span> auto_increment<br>  		primary <span class="hljs-keyword">key</span>,<br>  	<span class="hljs-keyword">name</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-literal">null</span>,<br>  	update_time datetime <span class="hljs-literal">null</span>,<br>  	confirm_add <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;新增确诊&#x27;</span>,<br>  	<span class="hljs-keyword">confirm</span> <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;累计确诊&#x27;</span>,<br>  	heal <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;治愈&#x27;</span>,<br>  	dead <span class="hljs-built_in">int</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;死亡&#x27;</span><br> )<br> <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;世界数据&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+
+
+
+</li>
+</ul>
+<h2 id="Web程序开发-可视化展示"><a href="#Web程序开发-可视化展示" class="headerlink" title="Web程序开发:可视化展示"></a>Web程序开发:可视化展示</h2><ul>
+<li><p>通过Flask、h5和Echarts进行可视化的开发，前端页面数据获取通过Ajax进行请求，并通过js给Echarts组件赋值展示。</p>
+</li>
+<li><p>主界面：index.html</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>ncov<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/jquery.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/echarts.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/china.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/worldcloud.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;../static/css/main.css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> /&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;gyroContain&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;data&quot;</span>&gt;</span><span class="hljs-comment">&lt;!--其他信息--&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>CSDN<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>                    <span class="hljs-symbol">&amp;nbsp;</span>|<span class="hljs-symbol">&amp;nbsp;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>世界Epidemic实时追踪<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>                    数据来源 : 腾讯 &amp; 百度<br>                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;title&quot;</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>全国Epidemic实时跟踪<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;time&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;footer&quot;</span>&gt;</span><span class="hljs-comment">&lt;!--页面低端--&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;l1&quot;</span>&gt;</span>我是左1<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;l2&quot;</span>&gt;</span>我是左2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;c1&quot;</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;num&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;num1&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;num&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;num2&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;num&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;num3&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;num&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;num4&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;txt&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>累积确诊<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;txt&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>剩余疑似<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;txt&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>累积治愈<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;txt&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>累积死亡<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;c2&quot;</span>&gt;</span>我是中2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;r1&quot;</span>&gt;</span>我是右1<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;r2&quot;</span>&gt;</span>我是右2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_center.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_left1.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_left2.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_right1.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_right2.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/controller.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>效果展示：（若需要更好的界面，需通过css进行控制）<br><img src="https://img-blog.csdnimg.cn/2020061211292474.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+<li><p>word.html</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>nCov—word<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;icon&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;../static/image/icon.jpg&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;../static/css/word.css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/jquery.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/echarts.min.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/vintage.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/world.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/controller_w.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;gyroContain&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;area&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://aiiyx.cn&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;_blank&quot;</span>&gt;</span>博客<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>            <span class="hljs-symbol">&amp;nbsp;</span>|<span class="hljs-symbol">&amp;nbsp;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;_blank&quot;</span>&gt;</span>中国Epidemic实时追踪<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            数据来源：百度 &amp; 腾讯<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;tit&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>世界Epidemic实时追踪<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;tim&quot;</span>&gt;</span> 标题<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;left&quot;</span>&gt;</span> left<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;right&quot;</span>&gt;</span> right<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/ecc_world.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/ec_world.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>效果展示：<br><img src="https://img-blog.csdnimg.cn/20200612113338315.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<h2 id="项目部署"><a href="#项目部署" class="headerlink" title="项目部署"></a>项目部署</h2><p>项目部署需要一台Linux服务器，可选择Aliyun服务器或是使用Vmware 创建一台服务器均可。本文采用Vmware创建一台Ubuntu servers 18.4服务器。</p>
+<blockquote>
+<p>1、安装Vmware的教程网上挺多的，自行百度。</p>
+<p>2、安装Ubuntu servers 18.4推荐参考：<a href="https://blog.csdn.net/tjsxin/article/details/93199595?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase">Ubuntu 18.04 LTS Server服务器安装图文教程</a></p>
+<p>3、安装conda、并创建虚拟环境推荐参考：</p>
+<p> <strong><a href="https://blog.csdn.net/fengleqi/article/details/80752751">Ubuntu安装conda —–01</a></strong></p>
+<p><strong><a href="https://zhuanlan.zhihu.com/p/22678445">Ubuntu安装conda —–02</a></strong> </p>
+<p>4、安装文件上载工具：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">安装命令：yum install lrzsz -y<br><br>使用命令：rz<br></code></pre></td></tr></table></figure>
+
+<p>5、将项目上载至Ubuntu服务器</p>
+<p>6、Ubuntu安装MySQL，并配置远程连接，创建项目所需数据库</p>
+</blockquote>
+<h3 id="开发者模式部署"><a href="#开发者模式部署" class="headerlink" title="开发者模式部署"></a>开发者模式部署</h3><blockquote>
+<p>开发者模式部署，是正式上线前的测试部署，可以调试项目是否正常。</p>
+</blockquote>
+<blockquote>
+<p>1、安装项目依赖库</p>
+<p>2、更改db.py中的数据库连接配置</p>
+<p>3、运行spider.py进行一次爬虫获取数据</p>
+<p>4、运行app.py运行项目</p>
+<p>5、通过Windows浏览器访问web页面</p>
+</blockquote>
+<h3 id="生产模式部署"><a href="#生产模式部署" class="headerlink" title="生产模式部署"></a>生产模式部署</h3><blockquote>
+<p>部署Flask应用时，通常使用WSGI的应用服务器搭配Nginx作为反向代理</p>
+</blockquote>
+<blockquote>
+<p>常用的WSGI服务器：gunicorn、uwsgi</p>
+</blockquote>
+<blockquote>
+<p>正向和反向代理：<br><img src="https://img-blog.csdnimg.cn/20200607183645951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<h4 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h4><blockquote>
+<p>静态服务器、动态服务、反向代理、负载均衡、缓存服务 </p>
+</blockquote>
+<ul>
+<li><p>apt安装：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">sudo apt install nginx<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>文件位置：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">/usr/sbin/nginx    :主程序<br>/etc/nginx         :配置文件<br>/usr/share/nginx   :存放静态文件<br>/var/log/nginx     :存放日志<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>nginx命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">service nginx start # 启动nginx<br>service nginx reload # 重新加载nginx配置文件<br>nginx -s reopen # 重启nginx<br>nginx -s stop # 停止nginx<br>nginx -v # 查看版本号<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置可参考：<a href="https://blog.csdn.net/qq_35571554/article/details/82848227?utm_medium=distribute.pc_relevant.none-task-blog-baidujs-1">here</a></p>
+<blockquote>
+<p>cd /etc/nginx/  ,备份nginx.conf,修改nginx.conf </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment"># 此处开始为配置反向代理</span></span><br>       upstream mysvr &#123;<br>               server 127.0.0.1:5000; ## 服务器地址1<br>       &#125;<br>       # error_page 404 /404.html<br><br>       server  &#123;<br>               # keepalive_requests 120;<br>               listen 8080; ## nginx监听端口号<br>               server_name 192.168.121.139;   #cn.nCov.com; ## nginx监听服务器名称(本机ip或域名)<br>               location / &#123;<br>                       proxy_pass http://mysvr;<br>               &#125;<br>       &#125;<br>       ## 设置反向代理结束<br></code></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/2020060718355055.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>注： 查看有关nginx的所有目录列表，输入命令  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">rpm -ql nginx<br></code></pre></td></tr></table></figure>
+
+<p> 可以查看有关nginx目录信息，但是注意 这种命令只能是在基于yun安装的方式才可以。 </p>
+</blockquote>
+<p>1、安装 Gunicorn:  (python虚拟环境下)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">pip install gunicorn<br></code></pre></td></tr></table></figure>
+
+<p>2、启动 Gunicorn：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">gunicorn -b 127.0.0.1:8080 -D app:app<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>编写脚本执行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">! /bin/bash</span><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov #env_nCov是conda创建的虚拟环境<br>cd /home/klein/workspace/nCOV/<br>gunicorn -b 127.0.0.1:5000 -D app:app<br></code></pre></td></tr></table></figure>
+<p>-w: 表示进程（worker）<br>-b: 表示绑定ip地址和端口号（bind）<br>-D: 以守护进程的形式启动，后台启动</p>
+</blockquote>
+<blockquote>
+<p>例：gunicorn -w 2 -b 127.0.0.1:5000 运行文件名称:Flask程序实例名</p>
+</blockquote>
+<blockquote>
+<p><a href="https://blog.csdn.net/y472360651/article/details/78538188">更多gunicorn配置链接</a></p>
+</blockquote>
+<blockquote>
+<p>查看后台进程：ps -ef | grep gunicorn</p>
+<p><a href="https://www.cnblogs.com/cutesnow/p/10609267.html">gunicorn开启、关闭和重启</a></p>
+<p>查询：首先执行如下命令获取Gunicorn进程树：</p>
+<p>pstree -ap|grep gunicorn</p>
+<p>关闭：首先执行如下命令获取Gunicorn进程树：</p>
+<p>pstree -ap|grep gunicorn</p>
+<p>之后输入如下指令关闭进程：</p>
+<p>kill -9 pid</p>
+<p>重启：输入如下指令重启进程：</p>
+<p>kill -HUP pid</p>
+</blockquote>
+</li>
+</ul>
+<p>  3、启动 Nginx在Windows下测试</p>
+<h4 id="定时获取数据"><a href="#定时获取数据" class="headerlink" title="定时获取数据"></a>定时获取数据</h4><ul>
+<li><p>Ubuntu安装chrome：<a href="https://www.jianshu.com/p/bface5e5a71e">here</a></p>
+</li>
+<li><p><strong>ubuntu三行命令安装chrome浏览器</strong> : <a href="https://yq.aliyun.com/articles/58040">https://yq.aliyun.com/articles/58040</a> </p>
+</li>
+<li><p>Ubuntu安装google Driver：<a href="https://blog.csdn.net/blueheart20/article/details/81566903">https://blog.csdn.net/blueheart20/article/details/81566903</a> </p>
+</li>
+<li><p>CENTOS7下使用SELENIUM进行网页自动化访问:<a href="http://aiiyx.cn/wz/1605/">http://aiiyx.cn/wz/1605/</a> </p>
+</li>
+<li><p>编写虫子脚本：</p>
+<ul>
+<li>up_his.sh</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/bash</span><br><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov  #env_nCov是conda创建的虚拟环境<br>python3 /home/klein/workspace/nCOV/spider.py up_his &gt;&gt; /home/klein/workspace/nCOV/log/log_his<br><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>up_hot.sh</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/bash</span><br><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov  #env_nCov是conda创建的虚拟环境<br>python3 /home/klein/workspace/nCOV/spider.py up_hot &gt;&gt; /home/klein/workspace/nCOV/log/log_hot<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>up_det.sh</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/bash</span><br><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov  #env_nCov是conda创建的虚拟环境<br>python3 /home/klein/workspace/nCOV/spider.py up_det &gt;&gt; /home/klein/workspace/nCOV/log/log_det<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>up_word.sh</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/bash</span><br><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov  #env_nCov是conda创建的虚拟环境<br>python3 /home/klein/workspace/nCOV/spider.py up_word &gt;&gt; /home/klein/workspace/nCOV/log/log_word<br><br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>使用crontab定时虫子任务: <a href="https://blog.csdn.net/m0_38109046/article/details/87918111">https://blog.csdn.net/m0_38109046/article/details/87918111</a> </p>
+</li>
+<li><p>输入：crontab -e</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">30 * * * * bash /home/klein/workspace/nCOV/sh/up_his.sh 2&gt;&amp;1 &amp;<br>3 */2 * * * bash /home/klein/workspace/nCOV/sh/up_hot.sh 2&gt;&amp;1 &amp;<br>*/5 * * * * bash /home/klein/workspace/nCOV/sh/up_det.sh 2&gt;&amp;1 &amp;<br>* 1,5,9,13,17,21 * * * bash /home/klein/workspace/nCOV/sh/up_word.sh 2&gt;&amp;1 &amp; <br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200607183741388.png#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="shell脚本激活conda虚拟环境"><a href="#shell脚本激活conda虚拟环境" class="headerlink" title="shell脚本激活conda虚拟环境"></a>shell脚本激活conda虚拟环境</h4><blockquote>
+<p>怎么用shell脚本激活conda虚拟环境？：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/bash</span><br>source /YOUR_CONDA_PATH/bin/activate your_env<br>python --version<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="从Linux服务器下载文件"><a href="#从Linux服务器下载文件" class="headerlink" title="从Linux服务器下载文件"></a>从Linux服务器下载文件</h4><ul>
+<li>下载文件<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">sz file<br></code></pre></td></tr></table></figure></li>
+<li>上传文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">rz <br></code></pre></td></tr></table></figure>
+
+<p><a href="https://blog.csdn.net/qq_37421762/article/details/86160119?ops_request_misc=%7B%22request_id%22:%22159142726319724846464177%22,%22scm%22:%2220140713.130102334.pc_all.%22%7D&request_id=159142726319724846464177&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-5-86160119.first_rank_v2_rank_v25&utm_term=ubuntu%E6%A0%A1%E5%87%86%E6%97%B6%E5%8C%BA">校正Ubuntu时间为北京时间</a> </p>
+<h2 id="部署地址："><a href="#部署地址：" class="headerlink" title="部署地址："></a>部署地址：</h2><p><a href="http://39.99.140.59:8002/">nCov</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>图书查询系统</title>
+    <url>/2019/03/21/%E5%9B%BE%E4%B9%A6%E6%9F%A5%E8%AF%A2%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<p>@<a href="https://blog.csdn.net/qq_41971768/article/details/88713826">TOC</a></p>
+<h2 id="1、数据结构课程设计"><a href="#1、数据结构课程设计" class="headerlink" title="1、数据结构课程设计"></a>1、数据结构课程设计</h2><p><img src="https://img-blog.csdnimg.cn/20190321191903232.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="2、题目要求"><a href="#2、题目要求" class="headerlink" title="2、题目要求"></a>2、题目要求</h2><p><img src="https://img-blog.csdnimg.cn/20190321191311187.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="3、需求分析"><a href="#3、需求分析" class="headerlink" title="3、需求分析"></a>3、需求分析</h2><p><img src="https://img-blog.csdnimg.cn/20190321191323697.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="4、系统设计"><a href="#4、系统设计" class="headerlink" title="4、系统设计"></a>4、系统设计</h2><p><img src="https://img-blog.csdnimg.cn/20190321191335281.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="5、功能设计"><a href="#5、功能设计" class="headerlink" title="5、功能设计"></a>5、功能设计</h2><p><img src="https://img-blog.csdnimg.cn/20190321191345455.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="6、排序算法"><a href="#6、排序算法" class="headerlink" title="6、排序算法"></a>6、排序算法</h2><p><img src="https://img-blog.csdnimg.cn/20190321200528328.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2019032119144615.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="7、String比较方法"><a href="#7、String比较方法" class="headerlink" title="7、String比较方法"></a>7、String比较方法</h2><p><img src="https://img-blog.csdnimg.cn/20190321191458396.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="8、字典排序"><a href="#8、字典排序" class="headerlink" title="8、字典排序"></a>8、字典排序</h2><p><img src="https://img-blog.csdnimg.cn/20190321191508174.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="9、查找算法"><a href="#9、查找算法" class="headerlink" title="9、查找算法"></a>9、查找算法</h2><p><img src="https://img-blog.csdnimg.cn/20190321191516933.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190321191526847.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="10、IO流设计"><a href="#10、IO流设计" class="headerlink" title="10、IO流设计"></a>10、IO流设计</h2><p><img src="https://img-blog.csdnimg.cn/2019032119153711.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="11、存储结构"><a href="#11、存储结构" class="headerlink" title="11、存储结构"></a>11、存储结构</h2><p><img src="https://img-blog.csdnimg.cn/20190321191547185.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="12、类设计"><a href="#12、类设计" class="headerlink" title="12、类设计"></a>12、类设计</h2><p><img src="https://img-blog.csdnimg.cn/20190321191558641.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="13、类成员"><a href="#13、类成员" class="headerlink" title="13、类成员"></a>13、类成员</h2><p><img src="https://img-blog.csdnimg.cn/20190321191613567.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="14、结束"><a href="#14、结束" class="headerlink" title="14、结束"></a>14、结束</h2><p><img src="https://img-blog.csdnimg.cn/20190321191625111.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="15、源代码"><a href="#15、源代码" class="headerlink" title="15、源代码"></a>15、源代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">Book.java<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain"> import java.io.*;<br> import java.util.*;<br>public class Book implements Serializable&#123;  &#x2F;&#x2F;使用Serializable接口，使Book对象序列化，便于使用对象流存入文件。<br><br>	String[] attribute;<br>	static int amount;<br>    Scanner re&#x3D;new Scanner(System.in);<br>    &#x2F;*<br>     *主属性（primary attribute）：征订号<br>     *主码（primary key）：征订号<br>     *<br>     *<br>     ***属性****   **编号**<br>     *本季征订号      0	<br>     *分册	          1<br>     *出版社          2<br>     *ISBN			  3<br>     *书名			  4<br>     *著作者		  5<br>     *适用分级		  6<br>     *价格			  7<br>     *出版年月		  8<br>     *社内分类	      9<br>     *中图法分类	  10<br>     *学科分类编码	  11<br>     *学科分类1		  12<br>     *学科分类2		  13<br>     *<br>     *&#x2F;<br>	public void setAttribute(int i)&#123;<br>		this.attribute[i]&#x3D;re.next();<br>	&#125;<br>	<br>	public String getAttribute(int i)&#123;<br>		return this.attribute[i];<br>	&#125;<br>   	public Book()   &#123;  &#x2F;&#x2F;无参构造方法<br>   <br>   	&#125;<br>   	public Book(String[] s)&#123;<br>   		this.attribute&#x3D;new String[this.amount];       &#x2F;&#x2F;初始化该数组；长度为表头属性个数<br>   		for(int i&#x3D;0;i&lt;s.length;i++)&#123;<br>   			this.attribute[i]&#x3D;s[i];                   &#x2F;&#x2F;为该图书各个属性赋值<br>   		&#125;<br>   	&#125;<br>   	public void ruleToString()&#123;<br>   		System.out.println(&quot;\t       ***属性****    **属性值**\n&quot;);<br> 		System.out.println(&quot;\t       *本季征订号     &quot;+this.attribute[0]);<br> 		System.out.println(&quot;\t       *分册           &quot;+this.attribute[1]);<br> 		System.out.println(&quot;\t       *出版社         &quot;+this.attribute[2]);<br> 		System.out.println(&quot;\t       *ISBN           &quot;+this.attribute[3]);<br> 		System.out.println(&quot;\t       *书名           &quot;+this.attribute[4]);<br> 		System.out.println(&quot;\t       *著作者         &quot;+this.attribute[5]);<br> 		System.out.println(&quot;\t       *适用分级       &quot;+this.attribute[6]);<br> 		System.out.println(&quot;\t       *价格           &quot;+this.attribute[7]); 		<br> 		System.out.println(&quot;\t       *出版年月       &quot;+this.attribute[8]);<br> 		System.out.println(&quot;\t       *社内分类       &quot;+this.attribute[9]);<br> 		System.out.println(&quot;\t       *中图法分类     &quot;+this.attribute[10]);<br> 		System.out.println(&quot;\t       *学科分类编码   &quot;+this.attribute[11]);<br> 		System.out.println(&quot;\t       *学科分类1      &quot;+this.attribute[12]);<br> 		System.out.println(&quot;\t       *学科分类2      &quot;+this.attribute[13]);<br> 		System.out.println(&quot;\t-----------------------------&quot;);<br><br>   	&#125;<br>    public String toString()&#123;                         &#x2F;&#x2F;重写toString()方法<br> 			String str&#x3D;attribute[0];<br> 			for(int j&#x3D;1;j&lt;attribute.length;j++)&#123;<br> 				str&#x3D;str.concat(&quot;,&quot;);<br> 				str&#x3D;str.concat(attribute[j]);        &#x2F;&#x2F;将指定字符串连接到此字符串的结尾。<br> 			&#125;<br>    	return str;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">Lirary.java<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain"> import java.io.*;<br> import java.util.*;<br>public class Library&#123;<br>	Book []books;   			&#x2F;&#x2F;创建图书数组对象<br>	int amount;     			&#x2F;&#x2F;存入图书的种类数<br>	String f_Path;              &#x2F;&#x2F;当前图书库源文件路径<br>	String f_Name;				&#x2F;&#x2F;当前图书库源文件名称<br>	NormalComparator NC&#x3D;new NormalComparator();<br>    Scanner re&#x3D;new Scanner(System.in);<br>	Library() &#123;<br>		books &#x3D; new Book[1000];  &#x2F;&#x2F;定义图书数组长度为1000<br>		this.amount&#x3D;0;<br>	&#125;<br>&#x2F;&#x2F;求长度	<br>    public int length()&#123;<br>    	return this.amount;<br>    &#125;<br>&#x2F;&#x2F;堆排序  ：表头不参与排序<br>    &#x2F;&#x2F;将以low为根的子树调整成大顶堆，low、high是序列下界和上界<br>    public void sift(int low, int high,int w) &#123;<br>        int i &#x3D; low;                            &#x2F;&#x2F;子树的根<br>        int j &#x3D; 2 * i ;                         &#x2F;&#x2F;j为i结点的左孩子<br>        Book temp &#x3D; books[i];<br>        while (j&lt;high) &#123;  				    	&#x2F;&#x2F;沿较小值孩子结点向下筛选<br>            if (j&lt;high-1 &amp;&amp; (NC.compare(books[j].attribute[w],books[j + 1].attribute[w]))&lt;&#x3D;0) &#123; &#x2F;&#x2F;有右孩子<br>                j++; 							&#x2F;&#x2F;数组元素比较,j为左右孩子的较大者<br>            &#125;<br>            if (NC.compare(temp.attribute[w],books[j].attribute[w]) &lt;&#x3D; 0) &#123; &#x2F;&#x2F;若父母结点值较小<br>                books[i] &#x3D; books[j];            &#x2F;&#x2F;孩子结点中的较大值上移<br>                i &#x3D; j;<br>                j &#x3D; 2 * i ;<br>            &#125; else &#123;<br>                j &#x3D; high + 1;         			&#x2F;&#x2F;退出循环<br>            &#125;<br>        &#125;<br>        books[i] &#x3D; temp;                   		&#x2F;&#x2F;当前子树的原根值调整后的位置<br>    &#125;<br>    <br>    public void heapSort(int w) &#123;               &#x2F;&#x2F; w 为关键字属性对应编号<br>        int n &#x3D; this.amount;                    &#x2F;&#x2F;元素数<br>        Book temp;<br>        for (int i &#x3D; n&#x2F;2;i&gt;0;i--) &#123;             &#x2F;&#x2F;创建堆<br>            sift(i, n, w);<br>        &#125;<br>        for (int i&#x3D;n-1; i&gt;1;i--) &#123;              &#x2F;&#x2F;每趟将最大值交换到后面，再调整成堆<br>            temp &#x3D; books[1];<br>            books[1] &#x3D; books[i];<br>            books[i] &#x3D; temp;<br>            sift(1, i, w);<br>        &#125;<br>   &#125;<br>   <br>       <br>&#x2F;&#x2F;添加图书<br>	public void addBook(Book a_book) &#123;  &#x2F;&#x2F;添加图书<br>    	if(amount&#x3D;&#x3D;books.length)&#123;<br>    		Book[] B &#x3D; books;<br>    		books &#x3D; new Book[amount+500];	&#x2F;&#x2F;扩大可存储书目数量，每次扩容500<br>    		for(int j&#x3D;0;j&lt;B.length;j++)&#123;<br>    			books[j]&#x3D;B[j];<br>    		&#125;<br>    	&#125;<br>     	books[amount]&#x3D;a_book;<br>     	amount++;<br>	&#125;<br>	<br>	<br>	<br>&#x2F;&#x2F;删除图书<br>	public void del_Book(int i)&#123;<br>		if(i&gt;0&amp;&amp;i&lt;this.amount)&#123;<br>			this.books[i].toString();<br>			this.books[i]&#x3D;this.books[--this.amount];<br>		&#125;<br>		else<br>			System.out.println(&quot;使用了非法索引！&quot;);<br>	&#125;<br>	<br>	<br>&#x2F;&#x2F;修改图书<br>	public void alter_Book(int i,int w)&#123;       &#x2F;&#x2F;修改books[i]图书的第w个属性值<br>		if(i&gt;0&amp;&amp;i&lt;this.amount)&#123;<br>			this.books[i].attribute[w]&#x3D;re.next();<br>		&#125;<br>		else<br>			System.out.println(&quot;使用了非法索引！&quot;);<br>	&#125;	<br>&#x2F;&#x2F;查找图书（完整关键字查找） ：表头不参与查找<br>	&#x2F;*<br>	 *先排序  查找所在位置<br>	 *有序记录下的，折半查找：精确查找需要输入完整的属性值<br>	 *&#x2F;<br>  	public int binarySearch(String key,int w)&#123;<br> 		if(length()&gt;0)&#123;<br> 			int low&#x3D;1,high&#x3D;length()-1;<br> 			while(low&lt;&#x3D;high)&#123;<br> 				int n&#x3D;(low+high)&#x2F;2;<br> 				if((NC.compare(books[n].attribute[w],key))&#x3D;&#x3D;0)<br> 					return n;<br> 				else if((NC.compare(books[n].attribute[w],key))&gt;0)   &#x2F;&#x2F;关键字值小于中间值<br> 					high&#x3D;n-1;<br> 				else<br> 					low&#x3D;n+1;		<br> 			&#125;<br> 		&#125;<br> 		return -1;         &#x2F;&#x2F;查找不成功<br> 	&#125;<br> 	&#x2F;&#x2F;递归形式<br> 	public int binarySearch(int low,int high,String key,int w)&#123;<br>  		while(low&lt;&#x3D;high)&#123;<br> 			int n&#x3D;(low+high)&#x2F;2;<br> 			if((NC.compare(books[n].attribute[w],key))&#x3D;&#x3D;0)<br> 				return n;<br> 			else if((NC.compare(books[n].attribute[w],key))&gt;0)<br> 				return binarySearch(low,n-1,key,w);<br> 			else<br> 				return binarySearch(n+1,high,key,w);<br> 		&#125;<br> 		return -1;         &#x2F;&#x2F;查找不成功<br> 	&#125;<br> 	<br> 	  <br>&#x2F;&#x2F;查找图书（部分关键字查找）  ：表头不参与<br>	 <br>	 &#x2F;&#x2F;顺序查找   ：返回位置<br>	 public int seqSearch(String key,int w)&#123;<br>	 	int i&#x3D;0,n&#x3D;length();<br>	 	while((books[n].attribute[w].indexOf(key))&#x3D;&#x3D;-1)&#123;<br>	 		i++;<br>	 	&#125;<br>	 	if(i&lt;n)  return i;<br>	 	else    return -1;<br>	 &#125;<br>	 <br>	 <br>	 &#x2F;&#x2F;顺序查找所有     ：返回一个Lirary类型<br>	 public Library seqAllSearch(String key,int w)&#123;<br>	 	Library lib&#x3D;new Library();<br>	 	lib.addBook(this.books[0]);      &#x2F;&#x2F;将表头插入<br>	 	int i&#x3D;0,n&#x3D;length();<br>	 	while(i&lt;n)&#123;<br>		 	if((books[i].attribute[w].indexOf(key))!&#x3D;-1)&#123;<br>		 		lib.addBook(this.books[i]);<br>		 	&#125;<br>			i++;<br>	 	&#125;<br>	 	return lib;<br>	 &#125;<br>	 <br>	 <br>&#x2F;&#x2F;保存到源文件 	   <br>    public void save_File()&#123;<br>	    try&#123;<br>	    	Object_io io&#x3D;new Object_io();<br>	    	io.object_io_out(this,new File(this.f_Path.concat(this.f_Name)));<br>	      &#125;<br>	    catch(Exception e)&#123;<br>	    	System.out.print(e);<br>	    &#125;<br>    &#125;<br>&#x2F;&#x2F;另存为新文件    <br>    public void save_As_File(Library lib,String str)&#123;<br>	    try&#123;	<br>	    	Object_io io&#x3D;new Object_io();<br>	    	str&#x3D;str.concat(&quot;.csv&quot;);<br>	    	str&#x3D;lib.f_Path.concat(str);<br>	    	io.object_io_out(lib,new File(str));<br>	      &#125;<br>	    catch(Exception e)&#123;<br>	    	System.out.print(e);<br>	    &#125;	<br>    &#125;<br><br>&#125;<br> <br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">Menu.java<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain"> import java.io.*;<br> import java.util.*;<br>public class Menu&#123;<br>    Scanner re&#x3D;new Scanner(System.in);<br>	Library lib;<br>	boolean label;<br>	<br>	public Menu(Library lib)&#123;<br>		this.lib&#x3D;lib;<br>		this.label&#x3D;true;<br>		while(this.label)&#123;<br>			this.first_Meun();<br>		&#125;<br>	&#125;<br><br>&#x2F;&#x2F;主菜单<br>	public void first_Meun()&#123;<br>		System.out.println(&quot;\t&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;);<br> 		System.out.println(&quot;\t---------[ 主菜单 ]-----------&quot;);<br> 		System.out.println(&quot;\t[1]  插入图书：&quot;);<br> 		System.out.println(&quot;\t[2]  删除图书：&quot;);<br> 		System.out.println(&quot;\t[3]  修改图书：&quot;);<br> 		System.out.println(&quot;\t[4]  查询图书：&quot;);<br> 		System.out.println(&quot;\t[5]  排序图书：&quot;);<br> 		System.out.println(&quot;\t[6]  保存至源文件：&quot;);<br> 		System.out.println(&quot;\t[7]  另存为新文件：&quot;);<br> 		System.out.println(&quot;\t[0]  退出系统：&quot;);<br> 		System.out.println(&quot;\t-----------------------------&quot;);<br> 		System.out.print(&quot;\t请输入选项编号：&quot;);<br> 		int ser&#x3D;re.nextInt();<br> 		switch(ser)&#123;<br> 			case 1:this.insert_Book();break;<br> 			case 2:this.del_Book();break;<br> 			case 3:this.amend_Book();break;<br> 			case 4:this.search_Menu();break;<br> 			case 5:this.sort();break;<br> 			case 6:this.lib.save_File();break;<br> 			case 7:System.out.print(&quot;请输入新的文件名：&quot;);<br> 					String str&#x3D;re.next();<br> 					this.lib.save_As_File(this.lib,str);<br> 					break;<br> 			case 0:	System.out.println(&quot;请选择：[1]保存并退出；[2]直接退出；[3]取消退出&quot;);<br> 					int xu&#x3D;re.nextInt();<br> 					if(xu&#x3D;&#x3D;1) &#123;  this.lib.save_File();this.label&#x3D;false;break;	&#125;<br> 					if(xu&#x3D;&#x3D;2) &#123;  this.label&#x3D;false;break;	&#125;<br> 					if(xu&#x3D;&#x3D;3) &#123;  break;	&#125;<br> 					else  break;<br>            default:System.out.println(&quot;\t----无此选项!------&quot;);break;<br> 		&#125;			<br>	&#125;<br>&#x2F;&#x2F;查找子菜单<br>	public void search_Menu()&#123;<br>		System.out.println(&quot;\t&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;);<br> 		System.out.println(&quot;\t----------[ 查找 ]------------&quot;);<br> 		System.out.println(&quot;\t[1]  精确查找：&quot;);<br> 		System.out.println(&quot;\t[2]  模糊查找：&quot;);<br> 		System.out.println(&quot;\t-----------------------------&quot;);<br> 		System.out.print(&quot;\t请输入选项编号：&quot;);<br> 		int ser&#x3D;re.nextInt();<br> 		this.attribute_Meun();<br> 		switch(ser)&#123;<br> 			case 1:this.search_True();break;<br> 			case 2:this.search_Flase();break;<br>            default:System.out.println(&quot;\t----无此选项!------&quot;);break;<br> 		&#125;<br>	&#125;<br>&#x2F;&#x2F;属性菜单	<br>	public void attribute_Meun()&#123;<br>		System.out.println(&quot;\t&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;);<br> 		System.out.println(&quot;\t-----[ attribute_Meun ]-------&quot;);<br> 		System.out.println(&quot;\t       ***属性****   **编号**\n&quot;);<br> 		System.out.println(&quot;\t       *本季征订号      0&quot;);<br> 		System.out.println(&quot;\t       *分册            1&quot;);<br> 		System.out.println(&quot;\t       *出版社          2&quot;);<br> 		System.out.println(&quot;\t       *ISBN            3&quot;);<br> 		System.out.println(&quot;\t       *书名            4&quot;);<br> 		System.out.println(&quot;\t       *著作者          5&quot;);<br> 		System.out.println(&quot;\t       *适用分级        6&quot;);<br> 		System.out.println(&quot;\t       *价格            7&quot;); 		<br> 		System.out.println(&quot;\t       *出版年月        8&quot;);<br> 		System.out.println(&quot;\t       *社内分类        9&quot;);<br> 		System.out.println(&quot;\t       *中图法分类      10&quot;);<br> 		System.out.println(&quot;\t       *学科分类编码    11&quot;);<br> 		System.out.println(&quot;\t       *学科分类1       12&quot;);<br> 		System.out.println(&quot;\t       *学科分类2       13&quot;);<br> 		System.out.println(&quot;\t-----------------------------&quot;);<br>	&#125;<br>&#x2F;&#x2F;插入图书<br>	public void insert_Book()&#123;<br>		String []str&#x3D;new String[this.lib.books[0].attribute.length];<br>		this.attribute_Meun();<br>		System.out.println(&quot;请依次输入对应的属性值：&quot;);<br>		for(int i&#x3D;0;i&lt;str.length;i++)&#123;<br>			str[i]&#x3D;re.next();<br>		&#125;<br>		Book book&#x3D;new Book(str);<br>		this.lib.addBook(book);<br>	&#125;<br>&#x2F;&#x2F;删除<br>	public void del_Book()&#123;<br>		System.out.println(&quot;请输入要删除图书所在的位置：&quot;);<br>		int i&#x3D;re.nextInt();<br>		this.lib.books[i].ruleToString();<br>		this.lib.del_Book(i);<br>		System.out.println(&quot;已删除！&quot;);<br>	&#125;<br>&#x2F;&#x2F;修改<br>	public void amend_Book()&#123;<br>		System.out.println(&quot;请输入要修改图书所在的位置：&quot;);<br>		int i&#x3D;re.nextInt();<br>		int p&#x3D;1;;<br>		System.out.println(this.lib.books[i].toString());<br>		this.attribute_Meun();<br>		while(p&gt;&#x3D;0&amp;&amp;p&lt;this.lib.books[i].amount)&#123;<br>			System.out.println(&quot;请输入要修改的属性，对应的编号;输入-1 退出修改:&quot;);<br>			p&#x3D;re.nextInt();<br>			if(p!&#x3D;-1)&#123;<br>				System.out.println(&quot;请输入修改后的值：&quot;);<br>				this.lib.books[i].attribute[p]&#x3D;re.next();<br>			&#125;<br>		&#125;<br>		System.out.println(&quot;已修改为：&quot;);<br>		this.lib.books[i].ruleToString();<br>	&#125;<br>&#x2F;&#x2F;查询<br>	&#x2F;&#x2F;精确<br>	public void search_True()&#123;<br>		System.out.println(&quot;请输入要查询的属性编号：&quot;);<br>		int w&#x3D;re.nextInt();<br>		System.out.println(&quot;请输入要查询的属性值：&quot;);<br>		String str&#x3D;re.next();<br>		this.lib.heapSort(w);<br>		Library we&#x3D;new Library();                  &#x2F;&#x2F;查询结果保存到临时图书库<br>		we.f_Path&#x3D;this.lib.f_Path;                 &#x2F;&#x2F;设置默认路径<br>		we.addBook(this.lib.books[0]);             &#x2F;&#x2F;将表头添加进去<br>		NormalComparator NC&#x3D;new NormalComparator();<br>	    int mark&#x3D;this.lib.binarySearch(str,w);<br>	    int high&#x3D;mark++,low&#x3D;mark--;<br>		if(mark&#x3D;&#x3D;-1)&#123;<br>			System.out.println(&quot;未找到&quot;);<br>		&#125;<br>		else&#123;<br>			we.addBook(this.lib.books[mark]);<br>			while(low&gt;0&amp;&amp;(NC.compare(this.lib.books[low].attribute[w],str))&#x3D;&#x3D;0)<br>				we.addBook(this.lib.books[low--]);<br>			while(high&lt;this.lib.amount&amp;&amp;(NC.compare(this.lib.books[high].attribute[w],str))&#x3D;&#x3D;0)<br>				we.addBook(this.lib.books[high++]);<br>		&#125;<br>		str&#x3D;str.concat(&quot;_&quot;.concat(Integer.toString(we.amount)));<br>		str&#x3D;&quot;查找结果_&quot;.concat(str);<br>		lib.save_As_File(we,str);<br>		System.out.println(&quot;查询结果，已保存到文件；文件名为：&quot;+str);<br>	&#125;<br>	&#x2F;&#x2F;模糊<br>	public void search_Flase()&#123;<br>		System.out.println(&quot;请输入要查询的属性编号：&quot;);<br>		int w&#x3D;re.nextInt();<br>		System.out.println(&quot;请输入要查询的属性值：&quot;);<br>		String str&#x3D;re.next();<br>		Library we&#x3D;this.lib.seqAllSearch(str,w);<br>		we.f_Path&#x3D;this.lib.f_Path;<br>		str&#x3D;str.concat(&quot;_&quot;.concat(Integer.toString(we.amount)));<br>		str&#x3D;&quot;查找结果_&quot;.concat(str);<br>		lib.save_As_File(we,str);<br>		System.out.println(&quot;查询结果，已保存到文件；文件名为：&quot;+str);<br>	&#125;<br>&#x2F;&#x2F;排序<br>	public void sort()&#123;<br>		this.attribute_Meun();<br>		System.out.println(&quot;请输入作为排序条件的属性编号：&quot;);<br>		int w&#x3D;re.nextInt();<br>		this.lib.heapSort(w);<br>		String str&#x3D;this.lib.books[0].attribute[w];<br>		str&#x3D;str.concat(&quot;_&quot;.concat(Integer.toString(this.lib.amount)));<br>		str&#x3D;&quot;排序结果_&quot;.concat(str);<br>		this.lib.save_As_File(this.lib,str);<br>		System.out.println(&quot;查询结果，已保存到文件；文件名为：&quot;+str);<br>	&#125;<br>	<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">Object_io.java<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain"> import java.io.*;<br>public class Object_io &#x2F;&#x2F;对象流类<br> &#123;<br> 	int DB_Limit&#x3D;-1;      &#x2F;&#x2F;测试所用数据量<br> 	void object_io_out(Library lib,File file) throws Exception   &#x2F;&#x2F;向文件写入<br> 	&#123;<br> 		FileWriter outOne &#x3D; new FileWriter(file);<br> 		BufferedWriter outTwo&#x3D;new BufferedWriter(outOne);<br> 		for(int i&#x3D;0;i&lt;lib.amount;i++)&#123;<br> 			String[] s&#x3D;lib.books[i].attribute;<br> 			int j&#x3D;0;<br> 			String str&#x3D;s[j++];<br> 			for(;j&lt;s.length;j++)&#123;<br> 				str&#x3D;str.concat(&quot;,&quot;);<br> 				str&#x3D;str.concat(s[j]);    &#x2F;&#x2F;将指定字符串连接到此字符串的结尾。<br> 			&#125;<br> 			outTwo.write(str);           &#x2F;&#x2F;写入一行<br> 			outTwo.newLine();            &#x2F;&#x2F;写入换行<br> 		&#125;<br> 		outTwo.close();<br> 		outOne.close();<br> 	&#125;<br> 	void object_io_in(Library lib,File file) throws Exception   &#x2F;&#x2F;从文件读出<br> 	&#123;<br> 		FileReader inOne &#x3D; new FileReader(file);<br> 		BufferedReader inTwo&#x3D;new BufferedReader(inOne);<br> 		String strLine &#x3D; null;<br> 		int x&#x3D;0;                                        		&#x2F;&#x2F;读出的数据条数<br> 		while((strLine &#x3D; inTwo.readLine())!&#x3D;null)        		&#x2F;&#x2F;逐行读取<br> 		&#123;<br> 			String item[]&#x3D;strLine.split(&quot;,&quot;,14);         		&#x2F;&#x2F;分离每行数据,根据给定正则表达式的匹配拆分此字符串。<br> 			if(x&#x3D;&#x3D;0)   Book.amount&#x3D;item.length;                  &#x2F;&#x2F;将表头属性数量存入<br> 			if(item.length&#x3D;&#x3D;14)&#123;<br>	 			Book book&#x3D;new Book(item);<br>	 			lib.addBook(book);<br> 				x++;<br> 			&#125;<br> 			if(this.DB_Limit!&#x3D;-1&amp;&amp;x&gt;this.DB_Limit)  			&#x2F;&#x2F;判断是否存在数据上限要求<br>	 			 break;<br> 		&#125;<br> 		System.out.println(&quot;读取到的数据为&quot;+x+&quot;条;（包括表头）&quot;);<br> 		inOne.close();<br> 		inTwo.close();<br>  	&#125;<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">NormalComparator.java<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">import java.util.Comparator;<br><br>&#x2F;*<br> *Collator 类执行区分语言环境的 String 比较。使用此类可为自然语言文本构建搜索和排序例程。 <br> *Collator 是一个抽象基类。其子类实现具体的整理策略。<br> *Java 平台目前提供了 RuleBasedCollator 子类，它适用于很多种语言。<br> *还可以创建其他子类，以处理更多的专门需要。 <br> *与其他区分语言环境的类一样，可以使用静态工厂方法 getInstance 来为给定的语言环境获得适当的 Collator 对象。<br> *如果需要理解特定整理策略的细节或者需要修改策略，只需查看 Collator 的子类即可。 <br> *下面的示例显示了如何使用针对默认语言环境的 Collator 比较两个字符串。<br> *<br> *<br> *&#x2F;<br>import java.text.RuleBasedCollator;<br>import java.text.Collator;<br>import java.util.Locale;<br>public class NormalComparator implements Comparator&lt;Object&gt; &#123;    <br>	&#x2F;*<br>	 *RuleBasedCollator 为 Collator 的子类<br>	 *&#x2F;<br>  <br>    RuleBasedCollator collator &#x3D; (RuleBasedCollator)Collator.getInstance(Locale.CHINA);&#x2F;&#x2F;public static final Locale CHINA 指定中国的语言环境<br>    <br>    &#x2F;*<br>     *比较用来排序的两个参数。根据第一个参数小于、等于或大于第二个参数分别返回负整数、零或正整数。<br>     *&#x2F;<br>    public int compare(Object o1, Object o2) &#123;<br>    return collator.compare(o1.toString(), o2.toString());<br><br>    &#125;<br>&#125;<br><br><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">Date_s.java<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">import java.util.Date;&#x2F;&#x2F;导入日期类<br>import java.text.SimpleDateFormat;&#x2F;&#x2F;导入简单的日期格式类<br>public class Date_s&#123;<br>	public static String h_Date()&#123;  &#x2F;&#x2F;静态方法<br>    	long startTime &#x3D; System.currentTimeMillis();&#x2F;&#x2F;获取当前时间（以毫秒为单位）<br>    	Date time&#x3D;new Date(startTime);&#x2F;&#x2F;创建日期对象；Date t&#x3D;new Date(long ms)<br>    	String pattern&#x3D;&quot;yyyy&#x2F;MM&#x2F;dd  E HH:mm&quot;;&#x2F;&#x2F;创建字符型日期格式模板<br>    	SimpleDateFormat SDF&#x3D;new SimpleDateFormat(pattern);&#x2F;&#x2F;创建简单日期格式；以模板为参数<br>    	String timePattern&#x3D;SDF.format(time);<br>    	return timePattern;	<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">Main.java<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">&#x2F;*<br> *主菜单<br> *&#x2F;<br> import java.io.*;<br> import java.util.*;<br>public class Main&#123;<br>	public static void main(String []args) throws Exception 	&#123;<br>    	Scanner re&#x3D;new Scanner(System.in);<br>        System.out.println(&quot;\n\n-------------------------欢迎来到图书查询系统------------------------\n&quot;);<br>            System.out.println(&quot;                       &quot;+Date_s.h_Date()+&quot;                          \n&quot;);<br>            System.out.println(&quot;   注意：在使用过程中，请保证系统正常退出；否则可能会出现数据丢失！  \n&quot;);<br>          System.out.println(&quot;\n   注意：本次为测试过程；请输入合适的测试数据量（1--6万）            \n&quot;);<br>            System.out.println(&quot;   \t\t谢谢配合！                                                    \n&quot;);<br>            System.out.println(&quot;                                            您可以进入系统了         \n\n&quot;);<br>		    System.out.print(&quot;请输入测试所用数据量：&quot;);<br>		    int max_data&#x3D;re.nextInt();<br>		Library lib&#x3D;new Library();<br>		Object_io io&#x3D;new Object_io();<br>		io.DB_Limit&#x3D;max_data;<br>		lib.f_Path&#x3D;&quot;Access\\Object\\&quot;;              &#x2F;&#x2F;当前图书库源文件路径<br>		lib.f_Name&#x3D;&quot;2019春教材书目数据_(源).csv&quot;;   &#x2F;&#x2F;当前图书库源文件名称<br>    	File  file&#x3D;new File(lib.f_Path.concat(lib.f_Name));<br>  		io.object_io_in(lib,file);<br>		Menu m&#x3D;new Menu(lib);<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="资源链接："><a href="#资源链接：" class="headerlink" title="资源链接："></a>资源链接：</h2><p>Github：<a href="https://github.com/kleinlsl/BookInquirySystem">here</a></p>
+<p>百度网盘：<a href="https://pan.baidu.com/s/1akeCc9VDpskhXKw1pFNQHg">https://pan.baidu.com/s/1akeCc9VDpskhXKw1pFNQHg</a><br>提取码：c4di </p>
 ]]></content>
   </entry>
   <entry>
@@ -1800,192 +1997,6 @@
 <blockquote>
 <p>更新日期：2020.5.20</p>
 </blockquote>
-]]></content>
-  </entry>
-  <entry>
-    <title>使用百度 Ai Studio GPU算力</title>
-    <url>/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/</url>
-    <content><![CDATA[<p>@<a href="https://blog.csdn.net/qq_41971768/article/details/105645906">TOC</a></p>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
-<p>继上次找到Google Colab 免费GPU之后，又发现了<a href="https://aistudio.baidu.com/aistudio/usercenter">百度AI studio</a>云平台的GPU算力。</p>
-<p>百度的是相当优惠：每日使用gpu就可以获得12小时的算力卡，连续五天还可以额外获得48小时算力卡。</p>
-<p>搭载的是 飞桨PaddlePaddle 框架，目前并不支持tensorflow-gpu。但是自己可以通过以下配置来使用tensorflow-gpu.</p>
-</blockquote>
-<blockquote>
-<a id="more"></a>
-</blockquote>
-<h2 id="1、选择版本"><a href="#1、选择版本" class="headerlink" title="1、选择版本"></a>1、选择版本</h2><blockquote>
-<p>其实AI Studio我们可以理解为一台免费的云服务器，这样我们就可以在里面配置相应的环境，就和自己本机配置tensorflow环境基本一致。</p>
-</blockquote>
-<blockquote>
-<p> 安装之前注意自己的python版本，tensorflow版本，cuda版本，cudnn版本，一定要相互匹配 </p>
-<p>可以参考以下版本：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">python 3.6<br>tensorflow 1.12.0<br>cuda 9.0<br>cudnn 7.4.1<br>Linux 16.04 (ai studio系统版本)<br></code></pre></td></tr></table></figure>
-
-<h2 id="2、下载配置文件"><a href="#2、下载配置文件" class="headerlink" title="2、下载配置文件"></a>2、下载配置文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">1 在ai studio或者notebook下载cuda<br>!wget https:&#x2F;&#x2F;developer.nvidia.com&#x2F;compute&#x2F;cuda&#x2F;9.0&#x2F;Prod&#x2F;local_installers&#x2F;cuda_9.0.176_384.81_linux-run<br> <br>2 新建一个目录~&#x2F;cuda-9.0&#x2F;<br> <br>3 将下载的cuda安装到上述新建的目录中<br>!sh cuda_9.0.176_linux-run --silent --toolkit --toolkitpath&#x3D;$HOME&#x2F;cuda-9.0<br> <br>4 下载cudnn，注意这个需要去官网注册账号，事先下载到自己的电脑然后，<br>  注意版本要对，然后通过新建数据集上传到ai studio的data&#x2F;目录下，名字尽量短，下载之后是一个tgz格式   的文件，我把名字改为cudnn-9.0.tgz<br> <br>5 解压4步下载的文件到根目录,解压之后的cudnn文件名默认为cuda，<br>!tar -zxvf &#x2F;home&#x2F;aistudio&#x2F;data&#x2F;data25688&#x2F;cudnn-9.0.tgz <br> <br>6 解压把cudnn的指定文件copy到cuda安装文件对应的目录中注意目录要对，这一步只需要做一次就可以<br>!cp cuda&#x2F;include&#x2F;cudnn.h cuda-9.0&#x2F;include&#x2F;<br>!cp cuda&#x2F;lib64&#x2F;libcudnn* cuda-9.0&#x2F;lib64&#x2F;<br> <br>至此准备工作完成，这些工作只需要一次就可以，接下来进行环境配置阶段<br></code></pre></td></tr></table></figure>
-
-<h2 id="3、环境配置"><a href="#3、环境配置" class="headerlink" title="3、环境配置"></a>3、环境配置</h2><ul>
-<li><p>新建虚拟环境</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">1 在当前目录新建一个文件命名为envm,运行一下脚本，注意文件名即可<br>!echo &#39;export PATH&#x3D;$HOME&#x2F;cuda-9.0&#x2F;bin:$PATH\nexport LD_LIBRARY_PATH&#x3D;$LD_LIBRARY_PATH:$HOME&#x2F;cuda-9.0&#x2F;lib64&#39; &gt; ~&#x2F;envm<br>(修正)：此处使用以上路径会导致无法使用 ls 命令，应在envm文件更改为以下内容：<br>export PATH&#x3D;$HOME&#x2F;cuda-9.0&#x2F;bin$&#123;PATH:+:$&#123;PATH&#125;&#125; <br>export LD_LIBRARY_PATH&#x3D;$HOME&#x2F;cuda-9.0&#x2F;lib64$&#123;LD_LIBRARY_PATH:+:$&#123;LD_LIBRARY_PATH&#125;&#125;<br> <br>2 在终端新建虚拟环境,这里选择与tensorflow版本匹配的python版本<br>依次,这个需要每次都重新做，我还不知道怎么把这个放到一个shell脚本中，所以只能分开了<br>conda create -n env_name python&#x3D;3.6<br>安装过程选择yes输入y<br>source activate env_name<br></code></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p>激活环境</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain"> <br>2 新建脚本命名为chmod_cuda90.sh,加入以下脚本，注意你自己的目录<br>#!&#x2F;bin&#x2F;bash<br>chmod a+r ~&#x2F;cuda-9.0&#x2F;include&#x2F;cudnn.h<br>chmod a+r ~&#x2F;cuda-9.0&#x2F;lib64&#x2F;libcudnn*<br>source ~&#x2F;envm<br>pip install -i https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple tensorflow-gpu&#x3D;&#x3D;1.12.0<br> <br>3 在终端进入自己的虚拟环境运行上述脚本<br>source chmod_cuda90.sh就可以使用gpu进行加速了<br></code></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<h2 id="4、使用tensorflow-gpu"><a href="#4、使用tensorflow-gpu" class="headerlink" title="4、使用tensorflow-gpu"></a>4、使用tensorflow-gpu</h2><ul>
-<li><p>每次重启环境只需要运行以下脚本 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">conda create -n env_name python&#x3D;3.6<br>source activate env_name<br>source chmod_cuda90.sh<br></code></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://blog.csdn.net/firesolider/article/details/105023062?depth_1-utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromBaidu-8&utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromBaidu-8">百度AI studio配置tensorflow环境</a><br><a href="https://blog.csdn.net/qq_36666756/article/details/105252530#comments">白嫖百度AIstudio免费GPU</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Google Colab 免费GPU算力</title>
-    <url>/2020/04/20/%E4%BD%BF%E7%94%A8Google%20Colab%20%E5%85%8D%E8%B4%B9GPU/</url>
-    <content><![CDATA[<p>﻿@<a href="https://blog.csdn.net/qq_41971768/article/details/105639794">TOC</a></p>
-<h1 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h1><blockquote>
-<p>最近在做一些需要GPU算力的项目，自己的电脑的算力不够用。找到了 <a href="https://research.google.com/colaboratory/unregistered.html">Google Colab（Colaboratory）</a> ，作为Google推出的免费的云端GPU服务。</p>
-<p>官方对其的说明是：</p>
-<blockquote>
-<p>Colaboratory 是一个研究项目，可免费使用。</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<a id="more"></a>
-</blockquote>
-<h1 id="2、Google-Colab特征"><a href="#2、Google-Colab特征" class="headerlink" title="2、Google Colab特征"></a>2、Google Colab特征</h1><ul>
-<li>Colaboratory 是一个 Google 研究项目，旨在帮助传播机器学习培训和研究成果。它是一个 Jupyter 笔记本环境，不需要进行任何设置(自带大部分python库)就可以使用，并且完全在云端运行。</li>
-<li>Colaboratory 笔记本存储在 Google 云端硬盘中，并且可以共享，就如同您使用 Google 文档或表格一样。Colaboratory 可免费使用。</li>
-<li>利用Colaboratory ，可以方便的使用Keras、TensorFlow、PyTorch等框架进行深度学习应用的开发。</li>
-</ul>
-<h1 id="3、使用"><a href="#3、使用" class="headerlink" title="3、使用"></a>3、使用</h1><blockquote>
-<p>注意：使用google服务可能需要梯子</p>
-</blockquote>
-<h2 id="3-1在谷歌云盘上创建文件夹"><a href="#3-1在谷歌云盘上创建文件夹" class="headerlink" title="3.1在谷歌云盘上创建文件夹"></a>3.1在谷歌云盘上创建文件夹</h2><p>当登录账号进 入<a href="https://drive.google.com/drive/my-drive">谷歌云盘</a>时 ，系统会给予15G免费空间大小。由于Colab需要依靠谷歌云盘，故需要在云盘上新建一个文件夹。</p>
-<p>选择新建文件夹，文件夹名称可自定义。</p>
-<h2 id="3-2创建Colaboratory"><a href="#3-2创建Colaboratory" class="headerlink" title="3.2创建Colaboratory"></a>3.2创建Colaboratory</h2><p>进入创建好的文件夹，点开我的云盘-更多。<br><img src="https://img-blog.csdnimg.cn/20200420172221824.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>如果在更多栏里没有发现Colaboratory，选择关联更多应用，搜索Colaboratory，选择关联。</p>
-<h2 id="3-3创建完成"><a href="#3-3创建完成" class="headerlink" title="3.3创建完成"></a>3.3创建完成</h2><p>创建完成后，会自动生成一个jupyter笔记本</p>
-<h1 id="4、设置GPU运行"><a href="#4、设置GPU运行" class="headerlink" title="4、设置GPU运行"></a>4、设置GPU运行</h1><ul>
-<li>选择 修改-笔记本设置<br><img src="https://img-blog.csdnimg.cn/20200420172504794.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
-<li>将硬件加速器设置为GPU即可</li>
-</ul>
-<h1 id="5、运行-py文件"><a href="#5、运行-py文件" class="headerlink" title="5、运行.py文件"></a>5、运行.py文件</h1><h2 id="5-1安装必要库"><a href="#5-1安装必要库" class="headerlink" title="5.1安装必要库"></a>5.1安装必要库</h2><p>输入相应代码，并执行（crtl+F9）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">!apt-get install -y -qq software-properties-common python-software-properties module-init-tools<br>!add-apt-repository -y ppa:alessandro-strada&#x2F;ppa 2&gt;&amp;1 &gt; &#x2F;dev&#x2F;null<br>!apt-get update -qq 2&gt;&amp;1 &gt; &#x2F;dev&#x2F;null<br>!apt-get -y install -qq google-drive-ocamlfuse fuse<br>from google.colab import auth<br>auth.authenticate_user()<br>from oauth2client.client import GoogleCredentials<br>creds &#x3D; GoogleCredentials.get_application_default()<br>import getpass<br>!google-drive-ocamlfuse -headless -id&#x3D;&#123;creds.client_id&#125; -secret&#x3D;&#123;creds.client_secret&#125; &lt; &#x2F;dev&#x2F;null 2&gt;&amp;1 | grep URL<br>vcode &#x3D; getpass.getpass()<br>!echo &#123;vcode&#125; | google-drive-ocamlfuse -headless -id&#x3D;&#123;creds.client_id&#125; -secret&#x3D;&#123;creds.client_secret&#125;<br><br></code></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>运行后，先点开相应的链接，选择自己的谷歌账号，并允许，最后会得到相应的代码，输入相应的框中即可</p>
-</blockquote>
-<p><img src="https://img-blog.csdnimg.cn/20200420172555986.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="5-2-挂载云端硬盘"><a href="#5-2-挂载云端硬盘" class="headerlink" title="5.2 挂载云端硬盘"></a>5.2 挂载云端硬盘</h2><p>同上，输入下面命令，执行即可</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">!mkdir -p drive<br>!google-drive-ocamlfuse drive  -o nonempty<br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="5-3-安装Keras"><a href="#5-3-安装Keras" class="headerlink" title="5.3 安装Keras"></a>5.3 安装Keras</h2><p>同理，输入命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">!pip install -q keras<br></code></pre></td></tr></table></figure>
-
-
-
-<h1 id="6、训练自己的代码"><a href="#6、训练自己的代码" class="headerlink" title="6、训练自己的代码"></a>6、训练自己的代码</h1><h3 id="6-1上传项目代码到Google-云盘"><a href="#6-1上传项目代码到Google-云盘" class="headerlink" title="6.1上传项目代码到Google 云盘"></a>6.1上传项目代码到Google 云盘</h3><h3 id="6-2-将云盘代码拷贝至分配的虚拟目录"><a href="#6-2-将云盘代码拷贝至分配的虚拟目录" class="headerlink" title="6.2 将云盘代码拷贝至分配的虚拟目录"></a>6.2 将云盘代码拷贝至分配的虚拟目录</h3><figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">!cp -r dir1 dir2  #将目录dir1 拷贝至 目录dir2下<br></code></pre></td></tr></table></figure>
-
-<h3 id="6-3-使用python命令运行py脚本"><a href="#6-3-使用python命令运行py脚本" class="headerlink" title="6.3 使用python命令运行py脚本"></a>6.3 使用python命令运行py脚本</h3><figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">!python main.py<br></code></pre></td></tr></table></figure>
-
-<h3 id="6-4-注意事项"><a href="#6-4-注意事项" class="headerlink" title="6.4 注意事项"></a>6.4 注意事项</h3><ul>
-<li>Google 训练自己的代码，需要修改代码中有关路径的部分为绝对路径</li>
-<li>Google训练过程中不可关闭网页，不然会断开连接导致训练中断</li>
-</ul>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://medium.com/deep-learning-turkey/google-colab-free-gpu-tutorial-e113627b9f5d">https://medium.com/deep-learning-turkey/google-colab-free-gpu-tutorial-e113627b9f5d</a></p>
-<p><a href="https://blog.csdn.net/cocoaqin/article/details/79184540?depth_1-utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1&utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1#51%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E5%BA%93">Google Colab 免费GPU服务器使用教程</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/01/15/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<a id="more"></a>
-
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>图书查询系统</title>
-    <url>/2019/03/21/%E5%9B%BE%E4%B9%A6%E6%9F%A5%E8%AF%A2%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<p>@<a href="https://blog.csdn.net/qq_41971768/article/details/88713826">TOC</a></p>
-<h2 id="1、数据结构课程设计"><a href="#1、数据结构课程设计" class="headerlink" title="1、数据结构课程设计"></a>1、数据结构课程设计</h2><p><img src="https://img-blog.csdnimg.cn/20190321191903232.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="2、题目要求"><a href="#2、题目要求" class="headerlink" title="2、题目要求"></a>2、题目要求</h2><p><img src="https://img-blog.csdnimg.cn/20190321191311187.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-<h2 id="3、需求分析"><a href="#3、需求分析" class="headerlink" title="3、需求分析"></a>3、需求分析</h2><p><img src="https://img-blog.csdnimg.cn/20190321191323697.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="4、系统设计"><a href="#4、系统设计" class="headerlink" title="4、系统设计"></a>4、系统设计</h2><p><img src="https://img-blog.csdnimg.cn/20190321191335281.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="5、功能设计"><a href="#5、功能设计" class="headerlink" title="5、功能设计"></a>5、功能设计</h2><p><img src="https://img-blog.csdnimg.cn/20190321191345455.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="6、排序算法"><a href="#6、排序算法" class="headerlink" title="6、排序算法"></a>6、排序算法</h2><p><img src="https://img-blog.csdnimg.cn/20190321200528328.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2019032119144615.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="7、String比较方法"><a href="#7、String比较方法" class="headerlink" title="7、String比较方法"></a>7、String比较方法</h2><p><img src="https://img-blog.csdnimg.cn/20190321191458396.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="8、字典排序"><a href="#8、字典排序" class="headerlink" title="8、字典排序"></a>8、字典排序</h2><p><img src="https://img-blog.csdnimg.cn/20190321191508174.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="9、查找算法"><a href="#9、查找算法" class="headerlink" title="9、查找算法"></a>9、查找算法</h2><p><img src="https://img-blog.csdnimg.cn/20190321191516933.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190321191526847.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="10、IO流设计"><a href="#10、IO流设计" class="headerlink" title="10、IO流设计"></a>10、IO流设计</h2><p><img src="https://img-blog.csdnimg.cn/2019032119153711.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="11、存储结构"><a href="#11、存储结构" class="headerlink" title="11、存储结构"></a>11、存储结构</h2><p><img src="https://img-blog.csdnimg.cn/20190321191547185.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="12、类设计"><a href="#12、类设计" class="headerlink" title="12、类设计"></a>12、类设计</h2><p><img src="https://img-blog.csdnimg.cn/20190321191558641.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="13、类成员"><a href="#13、类成员" class="headerlink" title="13、类成员"></a>13、类成员</h2><p><img src="https://img-blog.csdnimg.cn/20190321191613567.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="14、结束"><a href="#14、结束" class="headerlink" title="14、结束"></a>14、结束</h2><p><img src="https://img-blog.csdnimg.cn/20190321191625111.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="15、源代码"><a href="#15、源代码" class="headerlink" title="15、源代码"></a>15、源代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">Book.java<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain"> import java.io.*;<br> import java.util.*;<br>public class Book implements Serializable&#123;  &#x2F;&#x2F;使用Serializable接口，使Book对象序列化，便于使用对象流存入文件。<br><br>	String[] attribute;<br>	static int amount;<br>    Scanner re&#x3D;new Scanner(System.in);<br>    &#x2F;*<br>     *主属性（primary attribute）：征订号<br>     *主码（primary key）：征订号<br>     *<br>     *<br>     ***属性****   **编号**<br>     *本季征订号      0	<br>     *分册	          1<br>     *出版社          2<br>     *ISBN			  3<br>     *书名			  4<br>     *著作者		  5<br>     *适用分级		  6<br>     *价格			  7<br>     *出版年月		  8<br>     *社内分类	      9<br>     *中图法分类	  10<br>     *学科分类编码	  11<br>     *学科分类1		  12<br>     *学科分类2		  13<br>     *<br>     *&#x2F;<br>	public void setAttribute(int i)&#123;<br>		this.attribute[i]&#x3D;re.next();<br>	&#125;<br>	<br>	public String getAttribute(int i)&#123;<br>		return this.attribute[i];<br>	&#125;<br>   	public Book()   &#123;  &#x2F;&#x2F;无参构造方法<br>   <br>   	&#125;<br>   	public Book(String[] s)&#123;<br>   		this.attribute&#x3D;new String[this.amount];       &#x2F;&#x2F;初始化该数组；长度为表头属性个数<br>   		for(int i&#x3D;0;i&lt;s.length;i++)&#123;<br>   			this.attribute[i]&#x3D;s[i];                   &#x2F;&#x2F;为该图书各个属性赋值<br>   		&#125;<br>   	&#125;<br>   	public void ruleToString()&#123;<br>   		System.out.println(&quot;\t       ***属性****    **属性值**\n&quot;);<br> 		System.out.println(&quot;\t       *本季征订号     &quot;+this.attribute[0]);<br> 		System.out.println(&quot;\t       *分册           &quot;+this.attribute[1]);<br> 		System.out.println(&quot;\t       *出版社         &quot;+this.attribute[2]);<br> 		System.out.println(&quot;\t       *ISBN           &quot;+this.attribute[3]);<br> 		System.out.println(&quot;\t       *书名           &quot;+this.attribute[4]);<br> 		System.out.println(&quot;\t       *著作者         &quot;+this.attribute[5]);<br> 		System.out.println(&quot;\t       *适用分级       &quot;+this.attribute[6]);<br> 		System.out.println(&quot;\t       *价格           &quot;+this.attribute[7]); 		<br> 		System.out.println(&quot;\t       *出版年月       &quot;+this.attribute[8]);<br> 		System.out.println(&quot;\t       *社内分类       &quot;+this.attribute[9]);<br> 		System.out.println(&quot;\t       *中图法分类     &quot;+this.attribute[10]);<br> 		System.out.println(&quot;\t       *学科分类编码   &quot;+this.attribute[11]);<br> 		System.out.println(&quot;\t       *学科分类1      &quot;+this.attribute[12]);<br> 		System.out.println(&quot;\t       *学科分类2      &quot;+this.attribute[13]);<br> 		System.out.println(&quot;\t-----------------------------&quot;);<br><br>   	&#125;<br>    public String toString()&#123;                         &#x2F;&#x2F;重写toString()方法<br> 			String str&#x3D;attribute[0];<br> 			for(int j&#x3D;1;j&lt;attribute.length;j++)&#123;<br> 				str&#x3D;str.concat(&quot;,&quot;);<br> 				str&#x3D;str.concat(attribute[j]);        &#x2F;&#x2F;将指定字符串连接到此字符串的结尾。<br> 			&#125;<br>    	return str;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">Lirary.java<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain"> import java.io.*;<br> import java.util.*;<br>public class Library&#123;<br>	Book []books;   			&#x2F;&#x2F;创建图书数组对象<br>	int amount;     			&#x2F;&#x2F;存入图书的种类数<br>	String f_Path;              &#x2F;&#x2F;当前图书库源文件路径<br>	String f_Name;				&#x2F;&#x2F;当前图书库源文件名称<br>	NormalComparator NC&#x3D;new NormalComparator();<br>    Scanner re&#x3D;new Scanner(System.in);<br>	Library() &#123;<br>		books &#x3D; new Book[1000];  &#x2F;&#x2F;定义图书数组长度为1000<br>		this.amount&#x3D;0;<br>	&#125;<br>&#x2F;&#x2F;求长度	<br>    public int length()&#123;<br>    	return this.amount;<br>    &#125;<br>&#x2F;&#x2F;堆排序  ：表头不参与排序<br>    &#x2F;&#x2F;将以low为根的子树调整成大顶堆，low、high是序列下界和上界<br>    public void sift(int low, int high,int w) &#123;<br>        int i &#x3D; low;                            &#x2F;&#x2F;子树的根<br>        int j &#x3D; 2 * i ;                         &#x2F;&#x2F;j为i结点的左孩子<br>        Book temp &#x3D; books[i];<br>        while (j&lt;high) &#123;  				    	&#x2F;&#x2F;沿较小值孩子结点向下筛选<br>            if (j&lt;high-1 &amp;&amp; (NC.compare(books[j].attribute[w],books[j + 1].attribute[w]))&lt;&#x3D;0) &#123; &#x2F;&#x2F;有右孩子<br>                j++; 							&#x2F;&#x2F;数组元素比较,j为左右孩子的较大者<br>            &#125;<br>            if (NC.compare(temp.attribute[w],books[j].attribute[w]) &lt;&#x3D; 0) &#123; &#x2F;&#x2F;若父母结点值较小<br>                books[i] &#x3D; books[j];            &#x2F;&#x2F;孩子结点中的较大值上移<br>                i &#x3D; j;<br>                j &#x3D; 2 * i ;<br>            &#125; else &#123;<br>                j &#x3D; high + 1;         			&#x2F;&#x2F;退出循环<br>            &#125;<br>        &#125;<br>        books[i] &#x3D; temp;                   		&#x2F;&#x2F;当前子树的原根值调整后的位置<br>    &#125;<br>    <br>    public void heapSort(int w) &#123;               &#x2F;&#x2F; w 为关键字属性对应编号<br>        int n &#x3D; this.amount;                    &#x2F;&#x2F;元素数<br>        Book temp;<br>        for (int i &#x3D; n&#x2F;2;i&gt;0;i--) &#123;             &#x2F;&#x2F;创建堆<br>            sift(i, n, w);<br>        &#125;<br>        for (int i&#x3D;n-1; i&gt;1;i--) &#123;              &#x2F;&#x2F;每趟将最大值交换到后面，再调整成堆<br>            temp &#x3D; books[1];<br>            books[1] &#x3D; books[i];<br>            books[i] &#x3D; temp;<br>            sift(1, i, w);<br>        &#125;<br>   &#125;<br>   <br>       <br>&#x2F;&#x2F;添加图书<br>	public void addBook(Book a_book) &#123;  &#x2F;&#x2F;添加图书<br>    	if(amount&#x3D;&#x3D;books.length)&#123;<br>    		Book[] B &#x3D; books;<br>    		books &#x3D; new Book[amount+500];	&#x2F;&#x2F;扩大可存储书目数量，每次扩容500<br>    		for(int j&#x3D;0;j&lt;B.length;j++)&#123;<br>    			books[j]&#x3D;B[j];<br>    		&#125;<br>    	&#125;<br>     	books[amount]&#x3D;a_book;<br>     	amount++;<br>	&#125;<br>	<br>	<br>	<br>&#x2F;&#x2F;删除图书<br>	public void del_Book(int i)&#123;<br>		if(i&gt;0&amp;&amp;i&lt;this.amount)&#123;<br>			this.books[i].toString();<br>			this.books[i]&#x3D;this.books[--this.amount];<br>		&#125;<br>		else<br>			System.out.println(&quot;使用了非法索引！&quot;);<br>	&#125;<br>	<br>	<br>&#x2F;&#x2F;修改图书<br>	public void alter_Book(int i,int w)&#123;       &#x2F;&#x2F;修改books[i]图书的第w个属性值<br>		if(i&gt;0&amp;&amp;i&lt;this.amount)&#123;<br>			this.books[i].attribute[w]&#x3D;re.next();<br>		&#125;<br>		else<br>			System.out.println(&quot;使用了非法索引！&quot;);<br>	&#125;	<br>&#x2F;&#x2F;查找图书（完整关键字查找） ：表头不参与查找<br>	&#x2F;*<br>	 *先排序  查找所在位置<br>	 *有序记录下的，折半查找：精确查找需要输入完整的属性值<br>	 *&#x2F;<br>  	public int binarySearch(String key,int w)&#123;<br> 		if(length()&gt;0)&#123;<br> 			int low&#x3D;1,high&#x3D;length()-1;<br> 			while(low&lt;&#x3D;high)&#123;<br> 				int n&#x3D;(low+high)&#x2F;2;<br> 				if((NC.compare(books[n].attribute[w],key))&#x3D;&#x3D;0)<br> 					return n;<br> 				else if((NC.compare(books[n].attribute[w],key))&gt;0)   &#x2F;&#x2F;关键字值小于中间值<br> 					high&#x3D;n-1;<br> 				else<br> 					low&#x3D;n+1;		<br> 			&#125;<br> 		&#125;<br> 		return -1;         &#x2F;&#x2F;查找不成功<br> 	&#125;<br> 	&#x2F;&#x2F;递归形式<br> 	public int binarySearch(int low,int high,String key,int w)&#123;<br>  		while(low&lt;&#x3D;high)&#123;<br> 			int n&#x3D;(low+high)&#x2F;2;<br> 			if((NC.compare(books[n].attribute[w],key))&#x3D;&#x3D;0)<br> 				return n;<br> 			else if((NC.compare(books[n].attribute[w],key))&gt;0)<br> 				return binarySearch(low,n-1,key,w);<br> 			else<br> 				return binarySearch(n+1,high,key,w);<br> 		&#125;<br> 		return -1;         &#x2F;&#x2F;查找不成功<br> 	&#125;<br> 	<br> 	  <br>&#x2F;&#x2F;查找图书（部分关键字查找）  ：表头不参与<br>	 <br>	 &#x2F;&#x2F;顺序查找   ：返回位置<br>	 public int seqSearch(String key,int w)&#123;<br>	 	int i&#x3D;0,n&#x3D;length();<br>	 	while((books[n].attribute[w].indexOf(key))&#x3D;&#x3D;-1)&#123;<br>	 		i++;<br>	 	&#125;<br>	 	if(i&lt;n)  return i;<br>	 	else    return -1;<br>	 &#125;<br>	 <br>	 <br>	 &#x2F;&#x2F;顺序查找所有     ：返回一个Lirary类型<br>	 public Library seqAllSearch(String key,int w)&#123;<br>	 	Library lib&#x3D;new Library();<br>	 	lib.addBook(this.books[0]);      &#x2F;&#x2F;将表头插入<br>	 	int i&#x3D;0,n&#x3D;length();<br>	 	while(i&lt;n)&#123;<br>		 	if((books[i].attribute[w].indexOf(key))!&#x3D;-1)&#123;<br>		 		lib.addBook(this.books[i]);<br>		 	&#125;<br>			i++;<br>	 	&#125;<br>	 	return lib;<br>	 &#125;<br>	 <br>	 <br>&#x2F;&#x2F;保存到源文件 	   <br>    public void save_File()&#123;<br>	    try&#123;<br>	    	Object_io io&#x3D;new Object_io();<br>	    	io.object_io_out(this,new File(this.f_Path.concat(this.f_Name)));<br>	      &#125;<br>	    catch(Exception e)&#123;<br>	    	System.out.print(e);<br>	    &#125;<br>    &#125;<br>&#x2F;&#x2F;另存为新文件    <br>    public void save_As_File(Library lib,String str)&#123;<br>	    try&#123;	<br>	    	Object_io io&#x3D;new Object_io();<br>	    	str&#x3D;str.concat(&quot;.csv&quot;);<br>	    	str&#x3D;lib.f_Path.concat(str);<br>	    	io.object_io_out(lib,new File(str));<br>	      &#125;<br>	    catch(Exception e)&#123;<br>	    	System.out.print(e);<br>	    &#125;	<br>    &#125;<br><br>&#125;<br> <br><br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">Menu.java<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain"> import java.io.*;<br> import java.util.*;<br>public class Menu&#123;<br>    Scanner re&#x3D;new Scanner(System.in);<br>	Library lib;<br>	boolean label;<br>	<br>	public Menu(Library lib)&#123;<br>		this.lib&#x3D;lib;<br>		this.label&#x3D;true;<br>		while(this.label)&#123;<br>			this.first_Meun();<br>		&#125;<br>	&#125;<br><br>&#x2F;&#x2F;主菜单<br>	public void first_Meun()&#123;<br>		System.out.println(&quot;\t&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;);<br> 		System.out.println(&quot;\t---------[ 主菜单 ]-----------&quot;);<br> 		System.out.println(&quot;\t[1]  插入图书：&quot;);<br> 		System.out.println(&quot;\t[2]  删除图书：&quot;);<br> 		System.out.println(&quot;\t[3]  修改图书：&quot;);<br> 		System.out.println(&quot;\t[4]  查询图书：&quot;);<br> 		System.out.println(&quot;\t[5]  排序图书：&quot;);<br> 		System.out.println(&quot;\t[6]  保存至源文件：&quot;);<br> 		System.out.println(&quot;\t[7]  另存为新文件：&quot;);<br> 		System.out.println(&quot;\t[0]  退出系统：&quot;);<br> 		System.out.println(&quot;\t-----------------------------&quot;);<br> 		System.out.print(&quot;\t请输入选项编号：&quot;);<br> 		int ser&#x3D;re.nextInt();<br> 		switch(ser)&#123;<br> 			case 1:this.insert_Book();break;<br> 			case 2:this.del_Book();break;<br> 			case 3:this.amend_Book();break;<br> 			case 4:this.search_Menu();break;<br> 			case 5:this.sort();break;<br> 			case 6:this.lib.save_File();break;<br> 			case 7:System.out.print(&quot;请输入新的文件名：&quot;);<br> 					String str&#x3D;re.next();<br> 					this.lib.save_As_File(this.lib,str);<br> 					break;<br> 			case 0:	System.out.println(&quot;请选择：[1]保存并退出；[2]直接退出；[3]取消退出&quot;);<br> 					int xu&#x3D;re.nextInt();<br> 					if(xu&#x3D;&#x3D;1) &#123;  this.lib.save_File();this.label&#x3D;false;break;	&#125;<br> 					if(xu&#x3D;&#x3D;2) &#123;  this.label&#x3D;false;break;	&#125;<br> 					if(xu&#x3D;&#x3D;3) &#123;  break;	&#125;<br> 					else  break;<br>            default:System.out.println(&quot;\t----无此选项!------&quot;);break;<br> 		&#125;			<br>	&#125;<br>&#x2F;&#x2F;查找子菜单<br>	public void search_Menu()&#123;<br>		System.out.println(&quot;\t&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;);<br> 		System.out.println(&quot;\t----------[ 查找 ]------------&quot;);<br> 		System.out.println(&quot;\t[1]  精确查找：&quot;);<br> 		System.out.println(&quot;\t[2]  模糊查找：&quot;);<br> 		System.out.println(&quot;\t-----------------------------&quot;);<br> 		System.out.print(&quot;\t请输入选项编号：&quot;);<br> 		int ser&#x3D;re.nextInt();<br> 		this.attribute_Meun();<br> 		switch(ser)&#123;<br> 			case 1:this.search_True();break;<br> 			case 2:this.search_Flase();break;<br>            default:System.out.println(&quot;\t----无此选项!------&quot;);break;<br> 		&#125;<br>	&#125;<br>&#x2F;&#x2F;属性菜单	<br>	public void attribute_Meun()&#123;<br>		System.out.println(&quot;\t&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;);<br> 		System.out.println(&quot;\t-----[ attribute_Meun ]-------&quot;);<br> 		System.out.println(&quot;\t       ***属性****   **编号**\n&quot;);<br> 		System.out.println(&quot;\t       *本季征订号      0&quot;);<br> 		System.out.println(&quot;\t       *分册            1&quot;);<br> 		System.out.println(&quot;\t       *出版社          2&quot;);<br> 		System.out.println(&quot;\t       *ISBN            3&quot;);<br> 		System.out.println(&quot;\t       *书名            4&quot;);<br> 		System.out.println(&quot;\t       *著作者          5&quot;);<br> 		System.out.println(&quot;\t       *适用分级        6&quot;);<br> 		System.out.println(&quot;\t       *价格            7&quot;); 		<br> 		System.out.println(&quot;\t       *出版年月        8&quot;);<br> 		System.out.println(&quot;\t       *社内分类        9&quot;);<br> 		System.out.println(&quot;\t       *中图法分类      10&quot;);<br> 		System.out.println(&quot;\t       *学科分类编码    11&quot;);<br> 		System.out.println(&quot;\t       *学科分类1       12&quot;);<br> 		System.out.println(&quot;\t       *学科分类2       13&quot;);<br> 		System.out.println(&quot;\t-----------------------------&quot;);<br>	&#125;<br>&#x2F;&#x2F;插入图书<br>	public void insert_Book()&#123;<br>		String []str&#x3D;new String[this.lib.books[0].attribute.length];<br>		this.attribute_Meun();<br>		System.out.println(&quot;请依次输入对应的属性值：&quot;);<br>		for(int i&#x3D;0;i&lt;str.length;i++)&#123;<br>			str[i]&#x3D;re.next();<br>		&#125;<br>		Book book&#x3D;new Book(str);<br>		this.lib.addBook(book);<br>	&#125;<br>&#x2F;&#x2F;删除<br>	public void del_Book()&#123;<br>		System.out.println(&quot;请输入要删除图书所在的位置：&quot;);<br>		int i&#x3D;re.nextInt();<br>		this.lib.books[i].ruleToString();<br>		this.lib.del_Book(i);<br>		System.out.println(&quot;已删除！&quot;);<br>	&#125;<br>&#x2F;&#x2F;修改<br>	public void amend_Book()&#123;<br>		System.out.println(&quot;请输入要修改图书所在的位置：&quot;);<br>		int i&#x3D;re.nextInt();<br>		int p&#x3D;1;;<br>		System.out.println(this.lib.books[i].toString());<br>		this.attribute_Meun();<br>		while(p&gt;&#x3D;0&amp;&amp;p&lt;this.lib.books[i].amount)&#123;<br>			System.out.println(&quot;请输入要修改的属性，对应的编号;输入-1 退出修改:&quot;);<br>			p&#x3D;re.nextInt();<br>			if(p!&#x3D;-1)&#123;<br>				System.out.println(&quot;请输入修改后的值：&quot;);<br>				this.lib.books[i].attribute[p]&#x3D;re.next();<br>			&#125;<br>		&#125;<br>		System.out.println(&quot;已修改为：&quot;);<br>		this.lib.books[i].ruleToString();<br>	&#125;<br>&#x2F;&#x2F;查询<br>	&#x2F;&#x2F;精确<br>	public void search_True()&#123;<br>		System.out.println(&quot;请输入要查询的属性编号：&quot;);<br>		int w&#x3D;re.nextInt();<br>		System.out.println(&quot;请输入要查询的属性值：&quot;);<br>		String str&#x3D;re.next();<br>		this.lib.heapSort(w);<br>		Library we&#x3D;new Library();                  &#x2F;&#x2F;查询结果保存到临时图书库<br>		we.f_Path&#x3D;this.lib.f_Path;                 &#x2F;&#x2F;设置默认路径<br>		we.addBook(this.lib.books[0]);             &#x2F;&#x2F;将表头添加进去<br>		NormalComparator NC&#x3D;new NormalComparator();<br>	    int mark&#x3D;this.lib.binarySearch(str,w);<br>	    int high&#x3D;mark++,low&#x3D;mark--;<br>		if(mark&#x3D;&#x3D;-1)&#123;<br>			System.out.println(&quot;未找到&quot;);<br>		&#125;<br>		else&#123;<br>			we.addBook(this.lib.books[mark]);<br>			while(low&gt;0&amp;&amp;(NC.compare(this.lib.books[low].attribute[w],str))&#x3D;&#x3D;0)<br>				we.addBook(this.lib.books[low--]);<br>			while(high&lt;this.lib.amount&amp;&amp;(NC.compare(this.lib.books[high].attribute[w],str))&#x3D;&#x3D;0)<br>				we.addBook(this.lib.books[high++]);<br>		&#125;<br>		str&#x3D;str.concat(&quot;_&quot;.concat(Integer.toString(we.amount)));<br>		str&#x3D;&quot;查找结果_&quot;.concat(str);<br>		lib.save_As_File(we,str);<br>		System.out.println(&quot;查询结果，已保存到文件；文件名为：&quot;+str);<br>	&#125;<br>	&#x2F;&#x2F;模糊<br>	public void search_Flase()&#123;<br>		System.out.println(&quot;请输入要查询的属性编号：&quot;);<br>		int w&#x3D;re.nextInt();<br>		System.out.println(&quot;请输入要查询的属性值：&quot;);<br>		String str&#x3D;re.next();<br>		Library we&#x3D;this.lib.seqAllSearch(str,w);<br>		we.f_Path&#x3D;this.lib.f_Path;<br>		str&#x3D;str.concat(&quot;_&quot;.concat(Integer.toString(we.amount)));<br>		str&#x3D;&quot;查找结果_&quot;.concat(str);<br>		lib.save_As_File(we,str);<br>		System.out.println(&quot;查询结果，已保存到文件；文件名为：&quot;+str);<br>	&#125;<br>&#x2F;&#x2F;排序<br>	public void sort()&#123;<br>		this.attribute_Meun();<br>		System.out.println(&quot;请输入作为排序条件的属性编号：&quot;);<br>		int w&#x3D;re.nextInt();<br>		this.lib.heapSort(w);<br>		String str&#x3D;this.lib.books[0].attribute[w];<br>		str&#x3D;str.concat(&quot;_&quot;.concat(Integer.toString(this.lib.amount)));<br>		str&#x3D;&quot;排序结果_&quot;.concat(str);<br>		this.lib.save_As_File(this.lib,str);<br>		System.out.println(&quot;查询结果，已保存到文件；文件名为：&quot;+str);<br>	&#125;<br>	<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">Object_io.java<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain"> import java.io.*;<br>public class Object_io &#x2F;&#x2F;对象流类<br> &#123;<br> 	int DB_Limit&#x3D;-1;      &#x2F;&#x2F;测试所用数据量<br> 	void object_io_out(Library lib,File file) throws Exception   &#x2F;&#x2F;向文件写入<br> 	&#123;<br> 		FileWriter outOne &#x3D; new FileWriter(file);<br> 		BufferedWriter outTwo&#x3D;new BufferedWriter(outOne);<br> 		for(int i&#x3D;0;i&lt;lib.amount;i++)&#123;<br> 			String[] s&#x3D;lib.books[i].attribute;<br> 			int j&#x3D;0;<br> 			String str&#x3D;s[j++];<br> 			for(;j&lt;s.length;j++)&#123;<br> 				str&#x3D;str.concat(&quot;,&quot;);<br> 				str&#x3D;str.concat(s[j]);    &#x2F;&#x2F;将指定字符串连接到此字符串的结尾。<br> 			&#125;<br> 			outTwo.write(str);           &#x2F;&#x2F;写入一行<br> 			outTwo.newLine();            &#x2F;&#x2F;写入换行<br> 		&#125;<br> 		outTwo.close();<br> 		outOne.close();<br> 	&#125;<br> 	void object_io_in(Library lib,File file) throws Exception   &#x2F;&#x2F;从文件读出<br> 	&#123;<br> 		FileReader inOne &#x3D; new FileReader(file);<br> 		BufferedReader inTwo&#x3D;new BufferedReader(inOne);<br> 		String strLine &#x3D; null;<br> 		int x&#x3D;0;                                        		&#x2F;&#x2F;读出的数据条数<br> 		while((strLine &#x3D; inTwo.readLine())!&#x3D;null)        		&#x2F;&#x2F;逐行读取<br> 		&#123;<br> 			String item[]&#x3D;strLine.split(&quot;,&quot;,14);         		&#x2F;&#x2F;分离每行数据,根据给定正则表达式的匹配拆分此字符串。<br> 			if(x&#x3D;&#x3D;0)   Book.amount&#x3D;item.length;                  &#x2F;&#x2F;将表头属性数量存入<br> 			if(item.length&#x3D;&#x3D;14)&#123;<br>	 			Book book&#x3D;new Book(item);<br>	 			lib.addBook(book);<br> 				x++;<br> 			&#125;<br> 			if(this.DB_Limit!&#x3D;-1&amp;&amp;x&gt;this.DB_Limit)  			&#x2F;&#x2F;判断是否存在数据上限要求<br>	 			 break;<br> 		&#125;<br> 		System.out.println(&quot;读取到的数据为&quot;+x+&quot;条;（包括表头）&quot;);<br> 		inOne.close();<br> 		inTwo.close();<br>  	&#125;<br> &#125;<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">NormalComparator.java<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">import java.util.Comparator;<br><br>&#x2F;*<br> *Collator 类执行区分语言环境的 String 比较。使用此类可为自然语言文本构建搜索和排序例程。 <br> *Collator 是一个抽象基类。其子类实现具体的整理策略。<br> *Java 平台目前提供了 RuleBasedCollator 子类，它适用于很多种语言。<br> *还可以创建其他子类，以处理更多的专门需要。 <br> *与其他区分语言环境的类一样，可以使用静态工厂方法 getInstance 来为给定的语言环境获得适当的 Collator 对象。<br> *如果需要理解特定整理策略的细节或者需要修改策略，只需查看 Collator 的子类即可。 <br> *下面的示例显示了如何使用针对默认语言环境的 Collator 比较两个字符串。<br> *<br> *<br> *&#x2F;<br>import java.text.RuleBasedCollator;<br>import java.text.Collator;<br>import java.util.Locale;<br>public class NormalComparator implements Comparator&lt;Object&gt; &#123;    <br>	&#x2F;*<br>	 *RuleBasedCollator 为 Collator 的子类<br>	 *&#x2F;<br>  <br>    RuleBasedCollator collator &#x3D; (RuleBasedCollator)Collator.getInstance(Locale.CHINA);&#x2F;&#x2F;public static final Locale CHINA 指定中国的语言环境<br>    <br>    &#x2F;*<br>     *比较用来排序的两个参数。根据第一个参数小于、等于或大于第二个参数分别返回负整数、零或正整数。<br>     *&#x2F;<br>    public int compare(Object o1, Object o2) &#123;<br>    return collator.compare(o1.toString(), o2.toString());<br><br>    &#125;<br>&#125;<br><br><br><br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">Date_s.java<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">import java.util.Date;&#x2F;&#x2F;导入日期类<br>import java.text.SimpleDateFormat;&#x2F;&#x2F;导入简单的日期格式类<br>public class Date_s&#123;<br>	public static String h_Date()&#123;  &#x2F;&#x2F;静态方法<br>    	long startTime &#x3D; System.currentTimeMillis();&#x2F;&#x2F;获取当前时间（以毫秒为单位）<br>    	Date time&#x3D;new Date(startTime);&#x2F;&#x2F;创建日期对象；Date t&#x3D;new Date(long ms)<br>    	String pattern&#x3D;&quot;yyyy&#x2F;MM&#x2F;dd  E HH:mm&quot;;&#x2F;&#x2F;创建字符型日期格式模板<br>    	SimpleDateFormat SDF&#x3D;new SimpleDateFormat(pattern);&#x2F;&#x2F;创建简单日期格式；以模板为参数<br>    	String timePattern&#x3D;SDF.format(time);<br>    	return timePattern;	<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">Main.java<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs plain">&#x2F;*<br> *主菜单<br> *&#x2F;<br> import java.io.*;<br> import java.util.*;<br>public class Main&#123;<br>	public static void main(String []args) throws Exception 	&#123;<br>    	Scanner re&#x3D;new Scanner(System.in);<br>        System.out.println(&quot;\n\n-------------------------欢迎来到图书查询系统------------------------\n&quot;);<br>            System.out.println(&quot;                       &quot;+Date_s.h_Date()+&quot;                          \n&quot;);<br>            System.out.println(&quot;   注意：在使用过程中，请保证系统正常退出；否则可能会出现数据丢失！  \n&quot;);<br>          System.out.println(&quot;\n   注意：本次为测试过程；请输入合适的测试数据量（1--6万）            \n&quot;);<br>            System.out.println(&quot;   \t\t谢谢配合！                                                    \n&quot;);<br>            System.out.println(&quot;                                            您可以进入系统了         \n\n&quot;);<br>		    System.out.print(&quot;请输入测试所用数据量：&quot;);<br>		    int max_data&#x3D;re.nextInt();<br>		Library lib&#x3D;new Library();<br>		Object_io io&#x3D;new Object_io();<br>		io.DB_Limit&#x3D;max_data;<br>		lib.f_Path&#x3D;&quot;Access\\Object\\&quot;;              &#x2F;&#x2F;当前图书库源文件路径<br>		lib.f_Name&#x3D;&quot;2019春教材书目数据_(源).csv&quot;;   &#x2F;&#x2F;当前图书库源文件名称<br>    	File  file&#x3D;new File(lib.f_Path.concat(lib.f_Name));<br>  		io.object_io_in(lib,file);<br>		Menu m&#x3D;new Menu(lib);<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="资源链接："><a href="#资源链接：" class="headerlink" title="资源链接："></a>资源链接：</h2><p>Github：<a href="https://github.com/kleinlsl/BookInquirySystem">here</a></p>
-<p>百度网盘：<a href="https://pan.baidu.com/s/1akeCc9VDpskhXKw1pFNQHg">https://pan.baidu.com/s/1akeCc9VDpskhXKw1pFNQHg</a><br>提取码：c4di </p>
 ]]></content>
   </entry>
 </search>
