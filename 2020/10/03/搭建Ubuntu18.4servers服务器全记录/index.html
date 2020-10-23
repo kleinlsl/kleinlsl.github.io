@@ -122,6 +122,8 @@
 </li>
 <li><p>MySql：<code>mysql -version</code></p>
 </li>
+<li><p>Redis： redis-server -v  </p>
+</li>
 <li><p>Tomcat：{待补充}</p>
 </li>
 <li><p>nginx：{待补充}</p>
@@ -241,7 +243,8 @@
 <ul>
 <li><p>环境管理：</p>
 </li>
-<li><h3 id="conda常用命令"><a href="#conda常用命令" class="headerlink" title="conda常用命令"></a>conda常用命令</h3><ul>
+<li><p>conda常用命令</p>
+<ul>
 <li>查看当前系统下的环境</li>
 </ul>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">conda info -e<br></code></pre></td></tr></table></figure>
@@ -289,7 +292,19 @@
 </ul>
 </li>
 </ul>
-<h3 id="2-4-Tomcat-：官网"><a href="#2-4-Tomcat-：官网" class="headerlink" title="2.4 Tomcat ：官网"></a>2.4 Tomcat ：<a target="_blank" rel="noopener" href="http://tomcat.apache.org/">官网</a></h3><ul>
+<h3 id="2-4-Redis环境配置-here"><a href="#2-4-Redis环境配置-here" class="headerlink" title="2.4 Redis环境配置:here"></a>2.4 Redis环境配置:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/pinuocao/p/12402225.html">here</a></h3><ul>
+<li><p>安装redis：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> sudo apt-get install redis-server</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>或者：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> wget http://download.redis.io/releases/redis-5.0.5.tar.gz</span><br>解压：tar -zxf redis-5.0.5.tar.gz<br>进入redis目录：cd redis-5.0.5<br>编译：make<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置：参照<a target="_blank" rel="noopener" href="https://www.cnblogs.com/pinuocao/p/12402225.html">here</a></p>
+</li>
+</ul>
+<h3 id="2-5-Tomcat-：官网"><a href="#2-5-Tomcat-：官网" class="headerlink" title="2.5 Tomcat ：官网"></a>2.5 Tomcat ：<a target="_blank" rel="noopener" href="http://tomcat.apache.org/">官网</a></h3><ul>
 <li><p>下载Tomcat 9.0.38:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">wget https://mirror.bit.edu.cn/apache/tomcat/tomcat-9/v9.0.38/bin/apache-tomcat-9.0.38.tar.gz<br></code></pre></td></tr></table></figure>
 </li>
@@ -397,7 +412,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="https://kleinlsl.github.io/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/" data-id="ckga9nt0i000w48vchfzecfmb" class="article-share-link">
+                                        <a data-url="https://kleinlsl.github.io/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/" data-id="ckgly2x8r0014covchbwk0yv4" class="article-share-link">
                                             Share
                                         </a>
                                         
