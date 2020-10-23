@@ -6,7 +6,7 @@
   <link href="https://kleinlsl.github.io/atom.xml" rel="self"/>
   
   <link href="https://kleinlsl.github.io/"/>
-  <updated>2020-10-23T09:56:26.734Z</updated>
+  <updated>2020-10-15T03:33:34.047Z</updated>
   <id>https://kleinlsl.github.io/</id>
   
   <author>
@@ -15,27 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="https://kleinlsl.github.io/2020/10/23/%E8%BF%9B%E7%A8%8B%E9%98%B2%E6%9D%80%E7%AC%94%E8%AE%B0/"/>
-    <id>https://kleinlsl.github.io/2020/10/23/%E8%BF%9B%E7%A8%8B%E9%98%B2%E6%9D%80%E7%AC%94%E8%AE%B0/</id>
-    <published>2020-10-23T01:34:07.740Z</published>
-    <updated>2020-10-23T09:56:26.734Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;进程防杀笔记&quot;&gt;&lt;a href=&quot;#进程防杀笔记&quot; class=&quot;headerlink&quot; title=&quot;进程防杀笔记&quot;&gt;&lt;/a&gt;进程防杀笔记&lt;/h1&gt;&lt;h2 id=&quot;Linux的信号量（signal）&quot;&gt;&lt;a href=&quot;#Linux的信号量（signal）&quot;</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
   
   <entry>
     <title>IDEA和maven配置多仓库的解决方案</title>
@@ -126,7 +105,7 @@
     <link href="https://kleinlsl.github.io/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/"/>
     <id>https://kleinlsl.github.io/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/</id>
     <published>2020-10-03T11:14:16.000Z</published>
-    <updated>2020-10-23T07:41:48.052Z</updated>
+    <updated>2020-10-23T10:01:59.343Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -145,6 +124,24 @@
 &lt;/ul&gt;
 &lt;p&gt;搭建Ubuntu18.04 Server 教程：&lt;a href=&quot;https://blog.csdn.net/qq_41971768/article/details/108908496&quot;&gt;VMware 安装 Ubuntu Server 18.04.5 LTS&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>进程防杀笔记</title>
+    <link href="https://kleinlsl.github.io/2020/10/03/%E8%BF%9B%E7%A8%8B%E9%98%B2%E6%9D%80%E7%AC%94%E8%AE%B0/"/>
+    <id>https://kleinlsl.github.io/2020/10/03/%E8%BF%9B%E7%A8%8B%E9%98%B2%E6%9D%80%E7%AC%94%E8%AE%B0/</id>
+    <published>2020-10-03T11:14:16.000Z</published>
+    <updated>2020-10-23T10:01:56.385Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;进程防杀笔记&quot;&gt;&lt;a href=&quot;#进程防杀笔记&quot; class=&quot;headerlink&quot; title=&quot;进程防杀笔记&quot;&gt;&lt;/a&gt;进程防杀笔记&lt;/h1&gt;&lt;h2 id=&quot;Linux的信号量（signal）&quot;&gt;&lt;a href=&quot;#Linux的信号量（signal）&quot; class=&quot;headerlink&quot; title=&quot;Linux的信号量（signal）&quot;&gt;&lt;/a&gt;Linux的信号量（signal）&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;信号是进程之间相互传递消息的一种方法，信号被称为软中断信号，是进程控制的一部分，用来通知进程发生了异步事件， 进程之间可以互相通过系统调用 &lt;code&gt;kill&lt;/code&gt; 发送软中断信号。&lt;/p&gt;
+&lt;p&gt;信号只是用来通知某进程发生了什么，并不给进程传递数据。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
