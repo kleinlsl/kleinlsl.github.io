@@ -79,25 +79,6 @@
   </entry>
   
   <entry>
-    <title>nCov项目总结文档</title>
-    <link href="https://kleinlsl.github.io/2020/10/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/"/>
-    <id>https://kleinlsl.github.io/2020/10/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/</id>
-    <published>2020-10-06T05:50:44.790Z</published>
-    <updated>2020-10-04T01:37:03.545Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;﻿&lt;a href=&quot;http://39.99.140.59:8002/&quot;&gt;TOC&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;通过Flask搭建web/Echarts可视化大屏，并定时获取数据。&lt;/p&gt;
-&lt;p&gt;参考视频：&lt;a href=&quot;https://www.bilibili.com/video/BV177411j7qJ?p=1&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;参考效果：&lt;a href=&quot;http://cov.aiiyx.cn/&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>Intellij  连接远程服务器代码实时同步</title>
     <link href="https://kleinlsl.github.io/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/"/>
     <id>https://kleinlsl.github.io/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/</id>
@@ -184,6 +165,25 @@
 
 &lt;h1 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot; title=&quot;一、前言&quot;&gt;&lt;/a&gt;一、前言&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;学校：许昌学院&lt;br&gt;学院：信息工程学院&lt;br&gt;实验环境：&lt;br&gt;操作系统：Linux (CentOS 6.7)   JDK版本：1.8 (8u161)   Hadoop版本：2.7.4&lt;br&gt;虚拟机：VMware Workstation Pro 15.5&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>nCov项目总结文档</title>
+    <link href="https://kleinlsl.github.io/2020/05/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/"/>
+    <id>https://kleinlsl.github.io/2020/05/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/</id>
+    <published>2020-05-06T03:14:16.000Z</published>
+    <updated>2020-10-24T13:04:16.358Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;﻿&lt;a href=&quot;http://39.99.140.59:8002/&quot;&gt;TOC&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;通过Flask搭建web/Echarts可视化大屏，并定时获取数据。&lt;/p&gt;
+&lt;p&gt;参考视频：&lt;a href=&quot;https://www.bilibili.com/video/BV177411j7qJ?p=1&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;参考效果：&lt;a href=&quot;http://cov.aiiyx.cn/&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;</summary>
     
     
     
