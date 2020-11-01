@@ -6,7 +6,7 @@
   <link href="https://kleinlsl.github.io/atom.xml" rel="self"/>
   
   <link href="https://kleinlsl.github.io/"/>
-  <updated>2020-10-26T03:56:59.750Z</updated>
+  <updated>2020-11-01T05:14:29.599Z</updated>
   <id>https://kleinlsl.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>auto.js蚂蚁森林收能量</title>
+    <link href="https://kleinlsl.github.io/2020/11/01/auto.js%E8%9A%82%E8%9A%81%E6%A3%AE%E6%9E%97%E6%94%B6%E8%83%BD%E9%87%8F/"/>
+    <id>https://kleinlsl.github.io/2020/11/01/auto.js%E8%9A%82%E8%9A%81%E6%A3%AE%E6%9E%97%E6%94%B6%E8%83%BD%E9%87%8F/</id>
+    <published>2020-11-01T11:14:16.000Z</published>
+    <updated>2020-11-01T05:14:29.599Z</updated>
+    
+    
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;在网上看了一些自动收能量的脚本&lt;/li&gt;
+&lt;li&gt;写了一个脚本&lt;/li&gt;
+&lt;li&gt;使用AutoJs运行&lt;ul&gt;
+&lt;li&gt;AutoJS下载地址 :&lt;a href=&quot;https://github.com/kleinlsl/auto_alipay/releases/download/auto_alipay_v1.0/Auto.js.apk&quot;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>进程防杀笔记</title>
