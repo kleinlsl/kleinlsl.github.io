@@ -1422,6 +1422,7 @@
     <content><![CDATA[<blockquote>
 <p>用VMware安装了Ubuntu service 18.04 ，刚开始给了30G磁盘空间，使用发现空间不够了，想对磁盘进行扩容。但是直接在VMware点击扩展后发现Ubuntu容量并没有变化，原因是需要在Ubuntu里面进行处理：对分区进行合并。</p>
 </blockquote>
+<p>&lt;!-more–&gt;</p>
 <h1 id="1、改变虚拟磁盘大小"><a href="#1、改变虚拟磁盘大小" class="headerlink" title="1、改变虚拟磁盘大小"></a>1、改变虚拟磁盘大小</h1><ul>
 <li>关闭Ubuntu</li>
 <li>右键—&gt;设置—&gt;硬盘—-&gt;实用工具—&gt;扩展 </li>
