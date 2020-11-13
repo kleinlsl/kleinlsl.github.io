@@ -402,17 +402,25 @@
 </ul>
 <h5 id="2-6-2-3-安装MySql示例"><a href="#2-6-2-3-安装MySql示例" class="headerlink" title="2.6.2.3 安装MySql示例"></a>2.6.2.3 安装MySql示例</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull mysql<br></code></pre></td></tr></table></figure>
 
-<p><strong>错误的启动</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">docker run --name mysql01 -d mysql<br></code></pre></td></tr></table></figure>
+<ul>
+<li>错误的启动</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run --name mysql01 -d mysql<br></code></pre></td></tr></table></figure>
 
-<p><strong>正确的启动</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">docker run --name mysql101 -e MYSQL_ROOT_PASSWORD&#x3D;123456 -d mysql<br></code></pre></td></tr></table></figure>
+<ul>
+<li>正确的启动</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run --name mysql101 -e MYSQL_ROOT_PASSWORD=123456 -d mysql<br></code></pre></td></tr></table></figure>
 
-<p><strong>做了端口映射</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">docker run -p3306:3306 --name mysql102 -e MYSQL_ROOT_PASSWORD&#x3D;123456 -d mysql<br></code></pre></td></tr></table></figure>
+<ul>
+<li>做了端口映射</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -p3306:3306 --name mysql102 -e MYSQL_ROOT_PASSWORD=123456 -d mysql<br></code></pre></td></tr></table></figure>
 
-<p><strong>几个其他的高级操作</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">docker run --name mysql03 -v &#x2F;conf&#x2F;mysql:&#x2F;etc&#x2F;mysq1&#x2F;conf.d -e MSQL_ROOT_PASSMORD&#x3D;my-secret-pw-d mysql:tag<br><br>把主机的&#x2F;conf&#x2F;mysql文件夹挂载到 mysqldocker容器的&#x2F;etc&#x2F;mysq1&#x2F;conf.d文件夹里面改mysql的配置文件就只需要把mysql配置文件放在自定义的文件夹下(&#x2F;conf&#x2F;mysql)<br><br>docker run --name some-mysql -e MYSQL_ROOT_PASSWORD&#x3D;my-secret-pw -d mysql:tag --character-set-server&#x3D;utf8mb4 --collation-server&#x3D;utf8mb4_unicode_ci<br>指定mysql的一些配置参数<br><br></code></pre></td></tr></table></figure>
+<ul>
+<li>几个其他的高级操作</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run --name mysql03 -v /conf/mysql:/etc/mysq1/conf.d -e MSQL_ROOT_PASSMORD=my-secret-pw-d mysql:tag<br><br><span class="hljs-meta">#</span><span class="bash"> 把主机的/conf/mysql文件夹挂载到 mysqldocker容器的/etc/mysq1/conf.d文件夹里面改mysql的配置文件就只需要把mysql配置文件放在自定义的文件夹下(/conf/mysql)</span><br><br>docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci<br><span class="hljs-meta">#</span><span class="bash"> 指定mysql的一些配置参数</span><br><br></code></pre></td></tr></table></figure>
 
 <h2 id="3、Linux系统目录结构"><a href="#3、Linux系统目录结构" class="headerlink" title="3、Linux系统目录结构"></a>3、Linux系统目录结构</h2><table>
 <thead>
