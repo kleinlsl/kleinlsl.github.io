@@ -6,7 +6,7 @@
   <link href="https://kleinlsl.github.io/atom.xml" rel="self"/>
   
   <link href="https://kleinlsl.github.io/"/>
-  <updated>2020-11-13T01:54:59.960Z</updated>
+  <updated>2020-11-13T02:00:14.494Z</updated>
   <id>https://kleinlsl.github.io/</id>
   
   <author>
@@ -21,17 +21,12 @@
     <link href="https://kleinlsl.github.io/2020/11/13/VM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%99Ubuntu%E6%A0%B9%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/"/>
     <id>https://kleinlsl.github.io/2020/11/13/VM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%99Ubuntu%E6%A0%B9%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/</id>
     <published>2020-11-13T01:14:16.000Z</published>
-    <updated>2020-11-13T01:54:59.960Z</updated>
+    <updated>2020-11-13T02:00:14.494Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;用VMware安装了Ubuntu service 18.04</summary>
-        
-      
+&lt;p&gt;用VMware安装了Ubuntu service 18.04 ，刚开始给了30G磁盘空间，使用发现空间不够了，想对磁盘进行扩容。但是直接在VMware点击扩展后发现Ubuntu容量并没有变化，原因是需要在Ubuntu里面进行处理：对分区进行合并。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
