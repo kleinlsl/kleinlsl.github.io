@@ -627,6 +627,84 @@
 
 </article>
         
+          <article id="post-VM虚拟机给Ubuntu根分区扩容" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/11/13/VM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%99Ubuntu%E6%A0%B9%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/">VMware 虚拟机给Ubuntu根分区扩容</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/11/13/VM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%99Ubuntu%E6%A0%B9%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/" class="article-date">
+  <time datetime="2020-11-13T01:14:16.000Z" itemprop="datePublished">2020-11-13</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <blockquote>
+<p>用VMware安装了Ubuntu service 18.04 ，刚开始给了30G磁盘空间，使用发现空间不够了，想对磁盘进行扩容。但是直接在VMware点击扩展后发现Ubuntu容量并没有变化，原因是需要在Ubuntu里面进行处理：对分区进行合并。</p>
+</blockquote>
+<h1 id="1、改变虚拟磁盘大小"><a href="#1、改变虚拟磁盘大小" class="headerlink" title="1、改变虚拟磁盘大小"></a>1、改变虚拟磁盘大小</h1><ul>
+<li>关闭Ubuntu</li>
+<li>右键—&gt;设置—&gt;硬盘—-&gt;实用工具—&gt;扩展 </li>
+<li>填入扩展后的分区大小</li>
+<li>确定</li>
+</ul>
+<h1 id="2、查看磁盘使用情况"><a href="#2、查看磁盘使用情况" class="headerlink" title="2、查看磁盘使用情况"></a>2、查看磁盘使用情况</h1><ul>
+<li><p>开启Ubuntu</p>
+</li>
+<li><p>输入：<code>df -h</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs shell">klein@klein:~$ df -h<br>Filesystem      Size  Used Avail Use% Mounted on<br>udev            955M     0  955M   0% /dev<br>tmpfs           198M  1.3M  196M   1% /run<br>/dev/sda2        30G   14G   15G  48% /<br>tmpfs           986M     0  986M   0% /dev/shm<br>tmpfs           5.0M     0  5.0M   0% /run/lock<br>tmpfs           986M     0  986M   0% /sys/fs/cgroup<br>/dev/loop0       98M   98M     0 100% /snap/core/10185<br>/dev/loop1      205M  205M     0 100% /snap/microk8s/1710<br>/dev/loop2       98M   98M     0 100% /snap/core/10126<br>/dev/loop3      205M  205M     0 100% /snap/microk8s/1769<br>tmpfs           198M     0  198M   0% /run/user/1000<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h1 id="3、在Ubuntu-shell进行分区扩容操作"><a href="#3、在Ubuntu-shell进行分区扩容操作" class="headerlink" title="3、在Ubuntu shell进行分区扩容操作"></a>3、在Ubuntu shell进行分区扩容操作</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs shell">klein@klein:~$ sudo fdisk /dev/sda<br><br>Welcome to fdisk (util-linux 2.31.1).<br>Changes will remain in memory only, until you decide to write them.<br>Be careful before using the write command.<br><br><span class="hljs-meta">#</span><span class="bash"> 打印查看分区划分情况</span><br>Command (m for help): p<br>Disk /dev/sda: 40 GiB, 42949672960 bytes, 83886080 sectors<br>Units: sectors of 1 * 512 = 512 bytes<br>Sector size (logical/physical): 512 bytes / 512 bytes<br>I/O size (minimum/optimal): 512 bytes / 512 bytes<br>Disklabel type: gpt<br>Disk identifier: BB1002CF-D749-4A1F-8DF7-EF0945D4DF0E<br><br>Device     Start      End  Sectors Size Type<br>/dev/sda1   2048     4095     2048   1M BIOS boot<br>/dev/sda2   4096 83886046 83881951  40G Linux filesystem<br><br><span class="hljs-meta">#</span><span class="bash"> 删除需要扩容的分区，这里是2，完成后不要执行 w 写入</span><br>Command (m for help): d<br>Partition number (1,2, default 2): 2<br><br><br>Command (m for help): p<br>Disk /dev/sda: 100 GiB, 107374182400 bytes, 209715200 sectors<br>Units: sectors of 1 * 512 = 512 bytes<br>Sector size (logical/physical): 512 bytes / 512 bytes<br>I/O size (minimum/optimal): 512 bytes / 512 bytes<br>Disklabel type: gpt<br>Disk identifier: 0976B291-839E-463D-BD05-936253587234<br><br>Device     Start   End Sectors Size Type<br>/dev/sda1   2048  4095    2048   1M BIOS boot<br><br><span class="hljs-meta">#</span><span class="bash"> 创建新分区，First和Last sector直接回车默认值，因为我是把剩下所有空闲的空间全部分配到扩容的新分区内</span><br><span class="hljs-meta">#</span><span class="bash"> 若是部分分配，请在Last sector输入对应的值</span><br>Command (m for help): n<br>Partition number (2-128, default 2):<br>First sector (4096-209715166, default 4096):<br>Last sector, +sectors or +size&#123;K,M,G,T,P&#125; (4096-209715166, default 209715166):<br><br>Created a new partition 2 of type &#x27;Linux filesystem&#x27; and of size 100 GiB.<br>Partition &#x27;#2&#x27; contains a ext4 signature.<br><br><span class="hljs-meta">#</span><span class="bash"> No</span><br>Do you want to remove the signature? [Y]es/[N]o: n<br><br><span class="hljs-meta">#</span><span class="bash"> 查看新分区</span><br>Command (m for help): p<br><br>Disk /dev/sda: 100 GiB, 107374182400 bytes, 209715200 sectors<br>Units: sectors of 1 * 512 = 512 bytes<br>Sector size (logical/physical): 512 bytes / 512 bytes<br>I/O size (minimum/optimal): 512 bytes / 512 bytes<br>Disklabel type: gpt<br>Disk identifier: 0976B291-839E-463D-BD05-936253587234<br><br>Device     Start       End   Sectors  Size Type<br>/dev/sda1   2048      4095      2048    1M BIOS boot<br>/dev/sda2   4096 209715166 209711071  100G Linux filesystem<br><br><span class="hljs-meta">#</span><span class="bash"> 确认无误后 w 写入操作</span><br>Command (m for help): w<br><br>The partition table has been altered.<br>Syncing disks.<br><br><span class="hljs-meta">#</span><span class="bash"> 需要重启</span><br>dev@dev:~$ sudo reboot<br></code></pre></td></tr></table></figure>
+
+<h1 id="4、执行扩容操作"><a href="#4、执行扩容操作" class="headerlink" title="4、执行扩容操作"></a>4、执行扩容操作</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 执行扩容操作</span><br>klein@klein:~$ sudo resize2fs /dev/sda2<br></code></pre></td></tr></table></figure>
+
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/11/13/VM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%99Ubuntu%E6%A0%B9%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/" data-id="ckhfli0az00006ovc2ozrb44x" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
           <article id="post-auto.js蚂蚁森林收能量" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
     <div class="article-inner">
@@ -684,96 +762,6 @@
                                             Share
                                         </a>
                                         
-                                    </footer>
-
-    </div>
-
-    
-
-                
-
-</article>
-        
-          <article id="post-Intellij  连接远程服务器代码实时同步" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-    <div class="article-inner">
-        
-            <header class="article-header">
-                
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/">Intellij  连接远程服务器代码实时同步</a>
-    </h2>
-  
-  
-
-
-
-
-            </header>
-            
-
-                
-                    <div class="article-meta">
-                        <a href="/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/" class="article-date">
-  <time datetime="2020-10-05T00:14:16.000Z" itemprop="datePublished">2020-10-05</time>
-</a>
-                            
-                    </div>
-                    
-
-                        
-
-                                    <div class="article-entry" itemprop="articleBody">
-                                        
-
-
-                                            
-  <div class="article-gallery">
-    <div class="article-gallery-photos">
-      
-        
-          <a class="article-gallery-img" href="/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/" rel="gallery_ckgly2x8b0007covcbrgr1p50">
-            <img src="/images/Title-photos/IMG_20200917_160921.jpg" itemprop="image">
-          </a>
-        
-      
-    </div>
-  </div>
-
-
-                                                
-                                                    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>使用IDEA 或 Pycharm等工具实现，连接远程服务器并实时同步代码。</p>
-<blockquote>
-<p>前提条件</p>
-<ul>
-<li>Intellij 产品需为专业版</li>
-<li>远程主机需能够远程登录</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>本文环境</p>
-<ul>
-<li>主机：windows 10 home</li>
-<li>远程服务器：Ubuntu 18.4 servers</li>
-<li>虚拟机：Vmware 15.5 pro</li>
-<li>其他软件：SecureCRT、Pycharm 2019.2(Professional Edition)</li>
-</ul>
-</blockquote>
-                                                        
-                                                            <a class="article-more-link" href="/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/">
-                                                                Read More...
-                                                            </a>
-                                                            
-                                                                
-                                    </div>
-                                    <footer class="article-footer">
-                                        <a data-url="https://kleinlsl.github.io/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/" data-id="ckgly2x8b0007covcbrgr1p50" class="article-share-link">
-                                            Share
-                                        </a>
-                                        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/" rel="tag">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vmware/" rel="tag">Vmware</a></li></ul>
-
                                     </footer>
 
     </div>
