@@ -122,9 +122,11 @@
 </li>
 <li><p>MySql：<code>mysql -version</code></p>
 </li>
-<li><p>Redis： redis-server -v  </p>
+<li><p>Redis： <code>redis-server -v</code>  </p>
 </li>
 <li><p>Tomcat：{待补充}</p>
+</li>
+<li><p>Docker：<code>docker -v</code></p>
 </li>
 <li><p>nginx：{待补充}</p>
 </li>
@@ -318,6 +320,101 @@
 <li><p>启动Tomcat： <code>./startup.sh </code></p>
 </li>
 </ul>
+<h3 id="2-6-Docker-环境安装"><a href="#2-6-Docker-环境安装" class="headerlink" title="2.6 Docker 环境安装"></a>2.6 Docker 环境安装</h3><p>安装参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/docker/ubuntu-docker-install.html">菜鸟教程</a></p>
+<ul>
+<li><p>查看Linux的IP地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ip addr<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用客户端连接Linux</p>
+</li>
+</ul>
+<h4 id="2-6-1-在Linux上安装docker"><a href="#2-6-1-在Linux上安装docker" class="headerlink" title="2.6.1 在Linux上安装docker"></a>2.6.1 <strong>在Linux上安装docker</strong></h4><p>步骤：</p>
+<ul>
+<li><p>检查内核版本，必须是3.10及以上：<code>uname -r</code></p>
+</li>
+<li><p>安装docker： <code>yum install docker</code>  或  <a target="_blank" rel="noopener" href="https://www.runoob.com/docker/ubuntu-docker-install.html">参考菜鸟教程</a></p>
+</li>
+<li><p>启动docker：<code>systemctl start docker</code></p>
+</li>
+<li><p>查看docker版本： <code>docker -v</code></p>
+</li>
+<li><p>开机启动docker: <code>systemctl enable docker</code></p>
+</li>
+<li><p>停止docker： <code>systemctl stop docker</code></p>
+</li>
+</ul>
+<h4 id="2-6-2-Docker常用命令-amp-操作"><a href="#2-6-2-Docker常用命令-amp-操作" class="headerlink" title="2.6.2 Docker常用命令&amp;操作"></a>2.6.2 <strong>Docker常用命令&amp;操作</strong></h4><p><strong>镜像操作</strong></p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>检索</td>
+<td>docker search 关键字 eg：docker search redis</td>
+<td>我们经常要去docker hub上检索镜像的详细信息，如镜像的tag</td>
+</tr>
+<tr>
+<td>拉取</td>
+<td>docker pull 镜像名:tag</td>
+<td>:tag是可选的，tag表示标签</td>
+</tr>
+<tr>
+<td>列表</td>
+<td>docker images</td>
+<td>查看所有的本地镜像</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>docker rmi images-id</td>
+<td>删除指定的本地镜像</td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a></p>
+<h4 id="2-6-3-容器操作"><a href="#2-6-3-容器操作" class="headerlink" title="2.6.3 容器操作"></a>2.6.3 容器操作</h4><p>软件镜像（QQ安装程序)—-运行镜像—-产生一个容器(正在运行的软件，运行的QQ) ;</p>
+<p>步骤：</p>
+<ul>
+<li>搜索镜像：<code>docker search tomcat</code></li>
+<li>拉取镜像：<code>docker pull tomcat</code></li>
+<li>根据镜像启动容器： <code>docker run --name mytomcat -d tomcat:latest</code></li>
+<li>查看运行中的容器：<code>docker ps</code></li>
+<li>停止运行中的容器：<code>docker stop 容器的id</code></li>
+<li>查看所有的容器： <code>docker ps -a</code></li>
+<li>启动容器： <code>docker start 容器id</code></li>
+<li>删除一个容器：<code>docker rm 容器id</code></li>
+<li>启动一个做了端口映射的tomcat： <code>docker run -d -p 8888:8080 tomcat</code><ul>
+<li>-d:后台运行</li>
+<li>-p：将主机端口映射到容器的一个端口   主机端口:容器内部端口</li>
+</ul>
+</li>
+<li>关闭Linux的防火墙：<ul>
+<li>查看防火墙状态：<code>service firewalld status</code></li>
+<li>关闭防火墙：<code>service firewalld stop</code></li>
+</ul>
+</li>
+<li>查看容器的日志： <code>docker logs container-name/container-id</code></li>
+<li>更多命令参看：[https: //docs.docker .com/engine/reference/commandline/docker/](https: //docs.docker .com/engine/reference/commandline/docker/)<ul>
+<li>可以参考每一个镜像的文档</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-6-4-安装MySql示例"><a href="#2-6-4-安装MySql示例" class="headerlink" title="2.6.4 安装MySql示例"></a>2.6.4 安装MySql示例</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull mysql<br></code></pre></td></tr></table></figure>
+
+<p><strong>错误的启动</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">docker run --name mysql01 -d mysql<br></code></pre></td></tr></table></figure>
+
+<p><strong>正确的启动</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">docker run --name mysql101 -e MYSQL_ROOT_PASSWORD&#x3D;123456 -d mysql<br></code></pre></td></tr></table></figure>
+
+<p><strong>做了端口映射</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">docker run -p3306:3306 --name mysql102 -e MYSQL_ROOT_PASSWORD&#x3D;123456 -d mysql<br></code></pre></td></tr></table></figure>
+
+<p><strong>几个其他的高级操作</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">docker run --name mysql03 -v &#x2F;conf&#x2F;mysql:&#x2F;etc&#x2F;mysq1&#x2F;conf.d -e MSQL_ROOT_PASSMORD&#x3D;my-secret-pw-d mysql:tag<br><br>把主机的&#x2F;conf&#x2F;mysql文件夹挂载到 mysqldocker容器的&#x2F;etc&#x2F;mysq1&#x2F;conf.d文件夹里面改mysql的配置文件就只需要把mysql配置文件放在自定义的文件夹下(&#x2F;conf&#x2F;mysql)<br><br>docker run --name some-mysql -e MYSQL_ROOT_PASSWORD&#x3D;my-secret-pw -d mysql:tag --character-set-server&#x3D;utf8mb4 --collation-server&#x3D;utf8mb4_unicode_ci<br>指定mysql的一些配置参数<br><br></code></pre></td></tr></table></figure>
+
 <h2 id="3、Linux系统目录结构"><a href="#3、Linux系统目录结构" class="headerlink" title="3、Linux系统目录结构"></a>3、Linux系统目录结构</h2><table>
 <thead>
 <tr>
