@@ -66,6 +66,8 @@
 
                         
                             
+    <div class="tocbot"></div>
+
 
 
 
@@ -79,7 +81,60 @@
                                             
 
                                                 
-                                                                    
+                                                                    <h2 id="1、Java-基础"><a href="#1、Java-基础" class="headerlink" title="1、Java 基础"></a>1、Java 基础</h2><ul>
+<li><p>Java 的三大特性：封装、继承、多态</p>
+</li>
+<li><p>Java 语言的特点：平台无关性、面向对象、简单实用、多线程、安全可靠等</p>
+</li>
+<li><p>Java 的基本数据类型：<code>byte、short、int、double、float、long、boolean、char</code></p>
+</li>
+<li><p><code>==</code> 与 <code>equals</code> 的区别？</p>
+<ul>
+<li>== 比较的是两个对象的内存地址是否相同</li>
+<li>equals 对于基本数据类型比较的是内存地址，对于复杂数据类型比较的是值。</li>
+</ul>
+</li>
+<li><p><strong>Java 中的 <code>Math.round(-1.5)</code> 等于多少？</strong></p>
+<ul>
+<li>答：<code>-1</code>  。<code>round()</code> 是在原数值的基础上加 0.5 ；向下取整。</li>
+</ul>
+</li>
+<li><p>String 属于基础的数据类型吗？</p>
+<ul>
+<li>答： 不属于。 String 内部是<code>final</code> 修饰的字符数组。</li>
+</ul>
+</li>
+<li><p>Java 中操作字符串都有那些类？有什么区别？</p>
+<ul>
+<li>答： <code>String、StringBuffer、StringBuilder</code> ; <ul>
+<li>三者都是使用final修饰的类，不能被继承。</li>
+<li>String中的字符数组使用final修饰，线程安全；<code>StringBuffer</code>中的方法使用<code>synchronized</code>修饰，线程安全；<code>StringBuilder</code> 线程不安全。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>普通类和抽象类有什么区别？</strong></p>
+<ul>
+<li>修饰符：抽象类使用abstract修饰</li>
+<li>抽象方法：抽象类可以包含抽象方法，普通类不能有抽象方法。</li>
+<li>实例化：抽象类不能直接实例化</li>
+</ul>
+</li>
+<li><p><strong>什么是抽象方法？</strong></p>
+<ul>
+<li>抽象方法必须写在抽象类中，抽象方法的方法名使用<code>abstract</code>修饰，没有方法体。</li>
+</ul>
+</li>
+<li><p><strong>抽象类和接口对比？</strong></p>
+<ul>
+<li>类名修饰符：abstract、interface</li>
+<li>是否实例化：都不可以实例化</li>
+<li>继承性：（类）单继承，（接口）多实现</li>
+<li>构造器和方法：抽象类可以有构造器、抽线和非抽象方法；接口只能有抽象方法。</li>
+</ul>
+</li>
+</ul>
+
                                                                         
                                     </div>
                                     <footer class="article-footer">
