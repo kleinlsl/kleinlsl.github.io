@@ -700,7 +700,7 @@
 <ul>
 <li><p>检查内核版本，必须是3.10及以上：<code>uname -r</code></p>
 </li>
-<li><p>安装docker： <code>yum install docker</code>  或  <a href="https://www.runoob.com/docker/ubuntu-docker-install.html">参考菜鸟教程</a></p>
+<li><p>安装docker： <code>yum install docker</code>  或  <a href="https://www.runoob.com/docker/ubuntu-docker-install.html">参考菜鸟教程</a>  、<a href="https://blog.csdn.net/sun_hui_/article/details/100581161">使用阿里云镜像</a></p>
 </li>
 <li><p>启动docker：<code>systemctl start docker</code></p>
 </li>
@@ -2764,6 +2764,19 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>hexo+github搭建个人博客</title>
+    <url>/2020/01/14/Java%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+        <tag>MySql</tag>
+      </tags>
   </entry>
   <entry>
     <title>图书查询系统</title>
