@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="个人简单博客">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    nCov项目总结文档 |
+    
+    月色很柔</title>
+  
+    <link rel="shortcut icon" href="/images/hexo.svg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="月色很柔" type="application/atom+xml">
+</head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-nCov项目总结文档" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      nCov项目总结文档
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/05/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/" class="article-date">
+  <time datetime="2020-05-06T03:14:16.000Z" itemprop="datePublished">2020-05-06</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <p>﻿<a target="_blank" rel="noopener" href="http://39.99.140.59:8002/">TOC</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通过Flask搭建web/Echarts可视化大屏，并定时获取数据。</p>
+<p>参考视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV177411j7qJ?p=1">here</a></p>
+<p>参考效果：<a target="_blank" rel="noopener" href="http://cov.aiiyx.cn/">here</a></p>
+<blockquote>
+<span id="more"></span>
+</blockquote>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>基于Python+Flask+Echarts的Epidemic监控系统，主要技术路线如下：</p>
+<ul>
+<li><p>Python爬虫</p>
+</li>
+<li><p>Python操作MySql数据库</p>
+</li>
+<li><p>使用Flask构建web项目</p>
+</li>
+<li><p>基于Echarts的数据可视化展示</p>
+</li>
+<li><p>在Linux上部署web项目以及定时获取数据</p>
+</li>
+<li><p>nCov数据可视化大屏流程：</p>
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200607183134565.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70#pic_center%EF%BC%8C%22" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>项目结构安排：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs shell">├── app.py    #Flask启动文件<br>├── chromedriver_win32    #chrome浏览器驱动<br>│   └── chromedriver.exe<br>├── db.py     #数据库连接配置<br>├── log       #存放爬虫日志<br>│   └── log_his<br>├── __pycache__<br>│   ├── app.cpython-36.pyc<br>│   ├── db.cpython-36.pyc<br>│   └── utils.cpython-36.pyc<br>├── requirements.txt    #收集到的依赖包<br>├── sh		 #shell脚本用于快速启动爬虫<br>│   ├── start_by_gunicorn.sh<br>│   ├── up_det.sh<br>│   ├── up_his.sh<br>│   └── up_hot.sh<br>├── spider.py  #爬虫文件<br>├── sqlfile    #相应的数据库脚本文件<br>│   ├── 000-details.sql<br>│   ├── 001-history.sql<br>│   ├── 002-hotsearch.sql<br>│   ├── 003-word.sql<br>│   ├── cov.sql<br>│   └── getCityTop5.sql<br>├── static    #静态资源<br>│   ├── css<br>│   │   └── main.css<br>│   │   └── word.css<br>│   ├── image<br>│   │   ├── bgg.png<br>│   │   ├── footer.png<br>│   │   ├── icon.jpg<br>│   │   └── header.png<br>│   └── js<br>│       ├── api<br>│       │   └── Tencent_api.js<br>│       ├── china.js<br>│       ├── controller.js<br>│       ├── ec_center.js<br>│       ├── echarts.min.js<br>│       ├── ec_left1.js<br>│       ├── ec_left2.js<br>│       ├── ec_right1.js<br>│       ├── ec_right2.js<br>│       ├── jquery.js<br>│       ├── word<br>│       │   ├── controller_w.js<br>│       │   ├── ecc_world.js<br>│       │   ├── ec_world.js<br>│       │   ├── vintage.js<br>│       │   └── world.js<br>│       └── worldcloud.js<br>├── templates<br>│   ├── word.html<br>│   └── index.html   # 主页面<br>└── utils.py   #工具脚本，获取MySQL数据<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h2><ul>
+<li><p>数据获取可以从各地区卫健委获取，也可通过腾讯、百度、天行数据的免费接口或网易实时数据接口。</p>
+</li>
+<li><p>本文采用腾讯数据和百度的热搜数据进行存储</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">self.url1 = <span class="hljs-string">&quot;https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5&quot;</span>   <span class="hljs-comment">#实时数据</span><br>self.url2 = <span class="hljs-string">&quot;https://view.inews.qq.com/g2/getOnsInfo?name=disease_other&quot;</span>  <span class="hljs-comment">#历史数据</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">self.url = <span class="hljs-string">&quot;https://voice.baidu.com/act/virussearch/virussearch?from=osari_map&amp;tab=0&amp;infomore=1&quot;</span>   <span class="hljs-comment">#百度热搜数据页面</span><br></code></pre></td></tr></table></figure>
+
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">self.url3 = <span class="hljs-string">&quot;https://api.inews.qq.com/newsqa/v1/automation/foreign/country/ranklist&quot;</span> <span class="hljs-comment">#腾讯国外数据接口，实时。国家：182</span><br>self.url4 = <span class="hljs-string">&quot;https://voice.baidu.com/newpneumonia/get?target=trend&amp;isCaseIn=1&amp;stage=publish&quot;</span> <span class="hljs-comment">#百度国外数据接口，至前一日。国家：207</span><br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>思路：分别在spider.py中创建：Word_data、Tencent_Data 和 Badidu_Hot 类用于操作爬取数据，并将爬取到的数据预处理后存入MySQL数据库。</p>
+</li>
+<li><p>数据存储：创建details、history、hotsearch、word表，用于存储爬取到的数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> details<br>(<br>	id <span class="hljs-type">int</span> auto_increment comment <span class="hljs-string">&#x27;主键自增长&#x27;</span><br>		<span class="hljs-keyword">primary</span> key,<br>	update_time datetime <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;更新时间&#x27;</span>,<br>	province <span class="hljs-type">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;省份&#x27;</span>,<br>	city <span class="hljs-type">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;城市&#x27;</span>,<br>	confirm <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;累计确诊&#x27;</span>,<br>	confirm_add <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;新增确诊&#x27;</span>,<br>	heal <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;治愈&#x27;</span>,<br>	dead <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;死亡&#x27;</span><br>)<br>comment <span class="hljs-string">&#x27;详细数据&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs sql"> <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> history<br> (<br>  	ds datetime <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;日期&#x27;</span><br>  		<span class="hljs-keyword">primary</span> key,<br>  	confirm <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;累积确诊&#x27;</span>,<br>  	confirm_add <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;新增确诊&#x27;</span>,<br>  	suspect <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;疑似&#x27;</span>,<br>  	suspect_add <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;新增疑似&#x27;</span>,<br>  	heal <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;治愈&#x27;</span>,<br>  	heal_add <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;新增治愈&#x27;</span>,<br>  	dead <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;死亡&#x27;</span>,<br>  	dead_add <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;新增死亡&#x27;</span>,<br>  	importedCase <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;累计境外输入&#x27;</span>,<br>  	importedCase_add <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;新增境外输入&#x27;</span><br>)<br> comment <span class="hljs-string">&#x27;历史数据记录&#x27;</span>;<br><br></code></pre></td></tr></table></figure>
+
+   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> hotsearch<br>(<br> 	id <span class="hljs-type">int</span> auto_increment,<br> 	dt datetime <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;时间&#x27;</span>,<br> 	content <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;内容&#x27;</span>,<br><span class="hljs-keyword">primary</span> key (id, dt)<br>)<br>comment <span class="hljs-string">&#x27;百度热搜数据&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> word<br> (<br>  	id <span class="hljs-type">int</span> auto_increment<br>  		<span class="hljs-keyword">primary</span> key,<br>  	name <span class="hljs-type">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">null</span>,<br>  	update_time datetime <span class="hljs-keyword">null</span>,<br>  	confirm_add <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;新增确诊&#x27;</span>,<br>  	confirm <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;累计确诊&#x27;</span>,<br>  	heal <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;治愈&#x27;</span>,<br>  	dead <span class="hljs-type">int</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;死亡&#x27;</span><br> )<br> comment <span class="hljs-string">&#x27;世界数据&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+
+
+
+</li>
+</ul>
+<h2 id="Web程序开发-可视化展示"><a href="#Web程序开发-可视化展示" class="headerlink" title="Web程序开发:可视化展示"></a>Web程序开发:可视化展示</h2><ul>
+<li><p>通过Flask、h5和Echarts进行可视化的开发，前端页面数据获取通过Ajax进行请求，并通过js给Echarts组件赋值展示。</p>
+</li>
+<li><p>主界面：index.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>ncov<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/jquery.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/echarts.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/china.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/worldcloud.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;../static/css/main.css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> /&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;gyroContain&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;data&quot;</span>&gt;</span><span class="hljs-comment">&lt;!--其他信息--&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>CSDN<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>                    <span class="hljs-symbol">&amp;nbsp;</span>|<span class="hljs-symbol">&amp;nbsp;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>世界Epidemic实时追踪<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>                    数据来源 : 腾讯 &amp; 百度<br>                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;title&quot;</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>全国Epidemic实时跟踪<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;time&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;footer&quot;</span>&gt;</span><span class="hljs-comment">&lt;!--页面低端--&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;l1&quot;</span>&gt;</span>我是左1<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;l2&quot;</span>&gt;</span>我是左2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;c1&quot;</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;num&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;num1&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;num&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;num2&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;num&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;num3&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;num&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;num4&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;txt&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>累积确诊<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;txt&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>剩余疑似<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;txt&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>累积治愈<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;txt&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>累积死亡<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;c2&quot;</span>&gt;</span>我是中2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;r1&quot;</span>&gt;</span>我是右1<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;r2&quot;</span>&gt;</span>我是右2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_center.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_left1.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_left2.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_right1.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/ec_right2.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/controller.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>效果展示：（若需要更好的界面，需通过css进行控制）<br><img src="https://img-blog.csdnimg.cn/2020061211292474.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+<li><p>word.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>nCov—word<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;icon&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;../static/image/icon.jpg&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;../static/css/word.css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/jquery.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/echarts.min.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/vintage.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/world.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/controller_w.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;gyroContain&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;area&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://aiiyx.cn&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;_blank&quot;</span>&gt;</span>博客<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>            <span class="hljs-symbol">&amp;nbsp;</span>|<span class="hljs-symbol">&amp;nbsp;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;_blank&quot;</span>&gt;</span>中国Epidemic实时追踪<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            数据来源：百度 &amp; 腾讯<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;tit&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>世界Epidemic实时追踪<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;tim&quot;</span>&gt;</span> 标题<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;left&quot;</span>&gt;</span> left<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;right&quot;</span>&gt;</span> right<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/ecc_world.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../static/js/word/ec_world.js&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>效果展示：<br><img src="https://img-blog.csdnimg.cn/20200612113338315.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<h2 id="项目部署"><a href="#项目部署" class="headerlink" title="项目部署"></a>项目部署</h2><p>项目部署需要一台Linux服务器，可选择Aliyun服务器或是使用Vmware 创建一台服务器均可。本文采用Vmware创建一台Ubuntu servers 18.4服务器。</p>
+<blockquote>
+<p>1、安装Vmware的教程网上挺多的，自行百度。</p>
+<p>2、安装Ubuntu servers 18.4推荐参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/tjsxin/article/details/93199595?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase">Ubuntu 18.04 LTS Server服务器安装图文教程</a></p>
+<p>3、安装conda、并创建虚拟环境推荐参考：</p>
+<p> <strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/fengleqi/article/details/80752751">Ubuntu安装conda —–01</a></strong></p>
+<p><strong><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/22678445">Ubuntu安装conda —–02</a></strong> </p>
+<p>4、安装文件上载工具：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">安装命令：yum install lrzsz -y<br><br>使用命令：rz<br></code></pre></td></tr></table></figure>
+
+<p>5、将项目上载至Ubuntu服务器</p>
+<p>6、Ubuntu安装MySQL，并配置远程连接，创建项目所需数据库</p>
+</blockquote>
+<h3 id="开发者模式部署"><a href="#开发者模式部署" class="headerlink" title="开发者模式部署"></a>开发者模式部署</h3><blockquote>
+<p>开发者模式部署，是正式上线前的测试部署，可以调试项目是否正常。</p>
+</blockquote>
+<blockquote>
+<p>1、安装项目依赖库</p>
+<p>2、更改db.py中的数据库连接配置</p>
+<p>3、运行spider.py进行一次爬虫获取数据</p>
+<p>4、运行app.py运行项目</p>
+<p>5、通过Windows浏览器访问web页面</p>
+</blockquote>
+<h3 id="生产模式部署"><a href="#生产模式部署" class="headerlink" title="生产模式部署"></a>生产模式部署</h3><blockquote>
+<p>部署Flask应用时，通常使用WSGI的应用服务器搭配Nginx作为反向代理</p>
+</blockquote>
+<blockquote>
+<p>常用的WSGI服务器：gunicorn、uwsgi</p>
+</blockquote>
+<blockquote>
+<p>正向和反向代理：<br><img src="https://img-blog.csdnimg.cn/20200607183645951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<h4 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h4><blockquote>
+<p>静态服务器、动态服务、反向代理、负载均衡、缓存服务 </p>
+</blockquote>
+<ul>
+<li><p>apt安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo apt install nginx<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>文件位置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">/usr/sbin/nginx    :主程序<br>/etc/nginx         :配置文件<br>/usr/share/nginx   :存放静态文件<br>/var/log/nginx     :存放日志<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>nginx命令：<a target="_blank" rel="noopener" href="http://www.linuxboy.net/nginxjc/143285.html">here</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">service nginx start # 启动nginx<br>service nginx reload # 重新加载nginx配置文件<br>nginx -s reopen # 重启nginx<br>nginx -s stop # 停止nginx<br>nginx -v # 查看版本号<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置可参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35571554/article/details/82848227?utm_medium=distribute.pc_relevant.none-task-blog-baidujs-1">here</a></p>
+<blockquote>
+<p>cd /etc/nginx/  ,备份nginx.conf,修改nginx.conf </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment"># 此处开始为配置反向代理</span></span><br>       upstream mysvr &#123;<br>               server 127.0.0.1:5000; ## 服务器地址1<br>       &#125;<br>       # error_page 404 /404.html<br><br>       server  &#123;<br>               # keepalive_requests 120;<br>               listen 8080; ## nginx监听端口号<br>               server_name 192.168.121.139;   #cn.nCov.com; ## nginx监听服务器名称(本机ip或域名)<br>               location / &#123;<br>                       proxy_pass http://mysvr;<br>               &#125;<br>       &#125;<br>       ## 设置反向代理结束<br></code></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/2020060718355055.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>注： 查看有关nginx的所有目录列表，输入命令  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">rpm -ql nginx<br></code></pre></td></tr></table></figure>
+
+<p> 可以查看有关nginx目录信息，但是注意 这种命令只能是在基于yun安装的方式才可以。 </p>
+</blockquote>
+<p>1、安装 Gunicorn:  (python虚拟环境下)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip install gunicorn<br></code></pre></td></tr></table></figure>
+
+<p>2、启动 Gunicorn：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">gunicorn -b 127.0.0.1:8080 -D app:app<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>编写脚本执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">! /bin/bash</span><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov #env_nCov是conda创建的虚拟环境<br>cd /home/klein/workspace/nCOV/<br>gunicorn -b 127.0.0.1:5000 -D app:app<br></code></pre></td></tr></table></figure>
+<p>-w: 表示进程（worker）<br>-b: 表示绑定ip地址和端口号（bind）<br>-D: 以守护进程的形式启动，后台启动</p>
+</blockquote>
+<blockquote>
+<p>例：gunicorn -w 2 -b 127.0.0.1:5000 运行文件名称:Flask程序实例名</p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/y472360651/article/details/78538188">更多gunicorn配置链接</a></p>
+</blockquote>
+<blockquote>
+<p>查看后台进程：ps -ef | grep gunicorn</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cutesnow/p/10609267.html">gunicorn开启、关闭和重启</a></p>
+<p>查询：首先执行如下命令获取Gunicorn进程树：</p>
+<p>pstree -ap|grep gunicorn</p>
+<p>关闭：首先执行如下命令获取Gunicorn进程树：</p>
+<p>pstree -ap|grep gunicorn</p>
+<p>之后输入如下指令关闭进程：</p>
+<p>kill -9 pid</p>
+<p>重启：输入如下指令重启进程：</p>
+<p>kill -HUP pid</p>
+</blockquote>
+<p>3、启动 Nginx在Windows下测试</p>
+</li>
+</ul>
+<h4 id="定时获取数据"><a href="#定时获取数据" class="headerlink" title="定时获取数据"></a>定时获取数据</h4><ul>
+<li><p>Ubuntu安装chrome：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bface5e5a71e">here</a></p>
+</li>
+<li><p> <strong>ubuntu三行命令安装chrome浏览器</strong> : <a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/58040">https://yq.aliyun.com/articles/58040</a> </p>
+</li>
+<li><p>Ubuntu安装google Driver：<a target="_blank" rel="noopener" href="https://blog.csdn.net/blueheart20/article/details/81566903">https://blog.csdn.net/blueheart20/article/details/81566903</a> </p>
+</li>
+<li><p> CENTOS7下使用SELENIUM进行网页自动化访问:<a target="_blank" rel="noopener" href="http://aiiyx.cn/wz/1605/">http://aiiyx.cn/wz/1605/</a> </p>
+</li>
+<li><p>编写虫子脚本：</p>
+<ul>
+<li>up_his.sh</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span><br><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov  #env_nCov是conda创建的虚拟环境<br>python3 /home/klein/workspace/nCOV/spider.py up_his &gt;&gt; /home/klein/workspace/nCOV/log/log_his<br><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>up_hot.sh</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span><br><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov  #env_nCov是conda创建的虚拟环境<br>python3 /home/klein/workspace/nCOV/spider.py up_hot &gt;&gt; /home/klein/workspace/nCOV/log/log_hot<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>up_det.sh</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span><br><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov  #env_nCov是conda创建的虚拟环境<br>python3 /home/klein/workspace/nCOV/spider.py up_det &gt;&gt; /home/klein/workspace/nCOV/log/log_det<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>up_word.sh</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span><br><br>source /Anaconda/ls/envs/env_nCov/bin/activate env_nCov  #env_nCov是conda创建的虚拟环境<br>python3 /home/klein/workspace/nCOV/spider.py up_word &gt;&gt; /home/klein/workspace/nCOV/log/log_word<br><br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>使用crontab定时虫子任务: <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_38109046/article/details/87918111">https://blog.csdn.net/m0_38109046/article/details/87918111</a> </p>
+</li>
+<li><p>输入：crontab -e</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">30 * * * * bash /home/klein/workspace/nCOV/sh/up_his.sh 2&gt;&amp;1 &amp;<br>3 */2 * * * bash /home/klein/workspace/nCOV/sh/up_hot.sh 2&gt;&amp;1 &amp;<br>*/5 * * * * bash /home/klein/workspace/nCOV/sh/up_det.sh 2&gt;&amp;1 &amp;<br>* 1,5,9,13,17,21 * * * bash /home/klein/workspace/nCOV/sh/up_word.sh 2&gt;&amp;1 &amp; <br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200607183741388.png#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="shell脚本激活conda虚拟环境"><a href="#shell脚本激活conda虚拟环境" class="headerlink" title="shell脚本激活conda虚拟环境"></a>shell脚本激活conda虚拟环境</h4><blockquote>
+<p>怎么用shell脚本激活conda虚拟环境？：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span><br>source /YOUR_CONDA_PATH/bin/activate your_env<br>python --version<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="从Linux服务器下载文件"><a href="#从Linux服务器下载文件" class="headerlink" title="从Linux服务器下载文件"></a>从Linux服务器下载文件</h4><ul>
+<li>下载文件<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sz file<br></code></pre></td></tr></table></figure></li>
+<li>上传文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">rz <br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37421762/article/details/86160119?ops_request_misc=%7B%22request_id%22:%22159142726319724846464177%22,%22scm%22:%2220140713.130102334.pc_all.%22%7D&request_id=159142726319724846464177&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~rank_v25-5-86160119.first_rank_v2_rank_v25&utm_term=ubuntu%E6%A0%A1%E5%87%86%E6%97%B6%E5%8C%BA">校正Ubuntu时间为北京时间</a> </p>
+<h2 id="部署地址："><a href="#部署地址：" class="headerlink" title="部署地址："></a>部署地址：</h2><p><a target="_blank" rel="noopener" href="http://39.99.140.59:8002/">nCov</a></p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/05/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/" data-id="ckhn7g6i40017i0vcaa474vzj" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/05/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            大数据平台核心技术-实验记录
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">使用百度 Ai Studio GPU算力</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+  <div class="gitalk" id="gitalk-container"></div>
+  
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '805efc781a7e3c77968c',
+      clientSecret: 'af34e634e272e62b21230690b662f0482a5678df',
+      repo: 'kleinlsl.github.io',
+      owner: 'kleinlsl',
+      admin: ['kleinlsl'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 月色很柔</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="月色很柔"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

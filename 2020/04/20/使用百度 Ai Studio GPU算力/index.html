@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="个人简单博客">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    使用百度 Ai Studio GPU算力 |
+    
+    月色很柔</title>
+  
+    <link rel="shortcut icon" href="/images/hexo.svg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="月色很柔" type="application/atom+xml">
+</head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-使用百度 Ai Studio GPU算力" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      使用百度 Ai Studio GPU算力
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/" class="article-date">
+  <time datetime="2020-04-20T14:14:16.000Z" itemprop="datePublished">2020-04-20</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <p>@<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41971768/article/details/105645906">TOC</a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>继上次找到Google Colab 免费GPU之后，又发现了<a target="_blank" rel="noopener" href="https://aistudio.baidu.com/aistudio/usercenter">百度AI studio</a>云平台的GPU算力。</p>
+<p>百度的是相当优惠：每日使用gpu就可以获得12小时的算力卡，连续五天还可以额外获得48小时算力卡。</p>
+<p>搭载的是 飞桨PaddlePaddle 框架，目前并不支持tensorflow-gpu。但是自己可以通过以下配置来使用tensorflow-gpu.</p>
+</blockquote>
+<blockquote>
+<span id="more"></span>
+</blockquote>
+<h2 id="1、选择版本"><a href="#1、选择版本" class="headerlink" title="1、选择版本"></a>1、选择版本</h2><blockquote>
+<p>其实AI Studio我们可以理解为一台免费的云服务器，这样我们就可以在里面配置相应的环境，就和自己本机配置tensorflow环境基本一致。</p>
+</blockquote>
+<blockquote>
+<p> 安装之前注意自己的python版本，tensorflow版本，cuda版本，cudnn版本，一定要相互匹配 </p>
+<p>可以参考以下版本：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">python 3.6<br>tensorflow 1.12.0<br>cuda 9.0<br>cudnn 7.4.1<br>Linux 16.04 (ai studio系统版本)<br></code></pre></td></tr></table></figure>
+
+<h2 id="2、下载配置文件"><a href="#2、下载配置文件" class="headerlink" title="2、下载配置文件"></a>2、下载配置文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">1 在ai studio或者notebook下载cuda<br>!wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run<br> <br>2 新建一个目录~/cuda-9.0/<br> <br>3 将下载的cuda安装到上述新建的目录中<br>!sh cuda_9.0.176_linux-run --silent --toolkit --toolkitpath=$HOME/cuda-9.0<br> <br>4 下载cudnn，注意这个需要去官网注册账号，事先下载到自己的电脑然后，<br>  注意版本要对，然后通过新建数据集上传到ai studio的data/目录下，名字尽量短，下载之后是一个tgz格式   的文件，我把名字改为cudnn-9.0.tgz<br> <br>5 解压4步下载的文件到根目录,解压之后的cudnn文件名默认为cuda，<br>!tar -zxvf /home/aistudio/data/data25688/cudnn-9.0.tgz <br> <br>6 解压把cudnn的指定文件copy到cuda安装文件对应的目录中注意目录要对，这一步只需要做一次就可以<br>!cp cuda/include/cudnn.h cuda-9.0/include/<br>!cp cuda/lib64/libcudnn* cuda-9.0/lib64/<br> <br>至此准备工作完成，这些工作只需要一次就可以，接下来进行环境配置阶段<br></code></pre></td></tr></table></figure>
+
+<h2 id="3、环境配置"><a href="#3、环境配置" class="headerlink" title="3、环境配置"></a>3、环境配置</h2><ul>
+<li><p>新建虚拟环境</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">1 在当前目录新建一个文件命名为envm,运行一下脚本，注意文件名即可<br>!echo &#x27;export PATH=$HOME/cuda-9.0/bin:$PATH\nexport LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/cuda-9.0/lib64&#x27; &gt; ~/envm<br>(修正)：此处使用以上路径会导致无法使用 ls 命令，应在envm文件更改为以下内容：<br>export PATH=$HOME/cuda-9.0/bin$&#123;PATH:+:$&#123;PATH&#125;&#125; <br>export LD_LIBRARY_PATH=$HOME/cuda-9.0/lib64$&#123;LD_LIBRARY_PATH:+:$&#123;LD_LIBRARY_PATH&#125;&#125;<br> <br>2 在终端新建虚拟环境,这里选择与tensorflow版本匹配的python版本<br>依次,这个需要每次都重新做，我还不知道怎么把这个放到一个shell脚本中，所以只能分开了<br>conda create -n env_name python=3.6<br>安装过程选择yes输入y<br>source activate env_name<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>激活环境</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plaintext"> <br>2 新建脚本命名为chmod_cuda90.sh,加入以下脚本，注意你自己的目录<br>#!/bin/bash<br>chmod a+r ~/cuda-9.0/include/cudnn.h<br>chmod a+r ~/cuda-9.0/lib64/libcudnn*<br>source ~/envm<br>pip install -i https://pypi.tuna.tsinghua.edu.cn/simple tensorflow-gpu==1.12.0<br> <br>3 在终端进入自己的虚拟环境运行上述脚本<br>source chmod_cuda90.sh就可以使用gpu进行加速了<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="4、使用tensorflow-gpu"><a href="#4、使用tensorflow-gpu" class="headerlink" title="4、使用tensorflow-gpu"></a>4、使用tensorflow-gpu</h2><ul>
+<li><p>每次重启环境只需要运行以下脚本 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">conda create -n env_name python=3.6<br>source activate env_name<br>source chmod_cuda90.sh<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/firesolider/article/details/105023062?depth_1-utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromBaidu-8&utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromBaidu-8">百度AI studio配置tensorflow环境</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36666756/article/details/105252530#comments">白嫖百度AIstudio免费GPU</a></p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/" data-id="ckhn7g6hp000ii0vcdcu96ept" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/05/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            nCov项目总结文档
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/04/20/%E4%BD%BF%E7%94%A8Google%20Colab%20%E5%85%8D%E8%B4%B9GPU/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">Google Colab 免费GPU算力</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+  <div class="gitalk" id="gitalk-container"></div>
+  
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '805efc781a7e3c77968c',
+      clientSecret: 'af34e634e272e62b21230690b662f0482a5678df',
+      repo: 'kleinlsl.github.io',
+      owner: 'kleinlsl',
+      admin: ['kleinlsl'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 月色很柔</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="月色很柔"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

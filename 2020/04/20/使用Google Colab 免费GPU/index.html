@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="个人简单博客">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Google Colab 免费GPU算力 |
+    
+    月色很柔</title>
+  
+    <link rel="shortcut icon" href="/images/hexo.svg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="月色很柔" type="application/atom+xml">
+</head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-使用Google Colab 免费GPU" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      Google Colab 免费GPU算力
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/20/%E4%BD%BF%E7%94%A8Google%20Colab%20%E5%85%8D%E8%B4%B9GPU/" class="article-date">
+  <time datetime="2020-04-20T04:14:16.000Z" itemprop="datePublished">2020-04-20</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <p>﻿@<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41971768/article/details/105639794">TOC</a></p>
+<h1 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h1><blockquote>
+<p>最近在做一些需要GPU算力的项目，自己的电脑的算力不够用。找到了 <a target="_blank" rel="noopener" href="https://research.google.com/colaboratory/unregistered.html">Google Colab（Colaboratory）</a> ，作为Google推出的免费的云端GPU服务。</p>
+<p>官方对其的说明是：</p>
+<blockquote>
+<p>Colaboratory 是一个研究项目，可免费使用。</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<span id="more"></span>
+</blockquote>
+<h1 id="2、Google-Colab特征"><a href="#2、Google-Colab特征" class="headerlink" title="2、Google Colab特征"></a>2、Google Colab特征</h1><ul>
+<li>Colaboratory 是一个 Google 研究项目，旨在帮助传播机器学习培训和研究成果。它是一个 Jupyter 笔记本环境，不需要进行任何设置(自带大部分python库)就可以使用，并且完全在云端运行。</li>
+<li>Colaboratory 笔记本存储在 Google 云端硬盘中，并且可以共享，就如同您使用 Google 文档或表格一样。Colaboratory 可免费使用。</li>
+<li>利用Colaboratory ，可以方便的使用Keras、TensorFlow、PyTorch等框架进行深度学习应用的开发。</li>
+</ul>
+<h1 id="3、使用"><a href="#3、使用" class="headerlink" title="3、使用"></a>3、使用</h1><blockquote>
+<p>注意：使用google服务可能需要梯子</p>
+</blockquote>
+<h2 id="3-1在谷歌云盘上创建文件夹"><a href="#3-1在谷歌云盘上创建文件夹" class="headerlink" title="3.1在谷歌云盘上创建文件夹"></a>3.1在谷歌云盘上创建文件夹</h2><p>当登录账号进 入<a target="_blank" rel="noopener" href="https://drive.google.com/drive/my-drive">谷歌云盘</a>时 ，系统会给予15G免费空间大小。由于Colab需要依靠谷歌云盘，故需要在云盘上新建一个文件夹。</p>
+<p>选择新建文件夹，文件夹名称可自定义。</p>
+<h2 id="3-2创建Colaboratory"><a href="#3-2创建Colaboratory" class="headerlink" title="3.2创建Colaboratory"></a>3.2创建Colaboratory</h2><p>进入创建好的文件夹，点开我的云盘-更多。<br><img src="https://img-blog.csdnimg.cn/20200420172221824.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>如果在更多栏里没有发现Colaboratory，选择关联更多应用，搜索Colaboratory，选择关联。</p>
+<h2 id="3-3创建完成"><a href="#3-3创建完成" class="headerlink" title="3.3创建完成"></a>3.3创建完成</h2><p>创建完成后，会自动生成一个jupyter笔记本</p>
+<h1 id="4、设置GPU运行"><a href="#4、设置GPU运行" class="headerlink" title="4、设置GPU运行"></a>4、设置GPU运行</h1><ul>
+<li>选择 修改-笔记本设置<br><img src="https://img-blog.csdnimg.cn/20200420172504794.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+<li>将硬件加速器设置为GPU即可</li>
+</ul>
+<h1 id="5、运行-py文件"><a href="#5、运行-py文件" class="headerlink" title="5、运行.py文件"></a>5、运行.py文件</h1><h2 id="5-1安装必要库"><a href="#5-1安装必要库" class="headerlink" title="5.1安装必要库"></a>5.1安装必要库</h2><p>输入相应代码，并执行（crtl+F9）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">!apt-get install -y -qq software-properties-common python-software-properties module-init-tools<br>!add-apt-repository -y ppa:alessandro-strada/ppa 2&gt;&amp;1 &gt; /dev/null<br>!apt-get update -qq 2&gt;&amp;1 &gt; /dev/null<br>!apt-get -y install -qq google-drive-ocamlfuse fuse<br>from google.colab import auth<br>auth.authenticate_user()<br>from oauth2client.client import GoogleCredentials<br>creds = GoogleCredentials.get_application_default()<br>import getpass<br>!google-drive-ocamlfuse -headless -id=&#123;creds.client_id&#125; -secret=&#123;creds.client_secret&#125; &lt; /dev/null 2&gt;&amp;1 | grep URL<br>vcode = getpass.getpass()<br>!echo &#123;vcode&#125; | google-drive-ocamlfuse -headless -id=&#123;creds.client_id&#125; -secret=&#123;creds.client_secret&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>运行后，先点开相应的链接，选择自己的谷歌账号，并允许，最后会得到相应的代码，输入相应的框中即可</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200420172555986.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="5-2-挂载云端硬盘"><a href="#5-2-挂载云端硬盘" class="headerlink" title="5.2 挂载云端硬盘"></a>5.2 挂载云端硬盘</h2><p>同上，输入下面命令，执行即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">!mkdir -p drive<br>!google-drive-ocamlfuse drive  -o nonempty<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-3-安装Keras"><a href="#5-3-安装Keras" class="headerlink" title="5.3 安装Keras"></a>5.3 安装Keras</h2><p>同理，输入命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">!pip install -q keras<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="6、训练自己的代码"><a href="#6、训练自己的代码" class="headerlink" title="6、训练自己的代码"></a>6、训练自己的代码</h1><h3 id="6-1上传项目代码到Google-云盘"><a href="#6-1上传项目代码到Google-云盘" class="headerlink" title="6.1上传项目代码到Google 云盘"></a>6.1上传项目代码到Google 云盘</h3><h3 id="6-2-将云盘代码拷贝至分配的虚拟目录"><a href="#6-2-将云盘代码拷贝至分配的虚拟目录" class="headerlink" title="6.2 将云盘代码拷贝至分配的虚拟目录"></a>6.2 将云盘代码拷贝至分配的虚拟目录</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">!cp -r dir1 dir2  #将目录dir1 拷贝至 目录dir2下<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-3-使用python命令运行py脚本"><a href="#6-3-使用python命令运行py脚本" class="headerlink" title="6.3 使用python命令运行py脚本"></a>6.3 使用python命令运行py脚本</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">!python main.py<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-4-注意事项"><a href="#6-4-注意事项" class="headerlink" title="6.4 注意事项"></a>6.4 注意事项</h3><ul>
+<li>Google 训练自己的代码，需要修改代码中有关路径的部分为绝对路径</li>
+<li>Google训练过程中不可关闭网页，不然会断开连接导致训练中断</li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://medium.com/deep-learning-turkey/google-colab-free-gpu-tutorial-e113627b9f5d">https://medium.com/deep-learning-turkey/google-colab-free-gpu-tutorial-e113627b9f5d</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/cocoaqin/article/details/79184540?depth_1-utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1&utm_source=distribute.wap_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1#51%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E5%BA%93">Google Colab 免费GPU服务器使用教程</a></p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/04/20/%E4%BD%BF%E7%94%A8Google%20Colab%20%E5%85%8D%E8%B4%B9GPU/" data-id="ckhn7g6hn000ei0vc7zw32i6s" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            使用百度 Ai Studio GPU算力
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/01/15/hello-world/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">Hello World</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+  <div class="gitalk" id="gitalk-container"></div>
+  
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '805efc781a7e3c77968c',
+      clientSecret: 'af34e634e272e62b21230690b662f0482a5678df',
+      repo: 'kleinlsl.github.io',
+      owner: 'kleinlsl',
+      admin: ['kleinlsl'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 月色很柔</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="月色很柔"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

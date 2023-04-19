@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="个人简单博客">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    
+    月色很柔</title>
+  
+    <link rel="shortcut icon" href="/images/hexo.svg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="月色很柔" type="application/atom+xml">
+</head>
+
+<body>
+<main class="content">
+  <section class="jumbotron">
+  <div class="video">
+    
+      <div class="video-frame">
+        <img src="/images/ocean/overlay-hero.png" alt="Decorative image frame">
+      </div>
+    
+    <div class="video-media">
+      <video playsinline="" autoplay="" loop="" muted="" data-autoplay=""
+             poster="/images/ocean/ocean.png" x5-video-player-type="h5">
+        <source src="/images/ocean/ocean.mp4" type="video/mp4">
+        <source src="/images/ocean/ocean.ogv" type="video/ogg">
+        <source src="/images/ocean/ocean.webm" type="video/webm">
+        <p>Your user agent does not support the HTML5 Video element.</p>
+      </video>
+      <div class="video-overlay"></div>
+    </div>
+    <div class="video-inner text-center text-white">
+      <h1><a href="/">月色很柔</a></h1>
+      <p>没事早点睡，有空多学习。就能和月色一样柔</p>
+      <div><img src="/images/hexo-inverted.svg" class="brand" alt="月色很柔"></div>
+    </div>
+    <div class="video-learn-more">
+      <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
+    </div>
+  </div>
+</section>
+
+<div id="landingpage">
+  <section class="outer">
+    <article class="articles">
+      
+      <h1 class="page-type-title"></h1>
+      
+        
+          <article id="post-Intellij  连接远程服务器代码实时同步" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/">Intellij  连接远程服务器代码实时同步</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/" class="article-date">
+  <time datetime="2020-10-05T00:14:16.000Z" itemprop="datePublished">2020-10-05</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <a class="article-gallery-img" href="/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/" rel="gallery_ckhn7g6hd0003i0vc4fdl0tp5">
+            <img src="/images/Title-photos/IMG_20200917_160921.jpg" itemprop="image">
+          </a>
+        
+      
+    </div>
+  </div>
+
+
+                                                
+                                                    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>使用IDEA 或 Pycharm等工具实现，连接远程服务器并实时同步代码。</p>
+<blockquote>
+<p>前提条件</p>
+<ul>
+<li>Intellij 产品需为专业版</li>
+<li>远程主机需能够远程登录</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>本文环境</p>
+<ul>
+<li>主机：windows 10 home</li>
+<li>远程服务器：Ubuntu 18.4 servers</li>
+<li>虚拟机：Vmware 15.5 pro</li>
+<li>其他软件：SecureCRT、Pycharm 2019.2(Professional Edition)</li>
+</ul>
+</blockquote>
+                                                        
+                                                            <a class="article-more-link" href="/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/" data-id="ckhn7g6hd0003i0vc4fdl0tp5" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/" rel="tag">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vmware/" rel="tag">Vmware</a></li></ul>
+
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-正版免激活 Windows 10安装教程" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/06/09/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BB%20Windows%2010%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">正版免费激活 Windows 10安装教程</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/06/09/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BB%20Windows%2010%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" class="article-date">
+  <time datetime="2020-06-09T14:51:16.000Z" itemprop="datePublished">2020-06-09</time>
+</a>
+                            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/">工具篇</a>
+  </div>
+
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <blockquote>
+<p>现在对于大多数人来说，购买的电脑都是Windows 10正版系统，但是Windows使用一段时间后会出现一些疑难杂症(尤其是刚开始使用的用户)。在这种情况下，重装系统无疑可以解决所有问题。那么，目前网上的教程也是很多，许多教程都提供了Windows激活工具（注：个人认为系统本身就是正版的不需要通过激活工具激活系统，使用Windows的数字密钥即可）。</p>
+</blockquote>
+<blockquote>
+<p>本文就是介绍如何使用Windows 官方教程重装Windows 10系统。</p>
+<p>本文将分为三部分：</p>
+<p>1、使用Windows 10的恢复功能重装</p>
+<p>2、使用Windows官方安装工具重装</p>
+<p>3、使用Windows官方安装工具为其他电脑重装</p>
+</blockquote>
+                                                        
+                                                            <a class="article-more-link" href="/2020/06/09/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BB%20Windows%2010%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/06/09/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BB%20Windows%2010%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" data-id="ckhn7g6i30016i0vc75nqhbnc" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li></ul>
+
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-大数据平台核心技术-实验记录" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/05/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/">大数据平台核心技术-实验记录</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/05/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time datetime="2020-05-20T03:14:16.000Z" itemprop="datePublished">2020-05-20</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <hr>
+<center><font size=5 face="华文行楷">**有问题多尝试解决，可评论留言遇到的问题**</font></center>
+<center><font size=5 face="华文行楷">**博客表述不清的地方请留言，看到后会更新博客**</font></center>
+<center><font size=5 face="华文行楷">**本文仅供参考**</font></center>
+---
+
+
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
+<p>学校：许昌学院<br>学院：信息工程学院<br>实验环境：<br>操作系统：Linux (CentOS 6.7)   JDK版本：1.8 (8u161)   Hadoop版本：2.7.4<br>虚拟机：VMware Workstation Pro 15.5</p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/05/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/05/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/" data-id="ckhn7g6ic001fi0vcfahmfvj8" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-nCov项目总结文档" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/05/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/">nCov项目总结文档</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/05/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/" class="article-date">
+  <time datetime="2020-05-06T03:14:16.000Z" itemprop="datePublished">2020-05-06</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <p>﻿<a target="_blank" rel="noopener" href="http://39.99.140.59:8002/">TOC</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通过Flask搭建web/Echarts可视化大屏，并定时获取数据。</p>
+<p>参考视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV177411j7qJ?p=1">here</a></p>
+<p>参考效果：<a target="_blank" rel="noopener" href="http://cov.aiiyx.cn/">here</a></p>
+<blockquote>
+                                                        
+                                                            <a class="article-more-link" href="/2020/05/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/05/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/" data-id="ckhn7g6i40017i0vcaa474vzj" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-使用百度 Ai Studio GPU算力" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/">使用百度 Ai Studio GPU算力</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/" class="article-date">
+  <time datetime="2020-04-20T14:14:16.000Z" itemprop="datePublished">2020-04-20</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <p>@<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41971768/article/details/105645906">TOC</a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>继上次找到Google Colab 免费GPU之后，又发现了<a target="_blank" rel="noopener" href="https://aistudio.baidu.com/aistudio/usercenter">百度AI studio</a>云平台的GPU算力。</p>
+<p>百度的是相当优惠：每日使用gpu就可以获得12小时的算力卡，连续五天还可以额外获得48小时算力卡。</p>
+<p>搭载的是 飞桨PaddlePaddle 框架，目前并不支持tensorflow-gpu。但是自己可以通过以下配置来使用tensorflow-gpu.</p>
+</blockquote>
+<blockquote>
+                                                        
+                                                            <a class="article-more-link" href="/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/" data-id="ckhn7g6hp000ii0vcdcu96ept" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-使用Google Colab 免费GPU" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/04/20/%E4%BD%BF%E7%94%A8Google%20Colab%20%E5%85%8D%E8%B4%B9GPU/">Google Colab 免费GPU算力</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/20/%E4%BD%BF%E7%94%A8Google%20Colab%20%E5%85%8D%E8%B4%B9GPU/" class="article-date">
+  <time datetime="2020-04-20T04:14:16.000Z" itemprop="datePublished">2020-04-20</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <p>﻿@<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41971768/article/details/105639794">TOC</a></p>
+<h1 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h1><blockquote>
+<p>最近在做一些需要GPU算力的项目，自己的电脑的算力不够用。找到了 <a target="_blank" rel="noopener" href="https://research.google.com/colaboratory/unregistered.html">Google Colab（Colaboratory）</a> ，作为Google推出的免费的云端GPU服务。</p>
+<p>官方对其的说明是：</p>
+<blockquote>
+<p>Colaboratory 是一个研究项目，可免费使用。</p>
+</blockquote>
+</blockquote>
+<blockquote>
+                                                        
+                                                            <a class="article-more-link" href="/2020/04/20/%E4%BD%BF%E7%94%A8Google%20Colab%20%E5%85%8D%E8%B4%B9GPU/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/04/20/%E4%BD%BF%E7%94%A8Google%20Colab%20%E5%85%8D%E8%B4%B9GPU/" data-id="ckhn7g6hn000ei0vc7zw32i6s" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/01/15/hello-world/">Hello World</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/01/15/hello-world/" class="article-date">
+  <time datetime="2020-01-15T09:14:16.000Z" itemprop="datePublished">2020-01-15</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/01/15/hello-world/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/01/15/hello-world/" data-id="ckhn7g6hl000bi0vc6e2a728n" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-Java 基础知识" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/01/14/Java%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Java 基础</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/01/14/Java%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="article-date">
+  <time datetime="2020-01-14T11:14:16.000Z" itemprop="datePublished">2020-01-14</time>
+</a>
+                            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <h2 id="1、Java-基础"><a href="#1、Java-基础" class="headerlink" title="1、Java 基础"></a>1、Java 基础</h2><ul>
+<li><p>Java 的三大特性：封装、继承、多态</p>
+</li>
+<li><p>Java 语言的特点：平台无关性、面向对象、简单实用、多线程、安全可靠等</p>
+</li>
+<li><p>Java 的基本数据类型：<code>byte、short、int、double、float、long、boolean、char</code></p>
+</li>
+<li><p><code>==</code> 与 <code>equals</code> 的区别？</p>
+<ul>
+<li>== 比较的是两个对象的内存地址是否相同</li>
+<li>equals 对于基本数据类型比较的是内存地址，对于复杂数据类型比较的是值。</li>
+</ul>
+</li>
+<li><p><strong>Java 中的 <code>Math.round(-1.5)</code> 等于多少？</strong></p>
+<ul>
+<li>答：<code>-1</code>  。<code>round()</code> 是在原数值的基础上加 0.5 ；向下取整。</li>
+</ul>
+</li>
+<li><p>String 属于基础的数据类型吗？</p>
+<ul>
+<li>答： 不属于。 String 内部是<code>final</code> 修饰的字符数组。</li>
+</ul>
+</li>
+<li><p>Java 中操作字符串都有那些类？有什么区别？</p>
+<ul>
+<li>答： <code>String、StringBuffer、StringBuilder</code> ; <ul>
+<li>三者都是使用final修饰的类，不能被继承。</li>
+<li>String中的字符数组使用final修饰，线程安全；<code>StringBuffer</code>中的方法使用<code>synchronized</code>修饰，线程安全；<code>StringBuilder</code> 线程不安全。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>普通类和抽象类有什么区别？</strong></p>
+<ul>
+<li>修饰符：抽象类使用abstract修饰</li>
+<li>抽象方法：抽象类可以包含抽象方法，普通类不能有抽象方法。</li>
+<li>实例化：抽象类不能直接实例化</li>
+</ul>
+</li>
+<li><p><strong>什么是抽象方法？</strong></p>
+<ul>
+<li>抽象方法必须写在抽象类中，抽象方法的方法名使用<code>abstract</code>修饰，没有方法体。</li>
+</ul>
+</li>
+<li><p><strong>抽象类和接口对比？</strong></p>
+<ul>
+<li>类名修饰符：abstract、interface</li>
+<li>是否实例化：都不可以实例化</li>
+<li>继承性：（类）单继承，（接口）多实现</li>
+<li>构造器和方法：抽象类可以有构造器、抽线和非抽象方法；接口只能有抽象方法。</li>
+</ul>
+</li>
+<li><p>抽象类可以用final修饰吗？     </p>
+<ul>
+<li>不可以</li>
+</ul>
+</li>
+<li><p><strong>重写与重载</strong></p>
+<ul>
+<li>重写：发生在子类继承父类。重写父类的方法体。</li>
+<li>重载：发生在同一类中。方法名相同，参数列表不同，与返回值无关。</li>
+</ul>
+</li>
+<li><p><code>String s=new String(&quot;ab&quot;);</code>创建了几个对象？</p>
+<ul>
+<li>创建了两个对象。常量池中创建“ab”，堆或栈中创建字符串对象“ab”。</li>
+</ul>
+</li>
+<li><p><strong>深拷贝 和 浅拷贝</strong></p>
+<ul>
+<li><strong>浅拷贝</strong>：对基本数据类型进行值传递，对引用数据类型进行引用传递般的拷贝，此为浅拷贝。（<strong>Java方法的参数都是浅拷贝</strong>）</li>
+<li><strong>深拷贝</strong>：对基本数据类型进行值传递，对引用数据类型，创建一个新的对象，并复制其内容，此为深拷贝。</li>
+</ul>
+</li>
+</ul>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/01/14/Java%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" data-id="ckm8xqfqo0000t8vcc5ozdcid" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySql/" rel="tag">MySql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
+
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-图书查询系统" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/03/21/%E5%9B%BE%E4%B9%A6%E6%9F%A5%E8%AF%A2%E7%B3%BB%E7%BB%9F/">图书查询系统</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2019/03/21/%E5%9B%BE%E4%B9%A6%E6%9F%A5%E8%AF%A2%E7%B3%BB%E7%BB%9F/" class="article-date">
+  <time datetime="2019-03-21T11:14:16.000Z" itemprop="datePublished">2019-03-21</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <p>@<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41971768/article/details/88713826">TOC</a></p>
+<h2 id="1、数据结构课程设计"><a href="#1、数据结构课程设计" class="headerlink" title="1、数据结构课程设计"></a>1、数据结构课程设计</h2><p><img src="https://img-blog.csdnimg.cn/20190321191903232.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="2、题目要求"><a href="#2、题目要求" class="headerlink" title="2、题目要求"></a>2、题目要求</h2><p><img src="https://img-blog.csdnimg.cn/20190321191311187.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+                                                        
+                                                            <a class="article-more-link" href="/2019/03/21/%E5%9B%BE%E4%B9%A6%E6%9F%A5%E8%AF%A2%E7%B3%BB%E7%BB%9F/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2019/03/21/%E5%9B%BE%E4%B9%A6%E6%9F%A5%E8%AF%A2%E7%B3%BB%E7%BB%9F/" data-id="ckhn7g6i5001ai0vc8khz4h7z" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+    </article>
+    
+  
+    
+      <nav class="page-nav">
+        <a class="extend prev" rel="prev" href="/">Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next</a>
+      </nav>
+    
+  </section>
+</div>
+
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-bar-chart"></i> <span id="busuanzi_value_site_pv"></span></li>
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 月色很柔</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="月色很柔"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

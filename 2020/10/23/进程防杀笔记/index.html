@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="个人简单博客">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    进程防杀笔记 |
+    
+    月色很柔</title>
+  
+    <link rel="shortcut icon" href="/images/hexo.svg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="月色很柔" type="application/atom+xml">
+</head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-进程防杀笔记" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      进程防杀笔记
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/10/23/%E8%BF%9B%E7%A8%8B%E9%98%B2%E6%9D%80%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2020-10-23T11:14:16.000Z" itemprop="datePublished">2020-10-23</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <h2 id="一、Linux的信号量（signal）"><a href="#一、Linux的信号量（signal）" class="headerlink" title="一、Linux的信号量（signal）"></a>一、Linux的信号量（signal）</h2><blockquote>
+<p>信号是进程之间相互传递消息的一种方法，信号被称为软中断信号，是进程控制的一部分，用来通知进程发生了异步事件， 进程之间可以互相通过系统调用 <code>kill</code> 发送软中断信号。</p>
+<p>信号只是用来通知某进程发生了什么，并不给进程传递数据。</p>
+</blockquote>
+<a id="more"></a>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/c453787298/article/details/23844017">signal-01</a> 、<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42350212/article/details/80588973">signal-02</a></p>
+</blockquote>
+<ul>
+<li><p>接收信号的进程对各种信号有三种不同的处理方式：</p>
+<ul>
+<li><p>对需要处理的信号，进程指定特定的函数进行处理</p>
+</li>
+<li><p>忽略某个信号</p>
+</li>
+<li><p>对信号的处理保留系统默认值，大部分信号的处理是终止程序</p>
+</li>
+</ul>
+</li>
+<li><p>Linux系统的两大信号：</p>
+<ul>
+<li>POSIX标准的规则信号（regular signal 1-31 编号）</li>
+<li>实时信号（real-time signal 32-63）</li>
+</ul>
+</li>
+<li><p>规则信号表</p>
+<table>
+<thead>
+<tr>
+<th align="left">信号编号</th>
+<th align="left">名称</th>
+<th align="left">默认动作</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">SIGHUP</td>
+<td align="left">终止</td>
+<td align="left">终止控制终端或进程</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">SIGINT</td>
+<td align="left">终止</td>
+<td align="left">由键盘引起的终端(Ctrl-c)</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">SIGQUIT</td>
+<td align="left">dump</td>
+<td align="left">控制终端发送给进程的信号, 键盘产生的退出(Ctrl-),</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">GIGILL</td>
+<td align="left">dusmp</td>
+<td align="left">非法指令引起</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">SIGTRAP</td>
+<td align="left">dump</td>
+<td align="left">debug中断</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">SIGABRT/SIGIOT</td>
+<td align="left">dump</td>
+<td align="left">异常中止</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">SIGBUS/SIGEMT</td>
+<td align="left">dump</td>
+<td align="left">总线异常/EMT指令</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">SIGFPE</td>
+<td align="left">dump</td>
+<td align="left">浮点运算溢出</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">SIGKILL</td>
+<td align="left">终止</td>
+<td align="left">强制杀死进程(大招, 进程不可捕获)</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left">SIGUSR1</td>
+<td align="left">终止</td>
+<td align="left">用户信号, 进程可自定义用途</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left">SIGSEGV</td>
+<td align="left">dump</td>
+<td align="left">非法内存地址引起</td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left">SIGUSR2</td>
+<td align="left">终止</td>
+<td align="left">用户信号, 进程可自定义用途</td>
+</tr>
+<tr>
+<td align="left">13</td>
+<td align="left">SIGPIPE</td>
+<td align="left">终止</td>
+<td align="left">向某个没有读取的管道中写入数据</td>
+</tr>
+<tr>
+<td align="left">14</td>
+<td align="left">SIGALRM</td>
+<td align="left">终止</td>
+<td align="left">时钟中断(闹钟)</td>
+</tr>
+<tr>
+<td align="left">15</td>
+<td align="left">SIGTERM</td>
+<td align="left">终止</td>
+<td align="left">进程终止(进程可捕获)</td>
+</tr>
+<tr>
+<td align="left">16</td>
+<td align="left">SIGSTKFLT</td>
+<td align="left">终止</td>
+<td align="left">协处理器栈错误</td>
+</tr>
+<tr>
+<td align="left">17</td>
+<td align="left">SIGCHLD</td>
+<td align="left">忽略</td>
+<td align="left">子进程退出或中断</td>
+</tr>
+<tr>
+<td align="left">18</td>
+<td align="left">SIGCONT</td>
+<td align="left">继续</td>
+<td align="left">如进程停止状态则开始运行</td>
+</tr>
+<tr>
+<td align="left">19</td>
+<td align="left">SIGSTOP</td>
+<td align="left">停止</td>
+<td align="left">停止进程运行</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="left">SIGSTP</td>
+<td align="left">停止</td>
+<td align="left">键盘产生的停止</td>
+</tr>
+<tr>
+<td align="left">21</td>
+<td align="left">SIGTTIN</td>
+<td align="left">停止</td>
+<td align="left">后台进程请求输入</td>
+</tr>
+<tr>
+<td align="left">22</td>
+<td align="left">SIGTTOU</td>
+<td align="left">停止</td>
+<td align="left">后台进程请求输出</td>
+</tr>
+<tr>
+<td align="left">23</td>
+<td align="left">SIGURG</td>
+<td align="left">忽略</td>
+<td align="left">socket发送紧急情况</td>
+</tr>
+<tr>
+<td align="left">24</td>
+<td align="left">SIGXCPU</td>
+<td align="left">dump</td>
+<td align="left">CPU时间限制被打破</td>
+</tr>
+<tr>
+<td align="left">25</td>
+<td align="left">SIGXFSZ</td>
+<td align="left">dump</td>
+<td align="left">文件大小限制被打破</td>
+</tr>
+<tr>
+<td align="left">26</td>
+<td align="left">SIGVTALRM</td>
+<td align="left">终止</td>
+<td align="left">虚拟定时时钟</td>
+</tr>
+<tr>
+<td align="left">27</td>
+<td align="left">SIGPROF</td>
+<td align="left">终止</td>
+<td align="left">profile timer clock</td>
+</tr>
+<tr>
+<td align="left">28</td>
+<td align="left">SIGWINCH</td>
+<td align="left">忽略</td>
+<td align="left">窗口尺寸调整</td>
+</tr>
+<tr>
+<td align="left">29</td>
+<td align="left">SIGIO/SIGPOLL</td>
+<td align="left">终止</td>
+<td align="left">I/O可用</td>
+</tr>
+<tr>
+<td align="left">30</td>
+<td align="left">SIGPWR</td>
+<td align="left">终止</td>
+<td align="left">电源异常</td>
+</tr>
+<tr>
+<td align="left">31</td>
+<td align="left">SIGSYS/SYSUNUSED</td>
+<td align="left">dump</td>
+<td align="left">系统调用异常</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>各种默认处理动作的含义是：</p>
+<ul>
+<li>终止程序是指进程退出；</li>
+<li>忽略该信号是将该信号丢弃，不做处理；</li>
+<li>停止程序是指程序挂起，进入停止状况以后还能重新进行下去，一般是在调试的过程中（例如ptrace系统调用）；</li>
+<li>内核映像转储是指将进程数据在内存的映像和进程在内核结构中存储的部分内容以一定格式转储到文件系统，并且进程退出执行，这样做的好处是为程序员提供了方便，使得他们可以得到进程当时执行时的数据值，允许他们确定转储的原因，并且可以调试他们的程序。</li>
+</ul>
+</li>
+<li><p>注意 ：</p>
+<ul>
+<li>信号<code>SIGKILL</code>和<code>SIGSTOP</code>既不能被捕捉，也不能被忽略。</li>
+<li>信号SIGIOT与SIGABRT是一个信号，可以看出，同一个信号在不同的系统中值可能不一样，所以建议最好使用为信号定义的名字，而不要直接使用信号的值。  </li>
+</ul>
+</li>
+<li><p>python处理信号量：</p>
+<ul>
+<li>demo测试</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> atexit<br><span class="hljs-keyword">import</span> signal<br><span class="hljs-keyword">import</span> traceback<br><br><span class="hljs-comment"># 一个是捕捉kill信号，另一个是注册atexit函数</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">term_sig_handler</span>(<span class="hljs-params">signum, frame</span>):</span><br>    print(<span class="hljs-string">&#x27;catched singal: %d&#x27;</span> % signum)<br>    sys.exit()<br> <br><span class="hljs-meta">@atexit.register</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">atexit_fun</span>():</span><br>    print(<span class="hljs-string">&#x27;i am exit, stack track:&#x27;</span>)<br> <br>    exc_type, exc_value, exc_tb = sys.exc_info()<br>    traceback.print_exception(exc_type, exc_value, exc_tb)<br> <br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># catch term signal</span><br>    signal.signal(signal.SIGTERM, term_sig_handler)<br>    signal.signal(signal.SIGINT, term_sig_handler)<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">print</span> <span class="hljs-string">&#x27;hello&#x27;</span><br>        time.sleep(<span class="hljs-number">3</span>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>监听的是 SIGTERM 信号:kill pid</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"> <br><span class="hljs-comment">#!/usr/bin/env python</span><br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br> <br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    当我们运行该程序时因为 while True 所以会持续的运行. </span><br><span class="hljs-string">    这里监听的是 SIGTERM 信号, 所以当我们在终端输入 kill pid (linux kill</span><br><span class="hljs-string">    默认是发送SIGTERM)时, </span><br><span class="hljs-string">    程序就会输出: 收到信号 15 &lt;frame object at 0x7ff695738050&gt; 0</span><br><span class="hljs-string">    当超过3次时就强制把自己杀死.</span><br><span class="hljs-string">    所以 SIGTERM 很适合用来做一些清理的工作</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br> <br><span class="hljs-keyword">import</span> sys<br>reload(sys)<br>sys.setdefaultencoding(<span class="hljs-string">&quot;utf-8&quot;</span>)<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> signal<br> <br>receive_times = <span class="hljs-number">0</span><br> <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">handler</span>(<span class="hljs-params">signalnum, frame</span>):</span><br>    <span class="hljs-keyword">global</span> receive_times<br>    <span class="hljs-keyword">print</span> <span class="hljs-string">u&quot;收到信号&quot;</span>, signalnum, frame, receive_times<br>    receive_times += <span class="hljs-number">1</span><br>    <span class="hljs-keyword">if</span> receive_times &gt; <span class="hljs-number">3</span>:<br>        exit(<span class="hljs-number">0</span>) <span class="hljs-comment"># 自己走</span><br> <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span>():</span><br>    <span class="hljs-keyword">print</span> <span class="hljs-string">&quot;pid:&quot;</span>, os.getpid()<br>    signal.signal(signal.SIGTERM, handler)<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">pass</span><br> <br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>刚才我们说过SIGKILL不能被监听. </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain"> <br>signal.signal(signal.SIGKILL, handler) <br># 这里系统会直接跑错 AttributeError: &#39;module&#39; object has no attribute &#39;SIGKILL&#39;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>总结：</p>
+<blockquote>
+<p>可以通过监控信号量来防止除<code>SIGKILL</code>以外的信号杀死进程。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、linux-kill-9-杀不掉的进程"><a href="#二、linux-kill-9-杀不掉的进程" class="headerlink" title="二、linux kill -9 杀不掉的进程"></a>二、linux kill -9 杀不掉的进程</h2><p>kill -9 发送SIGKILL信号给进程，将其终止，但对于以下两种情况不适用</p>
+<ul>
+<li><p>该进程是僵尸进程（STAT z），此时进程已经释放所有的资源，但是没有被父进程释放。僵尸进程要等到父进程结束，或者重启系统才可以被释放。</p>
+</li>
+<li><p>进程处于“核心态”，并且在等待不可获得的资源，处于“核心态 ”的资源默认忽略所有信号。只能重启系统。</p>
+</li>
+<li><p>kill 只能杀死用户态的进程</p>
+</li>
+</ul>
+<p>案例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;errno.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc ,<span class="hljs-keyword">char</span> *argv[])</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">pid_t</span> pid;<br><br>    pid = fork();<br>    <span class="hljs-keyword">if</span>(pid&lt;<span class="hljs-number">0</span>)&#123;<br>        perror(<span class="hljs-string">&quot;fork&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(pid==<span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;I am a child\n&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>            sleep(<span class="hljs-number">100</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash">gcc a.c</span><br><span class="hljs-meta">$</span><span class="bash">./a.out</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>查看进程信息：ps -aux | grep “Z”  ，尝试杀掉当前进程；</p>
+</li>
+<li><p>查看进程详细信息：cat /proc/4385/status    ，  若杀不掉，则查看进程详细信息，尝试杀死其父进程。</p>
+</li>
+<li><p>还不行，就重启吧！！！！</p>
+</li>
+</ul>
+<h2 id="三、redis-进程"><a href="#三、redis-进程" class="headerlink" title="三、redis 进程"></a>三、redis 进程</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hzlarm/article/details/99432240">安装<code>redis</code>:</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> sudo apt-get install redis-server</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查看进程：<code>ps -aux|grep redis</code>  可以看到<code>redis</code>服务所在用户组和PID</p>
+</li>
+<li><p>查看服务状态：<code>netstat -nlt|grep 6379</code></p>
+</li>
+<li><p>使用kill -9 杀死 redis：<code>发现杀死后会重新启动服务</code></p>
+</li>
+<li><p>总结：</p>
+<ul>
+<li><code>redis</code>会在系统创建用户和用户组: <code>redis</code></li>
+<li><code>redis</code>无法完全杀死，可以使用命令：<ul>
+<li><code>/etc/init.d/redis-server stop</code>停止服务。</li>
+<li><code> /etc/init.d/redis-server restart</code>重启服务。</li>
+<li><code>/etc/init.d/redis-server start</code>停止服务。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Linux 守护进程原理及实例（Redis、Nginx）</strong>：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yangbodong22011/article/details/78650896">here</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq570437459/article/details/87094870">here</a></p>
+<ul>
+<li>Linux系统中常见的守护进程有：<ul>
+<li>cron 进程定期执行<code>crontab</code>设置的定时任务。</li>
+<li>kswap守护进程定期将物理脏页写回磁盘来回收页面。</li>
+<li>rsyslogd记录日志信息。</li>
+<li>还有一些常见的服务器程序，例如Redis、Nginx、MySQL等等。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p> 实现一个进程交给Systemd去管理，继续以前面守护进程打开<code>/tmp/log</code>并且写入<code>Hello World</code>为例: <a target="_blank" rel="noopener" href="https://blog.csdn.net/yangbodong22011/article/details/78650896">here</a></p>
+</blockquote>
+<ul>
+<li><p>Systemd配置文件内容：<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html">here01</a>、<a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/1407_liuming_init3/index.html">here02</a></p>
+<blockquote>
+<p>推荐参考here02</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs shell">Type=forking<br>ExecStart=/usr/bin/redis-server /etc/redis/redis.conf   # 启动命令<br>ExecStop=/bin/kill -s TERM $MAINPID     # 退出命令<br>PIDFile=/var/run/redis/redis-server.pid   # 进程id<br>TimeoutStopSec=0<br>Restart=always  # 允许重启<br>User=redis     # 所属用户<br>Group=redis    # 所属用户组<br>RuntimeDirectory=redis    # 运行时目录<br>RuntimeDirectoryMode=2755<br><br>UMask=007<br>PrivateTmp=yes<br>LimitNOFILE=65535<br>PrivateDevices=yes<br>ProtectHome=yes<br>ReadOnlyDirectories=/<br>ReadWriteDirectories=-/var/lib/redis<br>ReadWriteDirectories=-/var/log/redis<br>ReadWriteDirectories=-/var/run/redis<br><br>NoNewPrivileges=true<br>CapabilityBoundingSet=CAP_SETGID CAP_SETUID CAP_SYS_RESOURCE<br>MemoryDenyWriteExecute=true<br>ProtectKernelModules=true<br>ProtectKernelTunables=true<br>ProtectControlGroups=true<br>RestrictRealtime=true<br>RestrictNamespaces=true<br>RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX<br><br><span class="hljs-meta">#</span><span class="bash"> redis-server can write to its own config file when <span class="hljs-keyword">in</span> cluster mode so we</span><br><span class="hljs-meta">#</span><span class="bash"> permit writing there by default. If you are not using this feature, it is</span><br><span class="hljs-meta">#</span><span class="bash"> recommended that you replace the following lines with <span class="hljs-string">&quot;ProtectSystem=full&quot;</span>.</span><br>ProtectSystem=true<br>ReadWriteDirectories=-/etc/redis<br><br>[Install]<br>WantedBy=multi-user.target<br>Alias=redis.service    # 设置别名<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="四、守护进程"><a href="#四、守护进程" class="headerlink" title="四、守护进程"></a><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/38609004">四、守护进程</a></h2><blockquote>
+<p>守护进程（daemon）是生存期长的一种进程，没有控制终端。它们常常在系统引导装入时启动，仅在系统关闭时才终止。UNIX系统有很多守护进程，守护进程程序的名称通常以字母“d”结尾：例如，<a href="https://link.zhihu.com/?target=https://zh.wikipedia.org/wiki/Syslog">syslogd</a> 就是指管理系统日志的守护进程。</p>
+<p>通过ps进程查看器 <code>ps -efj</code> 的输出实例，内核守护进程的名字出现在方括号中，大致输出如下：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">UID         PID   PPID   PGID    SID  C STIME TTY          TIME CMD                                                                                                       <br>root          2      0      0      0  0 14:53 ?        00:00:00 [kthreadd]                                      <br>root          4      2      0      0  0 14:53 ?        00:00:00 [kworker/0:0H]                                                                        <br>root          6      2      0      0  0 14:53 ?        00:00:00 [mm_percpu_wq]      <br>root          7      2      0      0  0 14:53 ?        00:00:02 [ksoftirqd/0]  <br>root          8      2      0      0  0 14:53 ?        00:00:02 [rcu_sched]                       <br>root          9      2      0      0  0 14:53 ?        00:00:00 [rcu_bh]                                     <br>root         10      2      0      0  0 14:53 ?        00:00:00 [migration/0]<br>root         11      2      0      0  0 14:53 ?        00:00:00 [watchdog/0] <br>root         12      2      0      0  0 14:53 ?        00:00:00 [cpuhp/0]    <br>root         13      2      0      0  0 14:53 ?        00:00:00 [cpuhp/1]<br>......省略部分输出<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>需要注意的是，用户层守护进程的父进程是 init进程（进程ID为1），从上面的输出<code>PPID</code>一列也可以看出，内核守护进程的父进程并非是 init进程。</p>
+<p>对于用户层守护进程， 因为它真正的父进程在 fork 出子进程后就先于子进程 exit 退出了，所以它是一个由 init 继承的孤儿进程。</p>
+</blockquote>
+<h3 id="4-1-创建守护进程的过程："><a href="#4-1-创建守护进程的过程：" class="headerlink" title="4.1 创建守护进程的过程："></a>4.1 <strong>创建守护进程的过程：</strong></h3><ol>
+<li>调用fork创建子进程。父进程终止，让子进程在后台继续执行。</li>
+<li>子进程调用setsid产生新会话期并失去控制终端调用setsid()使子进程进程成为新会话组长和新的进程组长，同时失去控制终端。</li>
+<li>忽略SIGHUP信号。会话组长进程终止会向其他进程发该信号，造成其他进程终止。</li>
+<li>调用fork再创建子进程。子进程终止，子子进程继续执行，由于子子进程不再是会话组长，从而禁止进程重新打开控制终端。</li>
+<li>改变当前工作目录为根目录。一般将工作目录改变到根目录，这样进程的启动目录也可以被卸掉。</li>
+<li>关闭打开的文件描述符，打开一个空设备，并复制到标准输出和标准错误上。 避免调用的一些库函数依然向屏幕输出信息。</li>
+<li>重设文件创建掩码清除从父进程那里继承来的文件创建掩码，设为0。</li>
+<li>用openlog函数建立与syslogd的连接。</li>
+</ol>
+<h3 id="4-2-创建示例："><a href="#4-2-创建示例：" class="headerlink" title="4.2 创建示例："></a>4.2 <strong>创建示例：</strong></h3><blockquote>
+<p>通过python的daemon库进行创建</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: UTF-8 -*-</span><br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> atexit<br><span class="hljs-keyword">import</span> signal<br><span class="hljs-keyword">import</span> traceback<br><br><span class="hljs-comment">#为当前进程重命名</span><br><span class="hljs-keyword">import</span> setproctitle<br>setproctitle.setproctitle(<span class="hljs-string">&quot;signum&quot;</span>)<br><br><span class="hljs-comment"># 保存进程id</span><br>PIDFile = <span class="hljs-string">&quot;/var/run/signum/signum-server.pid&quot;</span><br><br><span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(os.path.dirname(PIDFile)):<br>    print(os.path.dirname(PIDFile))<br>    os.makedirs(os.path.dirname(PIDFile))<br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-keyword">with</span> open(PIDFile,<span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> f:<br>        pid=os.getpid()<br>        f.write(str(pid)+<span class="hljs-string">&quot;\n&quot;</span>)<br>        f.close()<br><span class="hljs-keyword">except</span>:<br>    os.remove(PIDFile)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">term_sig_handler</span>(<span class="hljs-params">signum, frame</span>):</span><br>    print(<span class="hljs-string">&quot;catched singal: %d &quot;</span> % signum)<br><br><br><span class="hljs-meta">@atexit.register</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">atexit_fun</span>():</span><br>    print(<span class="hljs-string">&quot;i am exit. stack track:&quot;</span>)<br><br>    exc_type, exc_value, exc_tb = sys.exc_info()<br>    traceback.print_exception(exc_type, exc_value, exc_tb)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment"># 设置信号量的处理函数</span><br>    signal.signal(signal.SIG_IGN, term_sig_handler)<br>    signal.signal(signal.SIGTERM, term_sig_handler)<br>    signal.signal(signal.SIGINT, term_sig_handler)<br><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        print(<span class="hljs-string">&quot;hello&quot;</span>)<br>        <span class="hljs-comment"># sys.exit(0)</span><br>        time.sleep(<span class="hljs-number">1</span>)<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: UTF-8 -*-</span><br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> daemon<br><span class="hljs-keyword">from</span> logzero <span class="hljs-keyword">import</span> logger<br><span class="hljs-keyword">import</span> psutil<br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-comment"># 启动命令</span><br>ExecStart = <span class="hljs-string">&quot;python /home/k/PycharmProjects/pythonProject/signum.py &quot;</span><br><span class="hljs-comment"># 停止命令</span><br>ExecStop = <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-comment"># 进程id文件</span><br>PIDFile = <span class="hljs-string">&quot;/var/run/signum/signum-server.pid&quot;</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start</span>():</span><br>    <span class="hljs-comment"># 首先进行一次fork，防止对原有进程产生干扰</span><br>    pid = os.fork()<br>    <span class="hljs-keyword">if</span> pid == <span class="hljs-number">0</span>:<br>        <span class="hljs-comment"># 对于fork出的子进程，进入Daemon模式</span><br>        <span class="hljs-keyword">with</span> daemon.DaemonContext():<br>            <span class="hljs-comment"># 如果文件存在</span><br>            <span class="hljs-keyword">if</span> os.path.exists(PIDFile):<br>                <span class="hljs-keyword">with</span> open(PIDFile, <span class="hljs-string">&quot;r&quot;</span>) <span class="hljs-keyword">as</span> f:<br>                    pid = int(f.read())<br>                    f.close()<br>            <span class="hljs-keyword">try</span>:<br>                <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>                    <span class="hljs-comment"># 如果进程id不存在</span><br>                    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> psutil.pid_exists(pid):<br>                        <span class="hljs-comment"># 执行启动命令重启</span><br>                        os.system(ExecStart)<br>                        <span class="hljs-comment"># 重新设置PID</span><br>                        <span class="hljs-keyword">with</span> open(PIDFile, <span class="hljs-string">&quot;r&quot;</span>) <span class="hljs-keyword">as</span> f:<br>                            pid = int(f.read())<br>                            f.close()<br><br>            <span class="hljs-keyword">except</span> ImportError <span class="hljs-keyword">as</span> e:<br>                <br>                logger.warning(<span class="hljs-string">&quot;setproctitle module not found&quot;</span>)<br>            time.sleep(<span class="hljs-number">3600</span>)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-comment"># 对于父进程（原始进程），保留原有逻辑执行</span><br>        exit(<span class="hljs-number">0</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    start()<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-3-实战结果"><a href="#4-3-实战结果" class="headerlink" title="4.3 实战结果"></a>4.3 实战结果</h3><ul>
+<li><p>两个守护进程：v1、v2</p>
+</li>
+<li><p>一个服务进程：signum</p>
+</li>
+<li><p>v1、v2相互守护，v1还守护signum</p>
+</li>
+<li><p>代码实现：</p>
+</li>
+</ul>
+<h4 id="4-3-1-Daemon-v1-py"><a href="#4-3-1-Daemon-v1-py" class="headerlink" title="4.3.1 Daemon_v1.py"></a>4.3.1 Daemon_v1.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: UTF-8 -*-</span><br><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> signal<br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> time<br><br><span class="hljs-keyword">import</span> psutil<br><span class="hljs-keyword">import</span> requests<br><br><span class="hljs-string">&quot;&quot;&quot;BASE_CONFIG&quot;&quot;&quot;</span><br>SERVER_IP = <span class="hljs-string">&quot;192.168.121.152&quot;</span><br>SERVER_PORT = <span class="hljs-string">&quot;32768&quot;</span><br>ROOT_URL = <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;SERVER_IP&#125;</span>:<span class="hljs-subst">&#123;SERVER_PORT&#125;</span>&quot;</span><br><br><span class="hljs-comment"># 服务名称列表</span><br>SERVER_NAMES = [<span class="hljs-string">&quot;signum&quot;</span>, <span class="hljs-string">&quot;daemon-v2-server&quot;</span>]<br><span class="hljs-comment"># 启动命令字典</span><br>EXEC_STARTS = &#123;<br>    <span class="hljs-string">&quot;daemon-v2-server&quot;</span>: <span class="hljs-string">f&quot;/Anaconda/ls/envs/Daemon/bin/python  /home/klein/WorkSpace/Daemon/testv1/Daemon_v2.py&quot;</span>,<br>    <span class="hljs-string">&quot;signum&quot;</span>: <span class="hljs-string">f&quot;/Anaconda/ls/envs/Daemon/bin/python  /home/klein/WorkSpace/Daemon/testv1/signum.py &quot;</span>,<br>&#125;<br><span class="hljs-comment"># 停止命令字典</span><br>EXEC_STOPS = &#123;<br><br>&#125;<br><span class="hljs-comment"># PID文件存放根目录</span><br>PID_ROOT_PATH = <span class="hljs-string">&quot;PID文件存放的根目录&quot;</span><br><span class="hljs-comment"># PID文件路径字典</span><br>PIDFILES = &#123;<br>    <span class="hljs-string">&quot;signum&quot;</span>: <span class="hljs-string">f&quot;signum PID文件全路径&quot;</span>,<br>    <span class="hljs-string">&quot;daemon-v2-server&quot;</span>: <span class="hljs-string">f&quot;daemon-v2-server PID文件全路径&quot;</span>,<br>&#125;<br><span class="hljs-comment"># PID值字典</span><br>PID_VALUES = &#123;<br>    <span class="hljs-string">&quot;signum&quot;</span>: <span class="hljs-number">0</span>,<br>    <span class="hljs-string">&quot;daemon-v2-server&quot;</span>:<span class="hljs-number">0</span><br>&#125;<br><br><br><span class="hljs-comment"># 保存 daemon 进程id</span><br>D_PIDFILE = <span class="hljs-string">&quot;当前进程的pid文件存放路径&quot;</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">put_log</span>(<span class="hljs-params">description: str = None</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    推送日志信息</span><br><span class="hljs-string">    :param description:</span><br><span class="hljs-string">    :return:</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    url = <span class="hljs-string">f&quot;http://<span class="hljs-subst">&#123;SERVER_IP&#125;</span>:32769/log&quot;</span><br>    header = &#123;<br>        <span class="hljs-string">&quot;Content-Type&quot;</span>: <span class="hljs-string">&quot;application/json&quot;</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> description:<br>        <span class="hljs-keyword">try</span>:<br>            description = <span class="hljs-string">f&quot;[time:<span class="hljs-subst">&#123;time.strftime(<span class="hljs-string">&#x27;%Y-%m-%d %X&#x27;</span>, time.localtime())&#125;</span>] : &quot;</span> + description<br>            requestData = &#123;<span class="hljs-string">&quot;username&quot;</span>: <span class="hljs-string">&quot;daemon&quot;</span>, <span class="hljs-string">&quot;description&quot;</span>: description, <span class="hljs-string">&quot;status&quot;</span>: <span class="hljs-number">2</span>, <span class="hljs-string">&quot;log_type&quot;</span>: <span class="hljs-number">4</span>&#125;<br>            requestData = json.dumps(requestData)<br>            res = requests.put(url, data=requestData, headers=header, timeout=<span class="hljs-number">5</span>)<br>            <span class="hljs-keyword">if</span> res.status_code == <span class="hljs-number">200</span>:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">init_signum</span>():</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    初始化signum服务</span><br><span class="hljs-string">    :return:</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 等待服务启动</span><br>    time.sleep(<span class="hljs-number">10</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>    <br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">init</span>(<span class="hljs-params">name: str</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    启动进程后，根据服务名称初始化服务</span><br><span class="hljs-string">    :param name 服务名称</span><br><span class="hljs-string">    :return:</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> name == <span class="hljs-string">&quot;signum&quot;</span>:<br>        res = init_signum()<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> res:<br>            put_log(<span class="hljs-string">f&quot;启动服务失败&quot;</span>)<br>    <span class="hljs-keyword">elif</span> name == <span class="hljs-string">&quot;name&quot;</span>:<br>        <span class="hljs-keyword">pass</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">pass</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start_v3</span>():</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    开始守护进程  ：  目前使用的版本</span><br><span class="hljs-string">    :return:</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 首先进行一次fork，防止对原有进程产生干扰</span><br>    pid = os.fork()<br>    <span class="hljs-keyword">if</span> pid == <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">try</span>:<br>            <span class="hljs-comment"># 为当前进程重命名</span><br>            <span class="hljs-keyword">import</span> setproctitle<br>            setproctitle.setproctitle(<span class="hljs-string">&quot;[Daemon-v1]&quot;</span>)<br>            write_pid(D_PIDFILE)<br>            <span class="hljs-comment"># 屏蔽普通信号量</span><br>            shield_signal()<br>            <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> SERVER_NAMES:<br>                <span class="hljs-comment"># 如果文件存在</span><br>                <span class="hljs-keyword">if</span> os.path.exists(PIDFILES[name]):<br>                    <span class="hljs-keyword">with</span> open(PIDFILES[name], <span class="hljs-string">&quot;r&quot;</span>) <span class="hljs-keyword">as</span> f:<br>                        PID_VALUES[name] = int(f.read())<br>                        f.close()<br>            <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>                <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> SERVER_NAMES:<br>                    <span class="hljs-comment"># 如果进程id不存在</span><br>                    <span class="hljs-comment"># put_log(f&quot;&#123;PID_VALUES&#125;&quot;)</span><br>                    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> psutil.pid_exists(PID_VALUES[name]):<br>                        <span class="hljs-comment"># 执行启动命令重启</span><br>                        os.system(EXEC_STARTS[name])<br>                        <span class="hljs-keyword">try</span>:<br>                            put_log(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;name&#125;</span> : 服务重启&quot;</span><br>                                    <span class="hljs-string">f&quot;中......&quot;</span>)<br>                        <span class="hljs-keyword">finally</span>:<br>                            init(name)<br>                            <span class="hljs-comment"># 重新设置PID</span><br>                            <span class="hljs-keyword">with</span> open(PIDFILES[name], <span class="hljs-string">&quot;r&quot;</span>) <span class="hljs-keyword">as</span> f:<br>                                PID_VALUES[name] = int(f.read())<br>                                f.close()<br>                <span class="hljs-comment"># else:</span><br><br>        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>            put_log(e.__str__())<br>        time.sleep(<span class="hljs-number">3600</span>)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-comment"># 对于父进程（原始进程），保留原有逻辑执行</span><br>        sys.exit(<span class="hljs-number">0</span>)<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">term_sig_handler</span>(<span class="hljs-params">signum, frame</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    捕获信号量 kill signum 并推送日志处理</span><br><span class="hljs-string">    :param signum:</span><br><span class="hljs-string">    :param frame:</span><br><span class="hljs-string">    :return:</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    put_log(<span class="hljs-string">f&quot;Someone tried to shut down the daemon : kill <span class="hljs-subst">&#123;signum&#125;</span> [daemon-v1-server]&quot;</span>)<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">shield_signal</span>():</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    添加要屏蔽的信号量</span><br><span class="hljs-string">    :return:</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    signal.signal(signal.SIG_IGN, term_sig_handler)<br>    signal.signal(signal.SIGTERM, term_sig_handler)<br>    signal.signal(signal.SIGINT, term_sig_handler)<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">daemon_exist</span>():</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    判断当前守护进程是否存在</span><br><span class="hljs-string">    :return:</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 文件不存在</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(D_PIDFILE):<br>        <span class="hljs-comment"># print(os.path.dirname(D_PIDFILE))</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(os.path.dirname(D_PIDFILE)):<br>            os.makedirs(os.path.dirname(D_PIDFILE))<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-comment"># 文件存在</span><br>        <span class="hljs-keyword">with</span> open(D_PIDFILE, <span class="hljs-string">&quot;r&quot;</span>) <span class="hljs-keyword">as</span> f:<br>            pid = int(f.read())<br>            f.close()<br>        <span class="hljs-keyword">if</span> psutil.pid_exists(pid):<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">write_pid</span>(<span class="hljs-params">daemon_pid: str</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    写入进程 pid</span><br><span class="hljs-string">    :param daemon_pid:</span><br><span class="hljs-string">    :return:</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">with</span> open(daemon_pid, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> f:<br>        pid = os.getpid()<br>        <span class="hljs-comment"># print(pid)</span><br>        f.write(str(pid) + <span class="hljs-string">&quot;\n&quot;</span>)<br>        f.close()<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> daemon_exist():<br>        start_v3()<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="4-3-2-Daemon-v2-py"><a href="#4-3-2-Daemon-v2-py" class="headerlink" title="4.3.2 Daemon_v2.py"></a>4.3.2 Daemon_v2.py</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> -*- coding: UTF-8 -*-</span><br>import json<br>import os<br>import signal<br>import sys<br>import time<br><br>import psutil<br>import requests<br><br><br>&quot;&quot;&quot;BASE_CONFIG&quot;&quot;&quot;<br>SERVER_IP = &quot;192.168.121.152&quot;<br><br><span class="hljs-meta">#</span><span class="bash"> 服务名称列表</span><br>SERVER_NAMES = [&quot;daemon-v1-server&quot;, ]<br><span class="hljs-meta">#</span><span class="bash"> 启动命令字典</span><br>EXEC_STARTS = &#123;<br>    &quot;daemon-v1-server&quot;: f&quot;/Anaconda/ls/envs/Daemon/bin/python  /home/klein/WorkSpace/Daemon/testv1/Daemon_v1.py&quot;,<br>&#125;<br><span class="hljs-meta">#</span><span class="bash"> 停止命令字典</span><br>EXEC_STOPS = &#123;<br><br>&#125;<br><span class="hljs-meta">#</span><span class="bash"> PID文件存放根目录</span><br>PID_ROOT_PATH = &quot;根目录&quot;<br><span class="hljs-meta">#</span><span class="bash"> PID文件路径字典</span><br>PIDFILES = &#123;<br>    &quot;daemon-v1-server&quot;: f&quot;daemon-v1-server PID文件位置&quot;,<br>&#125;<br><span class="hljs-meta">#</span><span class="bash"> PID值字典</span><br>PID_VALUES = &#123;<br>    &quot;daemon-v1-server&quot;: 0<br>&#125;<br><br><span class="hljs-meta">#</span><span class="bash"> 保存 daemon-v2 进程id</span><br>D_PIDFILE = &quot;当前进程的PID文件位置&quot;<br><br><br>def put_log(description: str = None):<br>    &quot;&quot;&quot;<br>    推送日志信息<br>    :param description:<br>    :return:<br>    &quot;&quot;&quot;<br>    url = f&quot;http://&#123;SERVER_IP&#125;:32769/log&quot;<br>    header = &#123;<br>        &quot;Content-Type&quot;: &quot;application/json&quot;<br>    &#125;<br>    if description:<br>        try:<br>            description = f&quot;[time:&#123;time.strftime(&#x27;%Y-%m-%d %X&#x27;, time.localtime())&#125;] : &quot; + description<br>            requestData = &#123;&quot;username&quot;: &quot;daemon&quot;, &quot;description&quot;: description, &quot;status&quot;: 2, &quot;log_type&quot;: 4&#125;<br>            requestData = json.dumps(requestData)<br>            res = requests.put(url, data=requestData, headers=header, timeout=5)<br>            if res.status_code == 200:<br>                return True<br>            else:<br>                return False<br>        except Exception as e:<br>            return False<br>    return False<br><br>def init(name: str):<br>    &quot;&quot;&quot;<br>    启动进程后，根据服务名称初始化服务<br>    :param name 服务名称<br>    :return:<br>    &quot;&quot;&quot;<br>    if name == &quot;signum&quot;:<br>        pass<br>    else:<br>        time.sleep(10)<br>        pass<br><br><br>def start_v3():<br>    &quot;&quot;&quot;<br>    开始守护进程  ：  目前使用的版本<br>    :return:<br>    &quot;&quot;&quot;<br>    # 首先进行一次fork，防止对原有进程产生干扰<br>    pid = os.fork()<br>    if pid == 0:<br>        try:<br>            # 为当前进程重命名<br>            import setproctitle<br>            setproctitle.setproctitle(&quot;[Daemon-v2]&quot;)<br>            # 写入当前进程id<br>            write_pid(D_PIDFILE)<br>            # 屏蔽普通信号量<br>            shield_signal()<br>            for name in SERVER_NAMES:<br>                # 如果文件存在<br>                if os.path.exists(PIDFILES[name]):<br>                    with open(PIDFILES[name], &quot;r&quot;) as f:<br>                        PID_VALUES[name] = int(f.read())<br>                        f.close()<br>            while True:<br>                for name in SERVER_NAMES:<br>                    # 如果进程id不存在<br>                    # put_log(f&quot;&#123;PID_VALUES&#125;&quot;)<br>                    if not psutil.pid_exists(PID_VALUES[name]):<br>                        # 执行启动命令重启<br>                        os.system(EXEC_STARTS[name])<br>                        try:<br>                            put_log(f&quot;&#123;name&#125; : 服务重启&quot;<br>                                    f&quot;中......&quot;)<br>                        finally:<br>                            init(name)<br>                            # 重新设置PID<br>                            with open(PIDFILES[name], &quot;r&quot;) as f:<br>                                PID_VALUES[name] = int(f.read())<br>                                f.close()<br>                # else:<br><br>        except Exception as e:<br>            put_log(e.__str__())<br>        time.sleep(3600)<br>    else:<br>        # 对于父进程（原始进程），保留原有逻辑执行<br>        sys.exit(0)<br><br><br>def term_sig_handler(signum, frame):<br>    &quot;&quot;&quot;<br>    捕获信号量 kill signum 并推送日志处理<br>    :param signum:<br>    :param frame:<br>    :return:<br>    &quot;&quot;&quot;<br>    put_log(f&quot;Someone tried to shut down the daemon : kill &#123;signum&#125; [daemon-v2-server]&quot;)<br><br><br>def shield_signal():<br>    &quot;&quot;&quot;<br>    添加要屏蔽的信号量<br>    :return:<br>    &quot;&quot;&quot;<br>    signal.signal(signal.SIG_IGN, term_sig_handler)<br>    signal.signal(signal.SIGTERM, term_sig_handler)<br>    signal.signal(signal.SIGINT, term_sig_handler)<br><br><br>def daemon_exist():<br>    &quot;&quot;&quot;<br>    判断当前守护进程是否存在<br>    :return:<br>    &quot;&quot;&quot;<br>    # 文件不存在<br>    if not os.path.exists(D_PIDFILE):<br>        # print(os.path.dirname(D_PIDFILE))<br>        if not os.path.exists(os.path.dirname(D_PIDFILE)):<br>            os.makedirs(os.path.dirname(D_PIDFILE))<br>        return False<br>    else:<br>        # 文件存在<br>        with open(D_PIDFILE, &quot;r&quot;) as f:<br>            pid = int(f.read())<br>            f.close()<br>        if psutil.pid_exists(pid):<br>            return True<br>        else:<br>            return False<br><br><br>def write_pid(daemon_pid: str):<br>    &quot;&quot;&quot;<br>    写入进程 pid<br>    :param daemon_pid:<br>    :return:<br>    &quot;&quot;&quot;<br>    with open(daemon_pid, &quot;w&quot;) as f:<br>        pid = os.getpid()<br>        print(pid)<br>        f.write(str(pid) + &quot;\n&quot;)<br>        f.close()<br><br><br>if __name__ == &quot;__main__&quot;:<br>    if not daemon_exist():<br>        start_v3()<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="4-3-3-signum-py"><a href="#4-3-3-signum-py" class="headerlink" title="4.3.3 signum.py"></a>4.3.3 signum.py</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs plain"># -*- coding: UTF-8 -*-<br>import os<br>import sys<br>import time<br>import atexit<br>import signal<br>import traceback<br><br># 为当前进程重命名<br>import setproctitle<br>setproctitle.setproctitle(&quot;signum&quot;)<br><br># 保存进程id<br>PIDFile &#x3D; &quot;当前进程的PID文件位置&quot;<br><br>if not os.path.exists(os.path.dirname(PIDFile)):<br>    # print(os.path.dirname(PIDFile))<br>    os.makedirs(os.path.dirname(PIDFile))<br>try:<br>    with open(PIDFile, &quot;w&quot;) as f:<br>        pid &#x3D; os.getpid()<br>        f.write(str(pid) + &quot;\n&quot;)<br>        f.close()<br>except Exception as e:<br>    os.remove(PIDFile)<br><br><br>def term_sig_handler(signum, frame):<br>    print(&quot;catched singal: %d &quot; % signum)<br><br><br>@atexit.register<br>def atexit_fun():<br>    print(&quot;i am exit. stack track:&quot;)<br><br>    exc_type, exc_value, exc_tb &#x3D; sys.exc_info()<br>    traceback.print_exception(exc_type, exc_value, exc_tb)<br><br><br>if __name__ &#x3D;&#x3D; &quot;__main__&quot;:<br>    # 设置信号量的处理函数<br>    signal.signal(signal.SIG_IGN, term_sig_handler)<br>    signal.signal(signal.SIGTERM, term_sig_handler)<br>    signal.signal(signal.SIGINT, term_sig_handler)<br><br>    while True:<br>        print(&quot;hello&quot;)<br>        # sys.exit(0)<br>        time.sleep(1)<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="五、可选的进程防杀方案"><a href="#五、可选的进程防杀方案" class="headerlink" title="五、可选的进程防杀方案"></a>五、可选的进程防杀方案</h2><ul>
+<li>使用redis的方案，在系统Systemd系统层面守护，检测不存在重新启动脚本。</li>
+<li>创建程序级别的守护进程，进行守护，检测不存在重新启动脚本。两层守护，第二层守护加入信号量(signal)拦截。</li>
+<li>创建定时任务，crotab持续扫描进程状态，不存在就重启。</li>
+</ul>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/10/23/%E8%BF%9B%E7%A8%8B%E9%98%B2%E6%9D%80%E7%AC%94%E8%AE%B0/" data-id="ckhn7g6ia001ei0vc6o9mb1pc" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/11/01/auto.js%E8%9A%82%E8%9A%81%E6%A3%AE%E6%9E%97%E6%94%B6%E8%83%BD%E9%87%8F/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            auto.js蚂蚁森林收能量
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/10/15/IDEA%E5%92%8Cmaven%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">IDEA和maven配置多仓库的解决方案</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+  <div class="gitalk" id="gitalk-container"></div>
+  
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '805efc781a7e3c77968c',
+      clientSecret: 'af34e634e272e62b21230690b662f0482a5678df',
+      repo: 'kleinlsl.github.io',
+      owner: 'kleinlsl',
+      admin: ['kleinlsl'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 月色很柔</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="月色很柔"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="个人简单博客">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    auto.js蚂蚁森林收能量 |
+    
+    月色很柔</title>
+  
+    <link rel="shortcut icon" href="/images/hexo.svg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="月色很柔" type="application/atom+xml">
+</head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-auto.js蚂蚁森林收能量" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      auto.js蚂蚁森林收能量
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/11/01/auto.js%E8%9A%82%E8%9A%81%E6%A3%AE%E6%9E%97%E6%94%B6%E8%83%BD%E9%87%8F/" class="article-date">
+  <time datetime="2020-11-01T11:14:16.000Z" itemprop="datePublished">2020-11-01</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <ul>
+<li>在网上看了一些自动收能量的脚本</li>
+<li>写了一个脚本</li>
+<li>使用AutoJs运行<ul>
+<li>AutoJS下载地址 :<a target="_blank" rel="noopener" href="https://github.com/kleinlsl/auto_alipay/releases/download/auto_alipay_v1.0/Auto.js.apk">here</a></li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+
+<ul>
+<li><p>运行步骤如下：</p>
+<ul>
+<li>1.解锁（点亮屏幕，切换到输入密码界面，输入密码）</li>
+<li>2.打开支付宝</li>
+<li>3.找到蚂蚁森林</li>
+<li>4.收取自己的能量</li>
+<li>5.偷取他人能量</li>
+</ul>
+</li>
+<li><p>参考资料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/hyb1996">https://github.com/hyb1996</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/congwulong/alipay_autojs">https://github.com/congwulong/alipay_autojs</a> </li>
+</ul>
+</li>
+<li><p>源码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br></pre></td><td class="code"><pre><code class="hljs js"><br><span class="hljs-keyword">var</span> morningTime = <span class="hljs-string">&quot;07:22&quot;</span>;<span class="hljs-comment">//自己运动能量生成时间</span><br><span class="hljs-keyword">var</span> startTime = <span class="hljs-string">&quot;07:00&quot;</span>;<br><span class="hljs-keyword">var</span> endTime = <span class="hljs-string">&quot;7:35&quot;</span>;<br><span class="hljs-keyword">var</span> screen_width = <span class="hljs-number">1080</span>;  <span class="hljs-comment">//设置屏幕的宽度，像素值</span><br><span class="hljs-keyword">var</span> screen_height = <span class="hljs-number">2340</span>; <span class="hljs-comment">//设置屏幕的高度，像素值</span><br><br>sleep(<span class="hljs-number">2000</span>);<br>unlock();<br>sleep(<span class="hljs-number">2000</span>);<br><br>threads.start(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-comment">//在子线程中调用observeKey()从而使按键事件处理在子线程执行</span><br>    events.observeKey();<br>    events.on(<span class="hljs-string">&quot;key_down&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">keyCode, events</span>)</span>&#123;<br>        <span class="hljs-comment">//音量键关闭脚本</span><br>        <span class="hljs-keyword">if</span>(keyCode == keys.volume_down)&#123;<br>            toast(<span class="hljs-string">&quot;您选择退出脚本！&quot;</span>)<br>            sleep(<span class="hljs-number">2000</span>);<br>            exit();<br>        &#125;<br>    &#125;);<br>&#125;);<br><br>mainEntrence();<br><br><span class="hljs-comment">//程序主入口</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mainEntrence</span>(<span class="hljs-params"></span>)</span>&#123;<br><br>    <span class="hljs-keyword">do</span>&#123;<br>        <span class="hljs-comment">//尝试打开支付宝</span><br>        <span class="hljs-keyword">if</span> (!openAlipay()) &#123;<br>            toastLog(<span class="hljs-string">&quot;打开支付宝失败，退出程序&quot;</span>);<br>            exit();<br>        &#125;<br>        <span class="hljs-comment">// 尝试进入自己的蚂蚁森林，若失败跳过</span><br>        <span class="hljs-keyword">if</span>(!enterMyMainPage())&#123;<br>            toastLog(<span class="hljs-string">&quot;尝试进入自己的蚂蚁森林，若失败退出程序&quot;</span>);<br>            exit();<br>        &#125;<br>        <span class="hljs-keyword">if</span>(!collectEnergy(<span class="hljs-string">&quot;收取自己能量中&quot;</span>))&#123;<br>            toastLog(<span class="hljs-string">&quot;如果不在蚂蚁森林，退出程序&quot;</span>);<br>            exit();<br>        &#125;<br>        <span class="hljs-comment">// 找能量</span><br>        <span class="hljs-keyword">while</span>(findOthers())&#123;<br>            back();<br>            sleep(<span class="hljs-number">300</span>);<br>        &#125;<br>        <span class="hljs-comment">// 执行返回 4 次</span><br>        whenComplete(<span class="hljs-number">4</span>);<br>        <span class="hljs-comment">// 睡眠 1 秒，等待下一次收集</span><br>        sleep(<span class="hljs-number">1000</span>);<br>    &#125;<span class="hljs-keyword">while</span>(checkTime());<br>    <br>    exit();<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 收其他人能量</span><br><span class="hljs-comment">* return 是否有能量可收</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findOthers</span>(<span class="hljs-params"></span>)</span>&#123;<br><br>    <span class="hljs-keyword">if</span>(textEndsWith(<span class="hljs-string">&quot;种树&quot;</span>).exists())&#123;<br>        <span class="hljs-comment">// 到了自己能量时间</span><br>        <span class="hljs-keyword">if</span>(myEnergyTime())&#123;<br>            collectEnergy(<span class="hljs-string">&quot;收取自己能量&quot;</span>);<br>        &#125;<br>        <span class="hljs-comment">// 点击按钮寻找能量，不同手机需要更改位置参数</span><br>        click(<span class="hljs-number">960</span>,<span class="hljs-number">1570</span>);<br>        sleep(<span class="hljs-number">500</span>);<br>        <span class="hljs-keyword">return</span> collectEnergy(<span class="hljs-string">&quot;收其他人能量中&quot;</span>);<br>    &#125;<br>    toastLog(<span class="hljs-string">&quot;没有能量了&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 解锁函数</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unlock</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">if</span>(!device.isScreenOn())&#123;<br>        <span class="hljs-comment">//点亮屏幕</span><br>        device.wakeUp();<br>        <span class="hljs-comment">//由于MIUI的解锁有变速检测，因此要点开时间以进入密码界面</span><br>        sleep(<span class="hljs-number">1000</span>);<br>        swipe(<span class="hljs-number">500</span>, <span class="hljs-number">0</span>, <span class="hljs-number">500</span>, <span class="hljs-number">1900</span>, <span class="hljs-number">2000</span>);<br>        click(<span class="hljs-number">100</span>,<span class="hljs-number">150</span>); <br>        <span class="hljs-comment">//输入屏幕解锁密码，其他密码请自行修改</span><br>        sleep(<span class="hljs-number">2000</span>);<br>        click(<span class="hljs-number">250</span>,<span class="hljs-number">1440</span>);<br>        sleep(<span class="hljs-number">500</span>);<br>       <br>        click(<span class="hljs-number">550</span>,<span class="hljs-number">1640</span>);<br>        sleep(<span class="hljs-number">500</span>);<br>        <br>        click(<span class="hljs-number">250</span>,<span class="hljs-number">1440</span>);<br>        sleep(<span class="hljs-number">500</span>);<br>        <br>        click(<span class="hljs-number">840</span>,<span class="hljs-number">1640</span>);<br>        sleep(<span class="hljs-number">500</span>);    <br>    &#125;<br>&#125;<br><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 收能量函数</span><br><span class="hljs-comment"> * return 是否收取成功</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">collectEnergy</span>(<span class="hljs-params">info</span>) </span>&#123;<br>    <span class="hljs-comment">// 判断是否在蚂蚁森林</span><br>    <span class="hljs-keyword">if</span>(!textContains(<span class="hljs-string">&quot;最新动态&quot;</span>).exists())&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> row=screen_height*<span class="hljs-number">0.256</span>;row&lt;screen_height*<span class="hljs-number">0.376</span>;row+=<span class="hljs-number">80</span>)&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> col=screen_width*<span class="hljs-number">0.185</span>;col&lt;screen_width*<span class="hljs-number">0.815</span>;col+=<span class="hljs-number">80</span>)&#123;<br>            sleep(<span class="hljs-number">100</span>);<br>            click(col,row);<br>        &#125;<br>    &#125;<br>    toastLog(info);<br>    sleep(<span class="hljs-number">100</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 从支付宝主页进入蚂蚁森林我的主页</span><br><span class="hljs-comment"> * return 是否进入</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">enterMyMainPage</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-comment">//五次尝试蚂蚁森林入</span><br>    <span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;<br>    <span class="hljs-comment">// 拉至顶端</span><br>    swipe(screen_width*<span class="hljs-number">0.5</span>,screen_height*<span class="hljs-number">0.5</span>,screen_width*<span class="hljs-number">0.5</span>,screen_height*<span class="hljs-number">0.25</span>,<span class="hljs-number">500</span>);<br>    sleep(<span class="hljs-number">500</span>);<br>    swipe(screen_width*<span class="hljs-number">0.5</span>,screen_height*<span class="hljs-number">0.25</span>,screen_width*<span class="hljs-number">0.5</span>,screen_height*<span class="hljs-number">0.5</span>,<span class="hljs-number">500</span>);<br>    <br>    <span class="hljs-keyword">while</span> (!textEndsWith(<span class="hljs-string">&quot;蚂蚁森林&quot;</span>).exists() &amp;&amp; !descEndsWith(<span class="hljs-string">&quot;蚂蚁森林&quot;</span>).exists() &amp;&amp; i&lt;=<span class="hljs-number">5</span>)&#123;<br>        sleep(<span class="hljs-number">1000</span>);<br>        i++;   <br>    &#125;  <br>    <span class="hljs-keyword">if</span>(i&gt;=<span class="hljs-number">5</span>)&#123;<br>        toastLog(<span class="hljs-string">&quot;没有找到蚂蚁森林入口，尝试中&quot;</span>);<br>        clickByTextDesc(<span class="hljs-string">&quot;全部&quot;</span>,<span class="hljs-number">0</span>);<br>        sleep(<span class="hljs-number">2000</span>);<br>        swipe(screen_width*<span class="hljs-number">0.5</span>,screen_height*<span class="hljs-number">0.3</span>,screen_width*<span class="hljs-number">0.5</span>,screen_height*<span class="hljs-number">0.7</span>,<span class="hljs-number">1000</span>);<br>        sleep(<span class="hljs-number">2000</span>);<br>        swipe(screen_width*<span class="hljs-number">0.5</span>,screen_height*<span class="hljs-number">0.3</span>,screen_width*<span class="hljs-number">0.5</span>,screen_height*<span class="hljs-number">0.7</span>,<span class="hljs-number">1000</span>);<br>        sleep(<span class="hljs-number">2000</span>);<br>    &#125;<br>    clickByTextDesc(<span class="hljs-string">&quot;蚂蚁森林&quot;</span>,<span class="hljs-number">0</span>);<br>    <br>    <span class="hljs-comment">//等待进入自己的主页,10次尝试</span><br>    sleep(<span class="hljs-number">3000</span>);<br>    i=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> (!textEndsWith(<span class="hljs-string">&quot;种树&quot;</span>).exists() &amp;&amp; !descEndsWith(<span class="hljs-string">&quot;种树&quot;</span>).exists() &amp;&amp; i&lt;=<span class="hljs-number">10</span>)&#123;<br>        sleep(<span class="hljs-number">1000</span>);<br>        i++;<br>    &#125;<br>    toastLog(<span class="hljs-string">&quot;第&quot;</span>+i+<span class="hljs-string">&quot;次尝试进入自己主页&quot;</span>);<br>    <span class="hljs-keyword">if</span>(i&gt;=<span class="hljs-number">10</span>)&#123;<br>        toastLog(<span class="hljs-string">&quot;进入自己能量主页失败&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 自定义的点击函数</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param <span class="hljs-type">&#123;*&#125;</span> </span>energyType </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param <span class="hljs-type">&#123;*&#125;</span> </span>paddingY </span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clickByTextDesc</span>(<span class="hljs-params">energyType,paddingY</span>)</span>&#123;<br>    <span class="hljs-keyword">var</span> clicked = <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">if</span>(descEndsWith(energyType).exists())&#123;<br>        descEndsWith(energyType).find().forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pos</span>)</span>&#123;<br>            <span class="hljs-keyword">var</span> posb=pos.bounds();<br>            <span class="hljs-keyword">if</span>(posb.centerX()&lt;<span class="hljs-number">0</span> || posb.centerY()-paddingY&lt;<span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            <span class="hljs-comment">//toastLog(pos.id());</span><br>            <span class="hljs-keyword">var</span> str = pos.id();<br>            <span class="hljs-keyword">if</span>(str != <span class="hljs-literal">null</span>)&#123;<br>                <span class="hljs-keyword">if</span>(str.search(<span class="hljs-string">&quot;search&quot;</span>) == <span class="hljs-number">-1</span>)&#123;<br>                    click(posb.centerX(),posb.centerY()-paddingY);<br>                     <span class="hljs-comment">//toastLog(&quot;get it 1&quot;);</span><br>                     clicked = <span class="hljs-literal">true</span>;   <br>                &#125;<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                click(posb.centerX(),posb.centerY()-paddingY);<br>                <span class="hljs-comment">//toastLog(&quot;get it 2&quot;);</span><br>                clicked = <span class="hljs-literal">true</span>;<br>            &#125;<br>            sleep(<span class="hljs-number">100</span>);<br>        &#125;);<br>    &#125;<br>    <br>    <span class="hljs-keyword">if</span>(textEndsWith(energyType).exists() &amp;&amp; clicked == <span class="hljs-literal">false</span>)&#123;<br>        textEndsWith(energyType).find().forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pos</span>)</span>&#123;<br>            <span class="hljs-keyword">var</span> posb=pos.bounds();<br>            <span class="hljs-keyword">if</span>(posb.centerX()&lt;<span class="hljs-number">0</span> || posb.centerY()-paddingY&lt;<span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            <span class="hljs-comment">//toastLog(pos.id());</span><br>            <span class="hljs-keyword">var</span> str = pos.id();<br>            <span class="hljs-keyword">if</span>(str != <span class="hljs-literal">null</span>)&#123;<br>                <span class="hljs-keyword">if</span>(str.search(<span class="hljs-string">&quot;search&quot;</span>) == <span class="hljs-number">-1</span>)&#123;<br>                    click(posb.centerX(),posb.centerY()-paddingY); <br>                    <span class="hljs-comment">//toastLog(&quot;get it 3&quot;); </span><br>                    clicked = <span class="hljs-literal">true</span>;  <br>                &#125;<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                click(posb.centerX(),posb.centerY()-paddingY);<br>                <span class="hljs-comment">//toastLog(&quot;get it 4&quot;);</span><br>                clicked = <span class="hljs-literal">true</span>;<br>            &#125;<br>            sleep(<span class="hljs-number">100</span>);<br>        &#125;);<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> clicked;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 结束后返回主页面</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param </span>value ： 返回次数</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">whenComplete</span>(<span class="hljs-params">value</span>) </span>&#123;<br>    toastLog(<span class="hljs-string">&quot;结束&quot;</span>);<br>    <span class="hljs-keyword">while</span>(value&gt;<span class="hljs-number">0</span>)&#123;<br>        back();<br>        sleep(<span class="hljs-number">1500</span>);<br>        value--;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 检测当前时间是否在指定范围内</span><br><span class="hljs-comment"> * return 是：否</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkTime</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">var</span> now =<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br>    <span class="hljs-keyword">var</span> hour=now.getHours();<br>    <span class="hljs-keyword">var</span> minu=now.getMinutes();<br>    <span class="hljs-keyword">var</span> time_a=startTime.split(<span class="hljs-string">&quot;:&quot;</span>);<br>    <span class="hljs-keyword">var</span> time_b=endTime.split(<span class="hljs-string">&quot;:&quot;</span>);<br>    <span class="hljs-keyword">var</span> timea = <span class="hljs-number">60</span>*<span class="hljs-built_in">Number</span>(time_a[<span class="hljs-number">0</span>])+<span class="hljs-built_in">Number</span>(time_a[<span class="hljs-number">1</span>]);<br>    <span class="hljs-keyword">var</span> timeb = <span class="hljs-number">60</span>*<span class="hljs-built_in">Number</span>(time_b[<span class="hljs-number">0</span>])+<span class="hljs-built_in">Number</span>(time_b[<span class="hljs-number">1</span>]);<br>    <span class="hljs-keyword">var</span> time  = <span class="hljs-number">60</span>*hour + minu;<br>    <span class="hljs-keyword">if</span>(time&gt;=timea &amp;&amp; time&lt;=timeb)&#123;<br>        <span class="hljs-comment">//sleep(2000);</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;   <br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 是否到了收自己能量的时间</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myEnergyTime</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">var</span> now =<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br>    <span class="hljs-keyword">var</span> hour=now.getHours();<br>    <span class="hljs-keyword">var</span> minu=now.getMinutes();<br>    <span class="hljs-keyword">var</span> mytime=morningTime.split(<span class="hljs-string">&quot;:&quot;</span>);<br>    <br>    <span class="hljs-keyword">if</span>(mytime[<span class="hljs-number">0</span>]==hour &amp;&amp; (mytime[<span class="hljs-number">1</span>]==minu || mytime[<span class="hljs-number">1</span>]==minu<span class="hljs-number">-1</span>) )&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;   <br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 唤醒支付宝</span><br><span class="hljs-comment"> * return 是否成功</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">openAlipay</span>(<span class="hljs-params"></span>)</span>&#123;<br>    launchApp(<span class="hljs-string">&quot;支付宝&quot;</span>);<br>    toastLog(<span class="hljs-string">&quot;等待支付宝启动&quot;</span>);<br>    <span class="hljs-comment">// sleep(3000);</span><br>    <span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-keyword">while</span> (!textEndsWith(<span class="hljs-string">&quot;扫一扫&quot;</span>).exists() &amp;&amp; !descEndsWith(<span class="hljs-string">&quot;扫一扫&quot;</span>).exists() &amp;&amp; i&lt;=<span class="hljs-number">5</span>)&#123;<br>        sleep(<span class="hljs-number">2000</span>);<br>        <span class="hljs-comment">// 点击首页，防止进入后在其他菜单</span><br>        clickByTextDesc(<span class="hljs-string">&quot;首页&quot;</span>,<span class="hljs-number">0</span>);<br>        i++;<br>    &#125;<br>    toastLog(<span class="hljs-string">&quot;第&quot;</span>+i+<span class="hljs-string">&quot;次尝试进入支付宝主页&quot;</span>);<br>    <span class="hljs-keyword">if</span>(i&gt;=<span class="hljs-number">5</span>)&#123;<br>        toastLog(<span class="hljs-string">&quot;没有找到支付宝首页&quot;</span>);<br>        sleep(<span class="hljs-number">1000</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br>    <br><br><br></code></pre></td></tr></table></figure></li>
+</ul>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/11/01/auto.js%E8%9A%82%E8%9A%81%E6%A3%AE%E6%9E%97%E6%94%B6%E8%83%BD%E9%87%8F/" data-id="ckhn7g6hk0009i0vc3zdrfzqk" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/11/13/VM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%99Ubuntu%E6%A0%B9%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            VMware 虚拟机给Ubuntu根分区扩容
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/10/23/%E8%BF%9B%E7%A8%8B%E9%98%B2%E6%9D%80%E7%AC%94%E8%AE%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">进程防杀笔记</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+  <div class="gitalk" id="gitalk-container"></div>
+  
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '805efc781a7e3c77968c',
+      clientSecret: 'af34e634e272e62b21230690b662f0482a5678df',
+      repo: 'kleinlsl.github.io',
+      owner: 'kleinlsl',
+      admin: ['kleinlsl'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 月色很柔</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="月色很柔"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="个人简单博客">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Java 基础 |
+    
+    月色很柔</title>
+  
+    <link rel="shortcut icon" href="/images/hexo.svg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="月色很柔" type="application/atom+xml">
+</head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-Java 基础知识" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      Java 基础
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/01/14/Java%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="article-date">
+  <time datetime="2020-01-14T11:14:16.000Z" itemprop="datePublished">2020-01-14</time>
+</a>
+                            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <h2 id="1、Java-基础"><a href="#1、Java-基础" class="headerlink" title="1、Java 基础"></a>1、Java 基础</h2><ul>
+<li><p>Java 的三大特性：封装、继承、多态</p>
+</li>
+<li><p>Java 语言的特点：平台无关性、面向对象、简单实用、多线程、安全可靠等</p>
+</li>
+<li><p>Java 的基本数据类型：<code>byte、short、int、double、float、long、boolean、char</code></p>
+</li>
+<li><p><code>==</code> 与 <code>equals</code> 的区别？</p>
+<ul>
+<li>== 比较的是两个对象的内存地址是否相同</li>
+<li>equals 对于基本数据类型比较的是内存地址，对于复杂数据类型比较的是值。</li>
+</ul>
+</li>
+<li><p><strong>Java 中的 <code>Math.round(-1.5)</code> 等于多少？</strong></p>
+<ul>
+<li>答：<code>-1</code>  。<code>round()</code> 是在原数值的基础上加 0.5 ；向下取整。</li>
+</ul>
+</li>
+<li><p>String 属于基础的数据类型吗？</p>
+<ul>
+<li>答： 不属于。 String 内部是<code>final</code> 修饰的字符数组。</li>
+</ul>
+</li>
+<li><p>Java 中操作字符串都有那些类？有什么区别？</p>
+<ul>
+<li>答： <code>String、StringBuffer、StringBuilder</code> ; <ul>
+<li>三者都是使用final修饰的类，不能被继承。</li>
+<li>String中的字符数组使用final修饰，线程安全；<code>StringBuffer</code>中的方法使用<code>synchronized</code>修饰，线程安全；<code>StringBuilder</code> 线程不安全。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>普通类和抽象类有什么区别？</strong></p>
+<ul>
+<li>修饰符：抽象类使用abstract修饰</li>
+<li>抽象方法：抽象类可以包含抽象方法，普通类不能有抽象方法。</li>
+<li>实例化：抽象类不能直接实例化</li>
+</ul>
+</li>
+<li><p><strong>什么是抽象方法？</strong></p>
+<ul>
+<li>抽象方法必须写在抽象类中，抽象方法的方法名使用<code>abstract</code>修饰，没有方法体。</li>
+</ul>
+</li>
+<li><p><strong>抽象类和接口对比？</strong></p>
+<ul>
+<li>类名修饰符：abstract、interface</li>
+<li>是否实例化：都不可以实例化</li>
+<li>继承性：（类）单继承，（接口）多实现</li>
+<li>构造器和方法：抽象类可以有构造器、抽线和非抽象方法；接口只能有抽象方法。</li>
+</ul>
+</li>
+<li><p>抽象类可以用final修饰吗？     </p>
+<ul>
+<li>不可以</li>
+</ul>
+</li>
+<li><p><strong>重写与重载</strong></p>
+<ul>
+<li>重写：发生在子类继承父类。重写父类的方法体。</li>
+<li>重载：发生在同一类中。方法名相同，参数列表不同，与返回值无关。</li>
+</ul>
+</li>
+<li><p><code>String s=new String(&quot;ab&quot;);</code>创建了几个对象？</p>
+<ul>
+<li>创建了两个对象。常量池中创建“ab”，堆或栈中创建字符串对象“ab”。</li>
+</ul>
+</li>
+<li><p><strong>深拷贝 和 浅拷贝</strong></p>
+<ul>
+<li><strong>浅拷贝</strong>：对基本数据类型进行值传递，对引用数据类型进行引用传递般的拷贝，此为浅拷贝。（<strong>Java方法的参数都是浅拷贝</strong>）</li>
+<li><strong>深拷贝</strong>：对基本数据类型进行值传递，对引用数据类型，创建一个新的对象，并复制其内容，此为深拷贝。</li>
+</ul>
+</li>
+</ul>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/01/14/Java%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" data-id="ckm8xqfqo0000t8vcc5ozdcid" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySql/" rel="tag">MySql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
+
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/01/15/hello-world/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            Hello World
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/03/21/%E5%9B%BE%E4%B9%A6%E6%9F%A5%E8%AF%A2%E7%B3%BB%E7%BB%9F/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">图书查询系统</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+  <div class="gitalk" id="gitalk-container"></div>
+  
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '805efc781a7e3c77968c',
+      clientSecret: 'af34e634e272e62b21230690b662f0482a5678df',
+      repo: 'kleinlsl.github.io',
+      owner: 'kleinlsl',
+      admin: ['kleinlsl'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 月色很柔</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="月色很柔"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

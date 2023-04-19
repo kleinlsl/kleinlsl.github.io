@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="记录使用 hexo+GitHub搭建个人博客">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    hexo+github搭建个人博客 |
+    
+    月色很柔</title>
+  
+    <link rel="shortcut icon" href="/images/hexo.svg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="月色很柔" type="application/atom+xml">
+</head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-hexo+Github搭建个人博客" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      hexo+github搭建个人博客
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2019/01/15/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time datetime="2019-01-15T11:14:16.000Z" itemprop="datePublished">2019-01-15</time>
+</a>
+                            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+  </div>
+
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/forrestgump.png" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+                                                
+                                                                    <blockquote>
+<p>记录使用 hexo+GitHub搭建个人博客。</p>
+</blockquote>
+<h2 id="1、前置工作"><a href="#1、前置工作" class="headerlink" title="1、前置工作"></a>1、前置工作</h2><ul>
+<li><p>了解GitHub、git</p>
+</li>
+<li><p>能够通过Windows和git向GitHub提交代码</p>
+</li>
+<li><p>安装node.js、npm，并了解其用法</p>
+</li>
+<li><p>安装git客户端</p>
+</li>
+<li><p>Github创建名为：<code>你的用户名.github.io</code></p>
+<blockquote>
+<a id="more"></a>
+</blockquote>
+</li>
+<li><p>配置SSH key</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">cd</span> ~/. ssh <span class="hljs-comment">#检查本机已存在的ssh密钥</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ssh-keygen -t rsa -C &quot;邮件地址&quot;<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>测试是否成功：<code>ssh -T git@github.com # 注意邮箱地址不用改</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> git config --global user.name <span class="hljs-string">&quot;liuxianan&quot;</span>// 你的github用户名，非昵称</span><br><span class="hljs-meta">$</span><span class="bash"> git config --global user.email  <span class="hljs-string">&quot;xxx@qq.com&quot;</span>// 填写你的github注册邮箱</span><br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="2、hexo写博客"><a href="#2、hexo写博客" class="headerlink" title="2、hexo写博客"></a>2、hexo写博客</h2><ul>
+<li><p>Hexo：<a target="_blank" rel="noopener" href="http://hexo.io/">官网</a> 、 <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">github</a></p>
+</li>
+<li><p>原理： hexo所做的就是将这些md文件都放在本地，每次写完文章后调用写好的命令来批量完成相关页面的生成，然后再将有改动的页面提交到github。 </p>
+</li>
+<li><p>安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> npm install -g hexo</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>初始化</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">cd</span> /d/Workspaces/blog/</span><br><span class="hljs-meta">$</span><span class="bash"> hexo init</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p> hexo会自动下载一些文件到这个目录，包括node_modules， </p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> hexo g <span class="hljs-comment"># 生成</span></span><br><span class="hljs-meta">$</span><span class="bash"> hexo s <span class="hljs-comment"># 开启本地预览服务，打开浏览器访问 http://localhost:4000</span></span><br><span class="hljs-meta">$</span><span class="bash"> hexo d <span class="hljs-comment"># 部署到Github</span></span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>修改主题：<a target="_blank" rel="noopener" href="https://hexo.io/themes/">官方主题</a></p>
+<ul>
+<li><p>下载主题：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">cd</span> /d/Workspaces/blog/</span><br><span class="hljs-meta">$</span><span class="bash"> git <span class="hljs-built_in">clone</span> https://github.com/litten/hexo-theme-yilia.git themes/yilia</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置主题：</p>
+<p> 修改<code>_config.yml</code>中的<code>theme: landscape</code>改为<code>theme: yilia</code>，然后重新执行<code>hexo clean</code> 、 <code>hexo g</code>来重新生成。 </p>
+</li>
+</ul>
+</li>
+<li><p>上传到GitHub：</p>
+<blockquote>
+<p> <code>ssh key</code>肯定要配置好。</p>
+</blockquote>
+<ul>
+<li><p>配置Github： </p>
+<blockquote>
+<p>配置<code>_config.yml</code>中有关deploy的部分： </p>
+</blockquote>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">deploy:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span><br>  <span class="hljs-attr">repository:</span> <span class="hljs-string">git@github.com:kleinlsl/kleinlsl.github.io.git</span><br>  <span class="hljs-attr">branch:</span> <span class="hljs-string">master</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>提交代码：<code>hexo d</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3、常用命令"><a href="#3、常用命令" class="headerlink" title="3、常用命令"></a>3、常用命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo new &quot;postName&quot; #新建文章<br>hexo new page &quot;pageName&quot; #新建页面<br>hexo generate #生成静态页面至public目录<br>hexo server #开启预览访问端口（默认端口4000，&#x27;ctrl + c&#x27;关闭server）<br>hexo deploy #部署到GitHub<br>hexo help  # 查看帮助<br>hexo version  #查看Hexo的版本<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo n == hexo new<br>hexo g == hexo generate<br>hexo s == hexo server<br>hexo d == hexo deploy<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo s -g #生成并本地预览<br>hexo d -g #生成并上传<br></code></pre></td></tr></table></figure>
+
+<h2 id="4、写博客"><a href="#4、写博客" class="headerlink" title="4、写博客"></a>4、写博客</h2><ul>
+<li><p>新建博客： <code>hexo new &#39;my-first-blog&#39;</code>  hexo会帮我们在<code>_posts</code>下生成相关md文件： </p>
+</li>
+<li><p>打开编辑：<code>/source/_posts/my-first-blog.md</code></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs markdown">---<br>title: postName #文章页面上的显示名称，一般是中文<br>date: 2013-12-02 15:30:16 #文章生成时间，一般不改，当然也可以任意修改<br>categories: 默认分类 #分类<br>tags: [tag1,tag2,tag3] #文章标签，可空，多标签请用格式，注意:后面有个空格<br>description: 附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面<br>---<br><br>以下是正文<br><span class="xml"><span class="hljs-comment">&lt;!--more--&gt;</span></span><br>以下是更多<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="5、添加分类和标签"><a href="#5、添加分类和标签" class="headerlink" title="5、添加分类和标签"></a>5、添加分类和标签</h2><h4 id="5-1-创建“分类”选项"><a href="#5-1-创建“分类”选项" class="headerlink" title="5.1  创建“分类”选项"></a>5.1  创建“分类”选项</h4><ul>
+<li>生成“分类”页 ：</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">$ hexo <span class="hljs-keyword">new</span> page categories<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>打开index.md,添加tpye属性:</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">---</span><br><span class="hljs-selector-tag">title</span>: 分类<br><span class="hljs-selector-tag">date</span>: 2019<span class="hljs-selector-tag">-04-24</span> 15<span class="hljs-selector-pseudo">:30</span><span class="hljs-selector-pseudo">:30</span><br><span class="hljs-selector-tag">type</span>: <span class="hljs-selector-tag">categories</span><br><span class="hljs-selector-tag">---</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>保存并关闭文件。</p>
+</blockquote>
+<ul>
+<li>给文章添加“categories”属性</li>
+</ul>
+<blockquote>
+<p>打开需要添加分类的文章，为其添加categories属性。下方的categories:Hexo表示这篇文章添加到到“Hexo”这个分类。注意：一篇文章只会添加到一个分类中，如果是多个默认放到第一个分类中。</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">---</span><br><span class="hljs-selector-tag">title</span>: <span class="hljs-selector-tag">Hexo</span> 添加分类及标签<br><span class="hljs-selector-tag">date</span>: 2017<span class="hljs-selector-tag">-05-26</span> 12<span class="hljs-selector-pseudo">:12</span><span class="hljs-selector-pseudo">:57</span><br><span class="hljs-selector-tag">categories</span>: <span class="hljs-selector-tag">Hexo</span><br><span class="hljs-selector-tag">---</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>至此，成功给文章添加分类，点击首页的“分类”可以看到该分类下的所有文章。当然，只有添加了categories: xxx的文章才会被收录到首页的“分类”中</p>
+</blockquote>
+<h4 id="5-2-创建“标签”选项"><a href="#5-2-创建“标签”选项" class="headerlink" title="5.2 创建“标签”选项"></a>5.2 创建“标签”选项</h4><ul>
+<li>生成“标签”页:</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">$ hexo <span class="hljs-keyword">new</span> page tags<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>找到index.md这个文件,并添加tpye属性:</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">---</span><br><span class="hljs-selector-tag">title</span>: 标签<br><span class="hljs-selector-tag">date</span>: 2019<span class="hljs-selector-tag">-04-24</span> 15<span class="hljs-selector-pseudo">:40</span><span class="hljs-selector-pseudo">:24</span><br><span class="hljs-selector-tag">type</span>: <span class="hljs-selector-tag">tags</span><br><span class="hljs-selector-tag">---</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>保存并关闭文件。</p>
+</blockquote>
+<ul>
+<li>给文章添加“tags”属性,打开需要添加标签的文章，为其添加tags属性。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">---</span><br><span class="hljs-selector-tag">title</span>: <span class="hljs-selector-tag">Hexo</span> 添加分类及标签<br><span class="hljs-selector-tag">date</span>: 2019<span class="hljs-selector-tag">-04-24</span> 15<span class="hljs-selector-pseudo">:40</span><span class="hljs-selector-pseudo">:24</span><br><span class="hljs-selector-tag">categories</span>: <br>           <span class="hljs-selector-tag">-</span> <span class="hljs-selector-tag">Hexo</span><br><span class="hljs-selector-tag">tags</span>:<br>           <span class="hljs-selector-tag">-</span> 博客<br><span class="hljs-selector-tag">---</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="6、-Front-matter-区域配置："><a href="#6、-Front-matter-区域配置：" class="headerlink" title="6、 Front-matter 区域配置："></a>6、 Front-matter 区域配置：</h2><ul>
+<li><p>使用YAML块标记，用于配置作品设置。</p>
+<table>
+<thead>
+<tr>
+<th align="left">设置</th>
+<th align="left">描述</th>
+<th align="left">默认</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>layout</code></td>
+<td align="left">布局</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>title</code></td>
+<td align="left">标题</td>
+<td align="left">文件名（仅帖子）</td>
+</tr>
+<tr>
+<td align="left"><code>date</code></td>
+<td align="left">发布日期</td>
+<td align="left">文件创建日期</td>
+</tr>
+<tr>
+<td align="left"><code>updated</code></td>
+<td align="left">更新日期</td>
+<td align="left">文件更新日期</td>
+</tr>
+<tr>
+<td align="left"><code>comments</code></td>
+<td align="left">为帖子启用评论功能</td>
+<td align="left">真正</td>
+</tr>
+<tr>
+<td align="left"><code>tags</code></td>
+<td align="left">标签（不适用于页面）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>categories</code></td>
+<td align="left">类别（不适用于页面）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>permalink</code></td>
+<td align="left">覆盖帖子的默认永久链接</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>excerpt</code></td>
+<td align="left">纯文本的页面摘录。使用<a target="_blank" rel="noopener" href="https://hexo.io/docs/tag-plugins#Post-Excerpt">此插件</a>格式化文本</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>disableNunjucks</code></td>
+<td align="left">启用时禁用Nunjucks标签<code>&#123;&#123; &#125;&#125;</code>/<code>&#123;% %&#125;</code>和<a target="_blank" rel="noopener" href="https://hexo.io/docs/tag-plugins">标签插件的</a>呈现</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>案例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">categories:<br>	- Sports<br>	- Baseball<br>tags:<br>	- Injury<br>	- Fight<br>	- Shocking<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>其他设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">top: true   # 是否置顶文章<br>photos: [ &quot;img_url_01&quot;,&quot;img_url_02&quot;]  # 文章封面图<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="7、开启相关功能"><a href="#7、开启相关功能" class="headerlink" title="7、开启相关功能"></a>7、开启相关功能</h2><blockquote>
+<p>搜索、目录、评论、置顶、相册等</p>
+</blockquote>
+<h3 id="7-1-开启搜索"><a href="#7-1-开启搜索" class="headerlink" title="7.1 开启搜索"></a>7.1 开启搜索</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search">hexo-generator-search</a> 本地检索</p>
+<ul>
+<li>安装</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> npm install hexo-generator-searchdb --save</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>配置：<br>Hexo 的配置文件 <code>_config.yml</code> 添加插件配置（注意：不是主题的配置文件）：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">search:</span>  <br>	<span class="hljs-attr">path:</span> <span class="hljs-string">search.xml</span>  <br>	<span class="hljs-attr">field:</span> <span class="hljs-string">post</span>  <br>	<span class="hljs-attr">content:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="7-2-开启目录"><a href="#7-2-开启目录" class="headerlink" title="7.2 开启目录"></a>7.2 开启目录</h3><p>使用 <a target="_blank" rel="noopener" href="http://tscanlin.github.io/tocbot/">Tocbot</a> 解析内容中的标题标签 (h1~h6) 并插入目录。使用方法：</p>
+<blockquote>
+<p>Ocean 配置 Toc 只作用于 Post 页面，在其他 Page 中不作用。</p>
+</blockquote>
+<ul>
+<li>在主题配置文件 <code>ocean/_config.yml</code> 中开启</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># Toc</span><br><span class="hljs-attr">toc:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>在 Post 中关闭 Toc</li>
+</ul>
+<p>如果在 <code>ocean/_config.yml</code> 开启了 Toc ，那么 Tocbot 会在每一篇 Blog 都解析内容中的标题标签生成 Toc 文章目录，但并不是所有的 Blog 中都需要 Toc，所以在 markdown 的 Front-matter 部分可以关闭：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">toc:</span> <span class="hljs-literal">false</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="7-3-开启评论：here"><a href="#7-3-开启评论：here" class="headerlink" title="7.3 开启评论：here"></a>7.3 开启评论：<a target="_blank" rel="noopener" href="https://zhwangart.github.io/2018/12/06/Gitalk/">here</a></h3><h3 id="7-4-开启置顶"><a href="#7-4-开启置顶" class="headerlink" title="7.4 开启置顶"></a>7.4 开启置顶</h3><ul>
+<li><p>安装</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">$</span> <span class="hljs-string">cnpm</span> <span class="hljs-string">uninstall</span> <span class="hljs-string">hexo-generator-index</span> <span class="hljs-string">--save</span><br><span class="hljs-string">$</span> <span class="hljs-string">cnpm</span> <span class="hljs-string">install</span> <span class="hljs-string">hexo-generator-index-pin-top</span> <span class="hljs-string">--save</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>开启</p>
+<p>在需要置顶的文章的 Front-matter 区域加上 <code>top: ture</code> ，示例：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">---</span> <br><span class="hljs-attr">title:</span> <span class="hljs-string">新增文章置顶</span> <br><span class="hljs-attr">author:</span> <span class="hljs-string">zhwangart</span> <br><span class="hljs-attr">date:</span> <span class="hljs-number">2019-07-18 15:45:03</span> <br><span class="hljs-attr">top:</span> <span class="hljs-string">ture</span> <br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="7-5-开启相册"><a href="#7-5-开启相册" class="headerlink" title="7.5 开启相册"></a>7.5 开启相册</h3><p>首先需要创建一个 page ，关于页面也一样需要创建。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> hexo new page gallery</span><br></code></pre></td></tr></table></figure>
+
+<p>然后在编辑 markdown 的时候需要写在 Front-matter 部分，这种写法可能不是特别特别的好，希望能有更好的方法。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-string">Gallery</span><br><span class="hljs-attr">albums:</span> [        <br>	[<span class="hljs-string">&quot;img_url&quot;</span>,<span class="hljs-string">&quot;img_caption&quot;</span>],<br>    [<span class="hljs-string">&quot;img_url&quot;</span>,<span class="hljs-string">&quot;img_caption&quot;</span>]<br>    ]<br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="7-6-开启RSS"><a href="#7-6-开启RSS" class="headerlink" title="7.6 开启RSS"></a>7.6 开启RSS</h3><ul>
+<li><p>安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> npm install hexo-generator-feed --save</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置<br>Hexo 的配置文件 <code>_config.yml</code> 添加插件配置（注意：不是主题的配置文件）：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">feed:</span>     <br>	<span class="hljs-attr">type:</span> <span class="hljs-string">atom</span><br>    <span class="hljs-attr">path:</span> <span class="hljs-string">atom.xml</span><br>    <span class="hljs-attr">limit:</span> <span class="hljs-number">20</span><br>    <span class="hljs-attr">hub:</span><br>    <span class="hljs-attr">content:</span><br>    <span class="hljs-attr">content_limit:</span> <span class="hljs-number">140</span><br>    <span class="hljs-attr">content_limit_delim:</span> <span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-attr">order_by:</span> <span class="hljs-string">-date</span><br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="推荐主题"><a href="#推荐主题" class="headerlink" title="推荐主题"></a>推荐主题</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></p>
+<ul>
+<li>克隆： <code> git clone https://github.com/zhwangart/hexo-theme-ocean.git themes/ocean</code></li>
+</ul>
+</li>
+<li><p>配置文档：<a target="_blank" rel="noopener" href="https://zhwangart.github.io/2018/11/30/Ocean/">https://zhwangart.github.io/2018/11/30/Ocean/</a></p>
+<ul>
+<li>展示：<a target="_blank" rel="noopener" href="https://zhwangart.github.io/">https://zhwangart.github.io/</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="错误解决"><a href="#错误解决" class="headerlink" title="错误解决"></a>错误解决</h2><ul>
+<li><p>错误：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">D:\Workspaces\blog&gt;hexo version<br>INFO  Validating config<br>WARN  Deprecated config detected: <span class="hljs-string">&quot;use_date_for_updated&quot;</span> is deprecated, please use <span class="hljs-string">&quot;updated_option&quot;</span> instead. See https://hexo.io/docs/configuration <span class="hljs-keyword">for</span> more details.<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>解决方案：</p>
+<p>​    找到hexo的配置文件：<code>_config.yml</code> 更改其中的：<code>use_date_for_updated</code> 为 <code>updated_option</code></p>
+</li>
+</ul>
+</li>
+</ul>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2019/01/15/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" data-id="ckhn7g6hm000di0vcccta3jkt" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2019/03/21/%E5%9B%BE%E4%B9%A6%E6%9F%A5%E8%AF%A2%E7%B3%BB%E7%BB%9F/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            图书查询系统
+          
+        </div>
+      </a>
+    
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+  <div class="gitalk" id="gitalk-container"></div>
+  
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '805efc781a7e3c77968c',
+      clientSecret: 'af34e634e272e62b21230690b662f0482a5678df',
+      repo: 'kleinlsl.github.io',
+      owner: 'kleinlsl',
+      admin: ['kleinlsl'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 月色很柔</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="月色很柔"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

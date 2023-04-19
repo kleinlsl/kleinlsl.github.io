@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="个人简单博客">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    大数据平台核心技术-实验记录 |
+    
+    月色很柔</title>
+  
+    <link rel="shortcut icon" href="/images/hexo.svg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="月色很柔" type="application/atom+xml">
+</head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-大数据平台核心技术-实验记录" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      大数据平台核心技术-实验记录
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/05/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time datetime="2020-05-20T03:14:16.000Z" itemprop="datePublished">2020-05-20</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <hr>
+<center><font size=5 face="华文行楷">**有问题多尝试解决，可评论留言遇到的问题**</font></center>
+<center><font size=5 face="华文行楷">**博客表述不清的地方请留言，看到后会更新博客**</font></center>
+<center><font size=5 face="华文行楷">**本文仅供参考**</font></center>
+---
+
+
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
+<p>学校：许昌学院<br>学院：信息工程学院<br>实验环境：<br>操作系统：Linux (CentOS 6.7)   JDK版本：1.8 (8u161)   Hadoop版本：2.7.4<br>虚拟机：VMware Workstation Pro 15.5</p>
+<span id="more"></span>
+
+<p>参考资料：<br><a target="_blank" rel="noopener" href="http://ow365.cn/?i=11311&ssl=1&furl=0As6WW@zSHIfqZy_0miBI1NfVmqplNkx4osgxUapgos7zntvq_BluwUV5DjSGRhsy0G2rZfJLZQj0lyND3etHUpYYEyzpi_Deayb9MaSslZupBzxsVXIgVEfvxrfBdkTELF46ffIL6_5BN@DdrN8PUs64@plwUmr">Hadoop大数据技术原理与应用</a><br><a target="_blank" rel="noopener" href="https://man.linuxde.net/">linux命令大全（手册）</a><br><a target="_blank" rel="noopener" href="https://mooc1-2.chaoxing.com/course/205757841.html">大数据平台核心技术 樊志伟</a></p>
+</blockquote>
+<hr>
+<center><font size=5 face="华文行楷">**有问题多尝试解决，可评论留言遇到的问题**</font></center>
+---
+
+
+
+<h1 id="二、实验内容"><a href="#二、实验内容" class="headerlink" title="二、实验内容"></a>二、实验内容</h1><h2 id="实验一-：Hadoop集群搭建"><a href="#实验一-：Hadoop集群搭建" class="headerlink" title="实验一 ：Hadoop集群搭建"></a>实验一 ：Hadoop集群搭建</h2><p><strong>1.</strong> <strong>实验目的</strong></p>
+<p>熟悉常用Linux操作，学会搭建Hadoop集群，为后续上机实验做准备。</p>
+<p><strong>2.</strong> <strong>实验环境（推荐）</strong></p>
+<p>操作系统：Linux (CentOS 6.7)  JDK版本：1.8 (8u161)  Hadoop版本：2.7.4</p>
+<p><strong>3.</strong> <strong>实验内容和要求</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>（一）熟悉常用**</strong>Linux**<strong>操作</strong></th>
+<th align="left"></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>实验内容</strong></td>
+<td align="left"><strong>使用到的命令</strong></td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(1)    切换到目录 /usr/local  <br>(2)    去到目前的上层目录   <br>(3)    回到自己的主文件夹</td>
+<td align="left">cd: 切换目录</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(4)    查看目录/usr下所有的文件</td>
+<td align="left">ls: 查看文件与目录</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(5)    进入/tmp目录，创建名为a的目录  <br> (6)    创建目录a1/a2/a3/a4</td>
+<td align="left">mkdir: 新建新目录</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(7)    将主文件夹下的.bashrc复制到/tmp下，命名为bashrc1   <br>(8)    在/tmp下新建目录test，再复制这个目录到/usr</td>
+<td align="left">cp: 复制文件或目录</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(9)    将第7例文件bashrc1移动到目录/usr/test   <br>(10)   将第9例test目录重命名为test2</td>
+<td align="left">mv: 移动文件与目录，或更名</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(11)   将以上例子中的bashrc1文件删除 <br> (12)   将第10例的test2目录删除</td>
+<td align="left">rm: 移除文件或目录</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(13)   查看主文件夹下的.bashrc文件内容</td>
+<td align="left">cat: 查看文件内容</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(14)   在/目录下新建目录test，然后打包成test.tar.gz <br> (15)   将第14例文件解压缩到/tmp目录</td>
+<td align="left">tar: 压缩、解压缩命令</td>
+<td></td>
+</tr>
+<tr>
+<td align="left"><strong>（二）搭建**</strong>Hadoop**<strong>集群的前期准备</strong></td>
+<td align="left"></td>
+<td></td>
+</tr>
+<tr>
+<td align="left"><strong>实验内容</strong></td>
+<td align="left"><strong>使用到的命令</strong></td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(16)   配置三台虚拟机的网络</td>
+<td align="left">vi. ifconfig, reboot, ping, service</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(17)   配置SSH免密码登陆</td>
+<td align="left">rpm, grep, ssh-keygen, ssh-copy-id, ssh, exit</td>
+<td></td>
+</tr>
+<tr>
+<td align="left"><strong>（三）搭建**</strong>Hadoop**<strong>集群</strong></td>
+<td align="left"></td>
+<td></td>
+</tr>
+<tr>
+<td align="left"><strong>实验内容</strong></td>
+<td align="left"><strong>使用到的命令</strong></td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(18)   安装并配置指定版本的JDK</td>
+<td align="left">rz, cd, tar, mv, vi, source</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(19)   安装并配置Hadoop集群主节点</td>
+<td align="left">rz, tar, vi</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(20)   分发Hadoop至子节点并配置</td>
+<td align="left">scp, source</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">(21)   格式化HDFS，启动Hadoop集群</td>
+<td align="left">hdfs namenode -format, start-dfs.sh</td>
+<td></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="实验二-：使用MapReduce实现倒排索引"><a href="#实验二-：使用MapReduce实现倒排索引" class="headerlink" title="实验二 ：使用MapReduce实现倒排索引"></a>实验二 ：使用MapReduce实现倒排索引</h2><p><strong>1.</strong> <strong>实验目的</strong></p>
+<ul>
+<li><p>掌握HDFS操作常用的Shell命令；</p>
+</li>
+<li><p>熟悉HDFS操作常用的Java API；</p>
+</li>
+<li><p>掌握倒排索引及其MapReduce实现。</p>
+</li>
+</ul>
+<p><strong>2.</strong> <strong>实验环境（推荐）</strong></p>
+<ul>
+<li><p>Java开发环境：JDK 1.8 (8u161)</p>
+</li>
+<li><p>分布式开发环境：Hadoop 2.7.4</p>
+</li>
+<li><p>集成开发环境：Eclipse或IntelliJ IDEA</p>
+</li>
+<li><p>项目构建工具：Maven 3.5.4</p>
+</li>
+</ul>
+<p><strong>3.</strong> <strong>实验内容和要求</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>（一）使用Shell命令操作HDFS</strong></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>实验要求</strong></td>
+<td align="left"><strong>其他说明</strong></td>
+</tr>
+<tr>
+<td align="left">(1)    在HDFS根目录下创建目录：“/学号后两位/test/”  <br>(2)    将本地系统中的文本文件复制到第(1)步创建的目录中  <br>(3)    将第(2)步上传的文本文件复制到本地系统</td>
+<td align="left">需要使用到集群  <br>文本文件统一命名为：hdfs_sh.txt，内容随意</td>
+</tr>
+<tr>
+<td align="left"><strong>（二）使用Java API操作HDFS</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>实验要求</strong></td>
+<td align="left"><strong>其他说明</strong></td>
+</tr>
+<tr>
+<td align="left">(4)    搭建Hadoop HDFS开发环境  <br>(5)    初始化HDFS客户端对象  <br>(6)    在本地创建文本文件并上传到HDFS  <br>(7)    从HDFS将第(6)步上传的文件下载到本地</td>
+<td align="left">需要使用到集群  <br> 使用Maven  <br> 文本文件统一命名为：hdfs_java.txt，内容随意</td>
+</tr>
+<tr>
+<td align="left"><strong>（三）使用MapReduce实现倒排索引</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>实验要求</strong></td>
+<td align="left"><strong>其他说明</strong></td>
+</tr>
+<tr>
+<td align="left">(8)    收集数据，根据来源将数据存储在多个文本文件中 <br> (9)    编写Map阶段程序代码  <br>(10)   编写Combine阶段程序代码（可选） <br> (11)   编写Reduce阶段程序代码 <br> (12)   实现Driver主驱动程序并测试运行</td>
+<td align="left">无需使用集群  <br> 使用Maven  <br> 多个数据文件放在同一个文件夹中，文件夹命名为：mrdata</td>
+</tr>
+</tbody></table>
+<hr>
+<center><font size=5 face="华文行楷">**有问题多尝试解决，可评论留言遇到的问题**</font></center>
+---
+
+
+
+
+<h1 id="三、实验过程记录"><a href="#三、实验过程记录" class="headerlink" title="三、实验过程记录"></a>三、实验过程记录</h1><h2 id="2-1安装准备"><a href="#2-1安装准备" class="headerlink" title="2.1安装准备"></a>2.1安装准备</h2><p>1、安装虚拟机</p>
+<blockquote>
+<p>注意：每台虚拟机的内存需要量力而行，因为一共三台虚拟机加一台主机呢！如：本机共8g内存，那么平均分给4台电脑，每台可设2g内存！</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200430203445782.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2、创建工作目录：</p>
+<blockquote>
+<p>mkdir -p /export/data</p>
+<p>mkdir -p /export/software</p>
+<p>mkdir -p /export/servers</p>
+</blockquote>
+<p>   <img src="https://img-blog.csdnimg.cn/20200430203525418.png" alt="在这里插入图片描述"></p>
+<p>3、克隆虚拟机<br>    <img src="https://img-blog.csdnimg.cn/20200430203634265.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>4、Linux网络配置</p>
+<blockquote>
+<p> a&gt;配置VM ware<br>  b&gt;配置主机名         :vi /etc/sysconfig/network<br>  c&gt;配置IP地址映射:      vi /etc/hosts</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200430204038380.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200430204124157.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>5、网络参数配置</p>
+<blockquote>
+<p> a&gt;配置MAC地址<br> ​b&gt;配置静态IP<br> c&gt;验证</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200430204423476.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>6、SSH服务配置</p>
+<blockquote>
+<p>   a&gt; 查看是否安装SSH：​       rpm -qa |grep ssh<br>   b&gt;安装SSH:       yum install openssh-server<br>   c&gt;查看SSH服务是否启动：​       ps -e | grep sshd</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200430205347682.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>7、虚拟机免密登录</p>
+<blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200501121828501.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<ul>
+<li><p>为什么要免密登录</p>
+<blockquote>
+<p>Hadoop节点众多,所以一般在主节点启动从节点这个时候就需要程序自动在主节点登录到从节点中,如果不能免密就每次都要输入密码,非常麻烦</p>
+</blockquote>
+</li>
+<li><p>免密SSH登录的原理</p>
+<blockquote>
+<p>1.需要先在B节点配置A节点的公钥</p>
+<ol start="2">
+<li>A节点请求B节点要求登录</li>
+<li>B节点使用A节点的公钥，加密- -段随机文本</li>
+<li>A节点使用私钥解密，并发回给B节点</li>
+<li>B节点验证文本是否正确</li>
+</ol>
+</blockquote>
+</li>
+<li><p>第一步:三台机器生成公钥与私钥</p>
+<blockquote>
+<p>在三台机器执行以下命令，生成公钥与私钥<br>ssh -keygen -t rsa<br>执行该命令之后，按下三个回车即可<br><img src="https://img-blog.csdnimg.cn/20200501121942925.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>第二步:拷贝公钥到同一台机器</p>
+<blockquote>
+<p>三台机器将拷贝公钥到第一台机器<br>三台机器执行命令: ssh-copy-id hadoop01<br><img src="https://img-blog.csdnimg.cn/20200501121959450.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>第三步:复制第一台机器的认证到其他机器    <blockquote>
+<p>将第一台机器的公钥拷贝到其他机器上<br>在第一天机器上面指向以下命令<br>scp /root/.ssh/authorized_ keys hadoop02:/root/.ssh</p>
+<p>scp /root/.ssh/authorized_ keys hadoop03:/root/.ssh<br><img src="https://img-blog.csdnimg.cn/20200501122032137.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<center><font size=4 face="华文行楷">**有问题多尝试解决，可评论留言遇到的问题**</font></center>
+---
+
+
+<h2 id="2-2-Hadoop集群搭建"><a href="#2-2-Hadoop集群搭建" class="headerlink" title="2.2 Hadoop集群搭建"></a>2.2 Hadoop集群搭建</h2><h3 id="1、安装文件上传工具"><a href="#1、安装文件上传工具" class="headerlink" title="1、安装文件上传工具"></a>1、安装文件上传工具</h3><blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">安装命令：yum install lrzsz -y<br><br>使用命令：rz<br></code></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="2、JDK安装"><a href="#2、JDK安装" class="headerlink" title="2、JDK安装"></a>2、JDK安装</h3><ul>
+<li>下载JDK</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">https://www.oracle.com/technetwork/java/javase/downloads/index.html</a></p>
+</blockquote>
+<ul>
+<li>查看当前系统自带jdk并卸载：<blockquote>
+<p>注：<a target="_blank" rel="noopener" href="https://blog.csdn.net/magicianjun/article/details/78530129?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522158841850819725219935502%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=158841850819725219935502&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v25-5">参考:here</a></p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">rpm -qa | grep java<br></code></pre></td></tr></table></figure>
+<img src="https://img-blog.csdnimg.cn/20200502194323658.png" alt="在这里插入图片描述"><blockquote>
+<p>然后通过    rpm -e –nodeps   后面跟系统自带的jdk名    这个命令来删除系统自带的jdk，</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">例如：<br>	rpm -e --nodeps java-1.8.0-openjdk-1.8.0.102-4.b14.el7.x86_64<br>    rpm -e --nodeps java-1.8.0-openjdk-headless-1.8.0.102-4.b14.el7.x86_64<br>    rpm -e --nodeps java-1.7.0-openjdk-headless-1.7.0.111-2.6.7.8.el7.x86_64<br>    rpm -e --nodeps java-1.7.0-openjdk-1.7.0.111-2.6.7.8.el7.x86_64<br></code></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200502194503428.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>删完之后可以再通过    rpm -qa | grep Java  命令来查询出是否删除掉<br><img src="https://img-blog.csdnimg.cn/2020050219463683.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<ul>
+<li>安装JDK</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">上传jdk到/export/software路径下去，井解压</span><br><br>tar -zxvf jdk-8u161-linux-x64.tar.gz -C /export/servers/<br><br>mv jdk1.8.0_161 jdk<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>配置JDK环境变量</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs shell">vi /etc/profile<br><br>添加以下内容：<br><br>export JAVA_HOME=/export/servers/jdk<br><br>export PATH=$PATH:$JAVA_HOME/bin<br><br>export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar<br><br>修改完成之后记得source /etc/profle生效<br><br>source /etc/profile<br></code></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>JDK环境验证</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">java -version<br></code></pre></td></tr></table></figure>
+
+<h3 id="3、Hadoop安装"><a href="#3、Hadoop安装" class="headerlink" title="3、Hadoop安装:"></a>3、Hadoop安装:</h3><ul>
+<li>下载Hadoop安装包</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://archive.apache.org/dist/hadoop/common/">http://archive.apache.org/dist/hadoop/common/</a></p>
+</blockquote>
+<ul>
+<li>解压安装Hadoop</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">将hadoop-2.7.4. tar.gz包上传到/export/software日录</span><br><br>cd /export/softwares<br><br>tar -zxvf hadoop-2.7.4.tar.gz -C /export/servers/<br></code></pre></td></tr></table></figure>
+
+
+
+
+<ul>
+<li>配置</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">export HADOOP_HOME=/export/servers/hadoop-2.7.4<br><br>export PATH=:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 修改完成之后记得source /etc/profle生效</p>
+<p> source /etc/profile</p>
+</blockquote>
+<ul>
+<li>验证Hadoop环境</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">hadoop version  <br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="4、Hadoop集群配置"><a href="#4、Hadoop集群配置" class="headerlink" title="4、Hadoop集群配置"></a>4、Hadoop集群配置</h3><blockquote>
+<p>#进入目录</p>
+<p>cd /export/servers/hadoop-2.7.4/etc/hadoop</p>
+</blockquote>
+<p> <strong>4.1 配置Hadoop集群主节点</strong></p>
+<blockquote>
+<p>该部分可参考：<a target="_blank" rel="noopener" href="http://hadoop.apache.org/docs/r2.7.4/hadoop-project-dist/hadoop-common/ClusterSetup.html">官方文档</a></p>
+</blockquote>
+<ul>
+<li><p>修改hadoop-env.sh</p>
+<blockquote>
+<p>export JAVA_HOME=/export/servers/jdk</p>
+</blockquote>
+</li>
+<li><p>修改core-site.xml</p>
+<pre><code><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs shell">&lt;configuration&gt;<br><br>​    &lt;property&gt;<br><br>​        &lt;name&gt;fs.defaultFS&lt;/name&gt;<br><br>​        &lt;value&gt;hdfs://hadoop01:9000&lt;/value&gt;<br><br>​    &lt;/property&gt;<br><br>​    &lt;property&gt;<br><br>​        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;  <br><br>​        &lt;value&gt;/export/servers/hadoop-2.7.4/tmp&lt;/value&gt;<br><br>​    &lt;/property&gt;<br><br>&lt;/configuration&gt;<br></code></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>修改hdfs-site.xml</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs shell">&lt;configuration&gt;<br><br>​    &lt;property&gt;<br><br>​        &lt;name&gt;dfs.replication&lt;/name&gt;<br><br>​         &lt;value&gt;3&lt;/value&gt;<br><br>​    &lt;/property&gt;<br><br><br>​    &lt;property&gt;<br><br>​        &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;<br><br>​        &lt;value&gt;hadoop02:50090&lt;/value&gt;<br><br>​    &lt;/property&gt;<br><br>&lt;/configuration&gt;<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>修改mapred-site.xml</p>
+<blockquote>
+<p>cp mapred-site.xml.template mapred-site.xml</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell">&lt;!-- Put site-specific property overrides in this file. --&gt;<br><br>&lt;configuration&gt;<br><br>​    &lt;!--指定MapReduce运行时框架， 这里指定在Yarn上，默认是local --&gt;<br><br>​    &lt;property&gt;<br><br>​        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;<br><br>​        &lt;value&gt;yarn&lt;/value&gt;<br><br>​    &lt;/property&gt;<br><br>&lt;/configuration&gt;<br></code></pre></td></tr></table></figure>
+
+</li>
+<li><p>修改yarn-site.xml</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs shell">&lt;configuration&gt;<br><br>​    &lt;!-- Site specific YARN configuration properties --&gt;<br><br>​    &lt;property&gt;<br><br>​        &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;<br><br>​        &lt;value&gt;hadoop01&lt;/value&gt;<br><br>​    &lt;/property&gt;<br><br>​    &lt;property&gt;<br><br>​        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;<br><br>​        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;<br><br>​    &lt;/property&gt;<br><br>   	 &lt;!-- 2020.5.2更新：设置内存 --&gt;<br>   &lt;property&gt;<br>       <br>       &lt;name&gt;yarn.nodemanager.resource.memory-mb&lt;/name&gt;<br>       <br>       &lt;value&gt;1600&lt;/value&gt;<br>   <br>   &lt;/property&gt;<br>   <br>   &lt;!-- 设置cpu 核数 --&gt;<br>   <br>   &lt;property&gt;<br>   <br>       &lt;name&gt;yarn.nodemanager.resource.cpu-vcores&lt;/name&gt;<br>   <br>       &lt;value&gt;1&lt;/value&gt;<br>   <br>   &lt;/property&gt;<br><br>&lt;/configuration&gt;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>修改slaves文件。打开该配置文件，先删除里面的内容(默认localhost) ，然后配置如下内容。</p>
+<pre><code><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">hadoop01<br><br>hadoop02<br><br>hadoop03<br></code></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<p><strong>4.2 将集群主节点的配置文件分发到其他子节点</strong></p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">scp /etc/profile hadoop02:/etc/profile<br><br>scp /etc/profile hadoop03:/etc/profile<br><br>scp -r /export/ hadoop02:/  <br><br>scp -r /export/ hadoop03:/  <br><br>在hadoop02和hadoop03上执行：source /etc/profile<br></code></pre></td></tr></table></figure>
+
+<hr>
+<center><font size=4 face="华文行楷">**有问题多尝试解决，可评论留言遇到的问题**</font></center>
+---
+
+
+
+<h2 id="2-3Hadoop集群测试"><a href="#2-3Hadoop集群测试" class="headerlink" title="2.3Hadoop集群测试"></a>2.3Hadoop集群测试</h2><h3 id="1、格式化文件系统"><a href="#1、格式化文件系统" class="headerlink" title="1、格式化文件系统"></a>1、格式化文件系统</h3><blockquote>
+<p>初次启动HDFS集群时，必须对主节点进行格式化处理。</p>
+<p> 格式化文件系统指令如下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">hdfs namenode -format</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">hadoop namenode -format</span><br></code></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="2、启动和关闭Hadoop集群"><a href="#2、启动和关闭Hadoop集群" class="headerlink" title="2、启动和关闭Hadoop集群"></a>2、启动和关闭Hadoop集群</h3><ul>
+<li><p>单节点逐个启动和关闭</p>
+<ul>
+<li><p>在主节点上执行指令启动/关闭HDFS NameNode进程;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">hadoop-daemon.sh start namenode<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在每个从节点上执行指令启动/关闭HDFS DataNode进程;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">hadoop-daemon.sh start datanode<br>    <br><span class="hljs-meta prompt_">#</span><span class="language-bash">使用jps查看java进程验证</span><br>    <br>jps<br></code></pre></td></tr></table></figure>
+<p> <img src="https://img-blog.csdnimg.cn/20200501151418746.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>在主节点上执行指令启动/关闭YARN ResourceManiger进程;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yarn-daemon.sh start resourcemanager<br></code></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>在每个从节点上执行指令启动/关闭YARN nodemanager进程;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">yarn-daemon.sh start nodemanager<br><span class="hljs-meta prompt_">#</span><span class="language-bash">使用jps查看java进程验证</span><br>    <br>jps<br></code></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200501151458898.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>在节点hadoop02执行指令启动/关闭SecondaryNameNode进程。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">hadoop-daemon.sh start secondarynamenode<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>关闭只需将start 换成stop<br><img src="https://img-blog.csdnimg.cn/20200501151513264.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>脚本一键启动和关闭   </p>
+<blockquote>
+<ol>
+<li>   在主节点hadoop01上执行指令“start-dfs.sh”或“stop-dfs.sh”启动/关闭所有HDFS服务进程；</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2">
+<li>   在主节点hadoop01上执行指令“start-yarn.sh”或“stop-yarn.sh”启动/关闭所有YARN服务进程；</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="3">
+<li>   在主节点hadoop01上执行“start-all.sh”或“stop-all.sh”指令，直接启动/关闭整个Hadoop集群服务。</li>
+</ol>
+</blockquote>
+<h3 id="3、通过UI查看Hadoop运行状态"><a href="#3、通过UI查看Hadoop运行状态" class="headerlink" title="3、通过UI查看Hadoop运行状态"></a>3、通过UI查看Hadoop运行状态</h3></li>
+</ul>
+<blockquote>
+<p>Hadoop集群正常启动后，它默认开放了两个端口50070和8088，分别用于监控HDFS集群和YARN集群。通过UI界面可以方便地进行集群的管理和查看，只需要在本地操作系统的浏览器输入集群服务的IP和对应的端口号即可访问。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell">1) 配置IP映射：<br><br>  打开：C:\Windows\System32\drivers\etc\hosts<br><br>  添加以下内容：<br><br>  192.168.121.134 hadoop01<br><br>  192.168.121.135 hadoop02<br><br>  192.168.121.136 hadoop03<br><br>2) 关闭防火墙：service iptables stop<br><br>3) 关闭防火墙开机启动：chkconfig iptables off<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200501151827961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<blockquote>
+<p>在Windows系统下，访问<a href="http://hadoop01:8088，查看Yarn集群状态，且从图中可以看出Yarn集群状态显示正常。">http://hadoop01:8088，查看Yarn集群状态，且从图中可以看出Yarn集群状态显示正常。</a><br><img src="https://img-blog.csdnimg.cn/20200501151816983.png" alt="在这里插入图片描述"><br> 注：点击左侧Nodes，看到以下页面，一般配置就正确了</p>
+<p> <img src="https://img-blog.csdnimg.cn/20200502230541775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<hr>
+<center><font size=4 face="华文行楷">**有问题多尝试解决，可评论留言遇到的问题**</font></center>
+---
+
+
+
+
+<h2 id="2-4Hadoop集群初体验"><a href="#2-4Hadoop集群初体验" class="headerlink" title="2.4Hadoop集群初体验"></a>2.4Hadoop集群初体验</h2><h3 id="Hadoop经典案例——单词统计"><a href="#Hadoop经典案例——单词统计" class="headerlink" title="Hadoop经典案例——单词统计"></a>Hadoop经典案例——单词统计</h3><ul>
+<li>打开HDFS的UI界面，查看HDFS中是否有数据文件，默认是没有数据文件。<br><img src="https://img-blog.csdnimg.cn/20200501151929590.png" alt="在这里插入图片描述"></li>
+</ul>
+<ul>
+<li><p>准备文本文件，在Linux系统上编辑一个文本文件，然后上传至HDFS上。</p>
+<blockquote>
+<p>创建数据存储目录：mkdir -p /export/data</p>
+<p>  编辑文件：vi word.txt</p>
+<p>  写入一些单词：</p>
+<p>  hello itcast</p>
+<p>  hello itheima</p>
+<p>  hello Hadoop</p>
+</blockquote>
+<blockquote>
+<p>  在hdfs上创建目录：hadoop fs -mkdir -p /wordcount/input</p>
+<p> <img src="https://img-blog.csdnimg.cn/20200501152009265.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<blockquote>
+<p>  将文件上传至hdfs 的目录：hadoop fs -put /export/data/word.txt /wordcount/input</p>
+<p>​    <img src="https://img-blog.csdnimg.cn/20200501152025425.png" alt="在这里插入图片描述"></p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>运行hadoop-mapreduce-examples-2.7.4.jar包，实现词频统计。</p>
+<blockquote>
+<p>  进入：cd /export/servers/hadoop-2.7.4/share/hadoop/mapreduce</p>
+<p>  执行：hadoop jar hadoop-mapreduce-examples-2.7.4.jar wordcount /wordcount/input /wordcount/output<br>注：执行该步时出错，（一直为接受状态，没有运行；有大佬请解答！）如下图：（已解决！）<br><img src="https://img-blog.csdnimg.cn/20200501152219637.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>成功界面：<br><img src="https://img-blog.csdnimg.cn/2020050223094057.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>查看UI界面，Yarn集群UI界面出现程序运行成功的信息。HDFS集群UI界面出现了结果文件。</p>
+<p>  <img src="https://img-blog.csdnimg.cn/20200502231418884.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<hr>
+<center><font size=5 face="华文行楷">**分割线，请保证实验一正确完成词频统计部分**</font></center>
+<center><font size=4 face="华文行楷">**有问题多尝试解决，可评论留言遇到的问题**</font></center>
+---
+
+
+
+<h2 id="3-3-使用Shell命令操作HDFS"><a href="#3-3-使用Shell命令操作HDFS" class="headerlink" title="3.3 使用Shell命令操作HDFS"></a>3.3 使用Shell命令操作HDFS</h2><blockquote>
+<p>Shell在计算机科学中俗称“壳”，是提供给使用者使用界面的进行与系统交互的软件，通过接收用户输入的命令执行相应的操作，Shell分为图形界面Shell和命令行式Shell。</p>
+</blockquote>
+<blockquote>
+<p>官方文档：<a target="_blank" rel="noopener" href="http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/FileSystemShell.html">here</a></p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">hadoop fs &lt;args&gt;<br>hadoop dfs &lt;args&gt;<br>hdfs dfs &lt;args&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上述命令中，“hadoop fs” 是使用面最广，可以操作任何文件系统，如本地系统、HDFS等，“hadoop dfs”则主要针对HDFS文件系统，已经被“Ihdfs dfs”代替。</p>
+</blockquote>
+<blockquote>
+<p>文件系统(FS) Shell 包含了各种的类shell的命令，可以直接与Hadoop分布式文件系统以及其他文件系统进行交互，如与LocalFS、 HTTPFS、S3 FS 文件系统交互等。通过命令行的方式进行交互，具体操作常用命令，如表下表：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>命令参数</strong></th>
+<th align="left"><strong>功能描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-ls</td>
+<td align="left">查看指定路径的目录结构</td>
+</tr>
+<tr>
+<td align="left">-du</td>
+<td align="left">统计目录下所有文件大小</td>
+</tr>
+<tr>
+<td align="left">-mv</td>
+<td align="left">移动文件</td>
+</tr>
+<tr>
+<td align="left">-cp</td>
+<td align="left">复制文件</td>
+</tr>
+<tr>
+<td align="left">-rm</td>
+<td align="left">删除文件/空白文件夹</td>
+</tr>
+<tr>
+<td align="left"><strong>-cat</strong></td>
+<td align="left"><strong>查看文件内容</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>-text</strong></td>
+<td align="left"><strong>源文件输出为文本格式</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>-mkdir</strong></td>
+<td align="left"><strong>创建空白文件夹</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>-put</strong></td>
+<td align="left"><strong>上传文件</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>-help</strong></td>
+<td align="left"><strong>帮助</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>-get</strong></td>
+<td align="left"><strong>下载文件</strong></td>
+</tr>
+</tbody></table>
+<p><strong>1、    ls命令</strong><br><img src="https://img-blog.csdnimg.cn/20200519183121865.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200519182723281.png" alt="在这里插入图片描述"><br> <strong>2、    mkdir命令</strong><br> <img src="https://img-blog.csdnimg.cn/2020051918315184.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> <img src="https://img-blog.csdnimg.cn/20200519182812945.png" alt="在这里插入图片描述"><br> <strong>3、    put命令</strong><br> <img src="https://img-blog.csdnimg.cn/20200519183218360.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20200519182851372.png" alt="在这里插入图片描述"><br> <img src="https://img-blog.csdnimg.cn/20200519182928834.png" alt="在这里插入图片描述"><br> <img src="https://img-blog.csdnimg.cn/20200519182957696.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> <strong>4、    get命令</strong><br> <img src="https://img-blog.csdnimg.cn/20200519183243173.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/2020051918302595.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> <strong>5、    其他命令：</strong><a target="_blank" rel="noopener" href="http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/FileSystemShell.html">here</a></p>
+<hr>
+<center><font size=5 face="华文行楷">
+**该部分大多数问题是因为实验一未正确完成导致**
+</font></center>
+<center><font size=4 face="华文行楷">
+**有问题多尝试解决，可评论留言遇到的问题**
+</font></center>
+
+<hr>
+<h2 id="3-4-HDFS的Java-API操作"><a href="#3-4-HDFS的Java-API操作" class="headerlink" title="3.4 HDFS的Java API操作"></a>3.4 HDFS的Java API操作</h2><blockquote>
+<p>由于Hadoop是使用Java语言编写的，因此可以使用Java API操作Hadoop文件系统。HDFS Shell本质上就是对Java API的应用，通过编程的形式操作HDFS，其核心是使用HDFS提供的Java API构造一个访问客户端对象，然后通过客户端对象对HDFS上的文件进行操作（增、删、改、查）。<br>参考：<a target="_blank" rel="noopener" href="https://my.oschina.net/u/2371923/blog/2870791">https://my.oschina.net/u/2371923/blog/2870791</a></p>
+</blockquote>
+<p><strong>(1)    搭建Hadoop HDFS开发环境</strong></p>
+<p><strong>1、win10上搭建hadoop环境</strong></p>
+<blockquote>
+<p>1).官网下载hadoop-2.7.4.tar.gz版本，解压:D:\hadoop-2.7.4</p>
+</blockquote>
+<blockquote>
+<p>2).配置环境变量</p>
+<p>​    </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">HADOOP_HOME=D:\hadoop-2.7.4<br>PATH=%HADOOP_HOME%\bin<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3.将windows上编译的文件hadoop.dll、winutils.exe放至%HADOOP_HOME%\bin下</p>
+</blockquote>
+<blockquote>
+<p>4.将hadoop.dll放到c:/windows/System32下</p>
+</blockquote>
+<blockquote>
+<p>5.设置D:\hadoop-2.7.4\etc\hadoop\hadoop-env.cmd中的JAVA_HOME为真实java路径（路径中不能带空格，否者会报错）.<br><img src="https://img-blog.csdnimg.cn/20200529091922720.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<blockquote>
+<p>6.测试hadoop是否配置成功,命令行输入：hadoop version<br><img src="https://img-blog.csdnimg.cn/20200520111842582.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<p>​       </p>
+<p>  <strong>2、在idea中新建maven工程hadoop-demo</strong></p>
+<blockquote>
+<p>idea配置maven<br>打开Settings —&gt;搜索maven—&gt;进入就能看到自带maven<br><img src="https://img-blog.csdnimg.cn/20200520104652283.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<blockquote>
+<p>更改maven数据源：<br>1、在安装目录找到该文件<br><img src="https://img-blog.csdnimg.cn/20200520105244124.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<blockquote>
+<p>2、打开修改以下部分并保存。</p>
+</blockquote>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs powershell">&lt;mirrors&gt;<br>  &lt;!<span class="hljs-literal">--</span> mirror<br>   | Specifies a repository mirror site to use instead of a given repository. The repository that<br>   | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used<br>   | <span class="hljs-keyword">for</span> inheritance and direct lookup purposes, and must be unique across the <span class="hljs-built_in">set</span> of mirrors.<br>   |<br>  &lt;mirror&gt;<br>    &lt;id&gt;mirrorId&lt;/id&gt;<br>    &lt;mirrorOf&gt;repositoryId&lt;/mirrorOf&gt;<br>    &lt;name&gt;Human Readable Name <span class="hljs-keyword">for</span> this Mirror.&lt;/name&gt;<br>    &lt;url&gt;http://my.repository.com/repo/path&lt;/url&gt;<br>  &lt;/mirror&gt;<br>   <span class="hljs-literal">--</span>&gt;<br>  &lt;mirror&gt;<br>    &lt;id&gt;aliyun<span class="hljs-literal">-public</span>&lt;/id&gt;<br>    &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;<br>    &lt;name&gt;aliyun public&lt;/name&gt;<br>    &lt;url&gt;https://maven.aliyun.com/repository/public&lt;/url&gt;<br>  &lt;/mirror&gt;<br><br>  &lt;mirror&gt;<br>    &lt;id&gt;aliyun<span class="hljs-literal">-central</span>&lt;/id&gt;<br>    &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;<br>    &lt;name&gt;aliyun central&lt;/name&gt;<br>    &lt;url&gt;https://maven.aliyun.com/repository/central&lt;/url&gt;<br>  &lt;/mirror&gt;<br><br>  &lt;mirror&gt;<br>    &lt;id&gt;aliyun<span class="hljs-literal">-spring</span>&lt;/id&gt;<br>    &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;<br>    &lt;name&gt;aliyun spring&lt;/name&gt;<br>    &lt;url&gt;https://maven.aliyun.com/repository/spring&lt;/url&gt;<br>  &lt;/mirror&gt;<br><br>  &lt;mirror&gt;<br>    &lt;id&gt;aliyun<span class="hljs-literal">-spring-plugin</span>&lt;/id&gt;<br>    &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;<br>    &lt;name&gt;aliyun spring<span class="hljs-literal">-plugin</span>&lt;/name&gt;<br>    &lt;url&gt;https://maven.aliyun.com/repository/spring<span class="hljs-literal">-plugin</span>&lt;/url&gt;<br>  &lt;/mirror&gt;<br><br>&lt;/mirrors&gt;<br><br><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>3、将上述文件copy至以下目录进行覆盖<img src="https://img-blog.csdnimg.cn/20200520105816258.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<blockquote>
+<p>4、重启idea</p>
+</blockquote>
+<p> <strong>(2)    初始化HDFS客户端对象</strong><br> 1、创建maven工程并添加依赖，import依赖</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs powershell">&lt;dependencies&gt;<br>       &lt;dependency&gt;<br>           &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;<br>           &lt;artifactId&gt;hadoop<span class="hljs-literal">-common</span>&lt;/artifactId&gt;<br>           &lt;version&gt;<span class="hljs-number">2.7</span>.<span class="hljs-number">4</span>&lt;/version&gt;<br>       &lt;/dependency&gt;<br>       &lt;dependency&gt;<br>           &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;<br>           &lt;artifactId&gt;hadoop<span class="hljs-literal">-hdfs</span>&lt;/artifactId&gt;<br>           &lt;version&gt;<span class="hljs-number">2.7</span>.<span class="hljs-number">4</span>&lt;/version&gt;<br>       &lt;/dependency&gt;<br>       &lt;dependency&gt;<br>           &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;<br>           &lt;artifactId&gt;hadoop<span class="hljs-literal">-client</span>&lt;/artifactId&gt;<br>           &lt;version&gt;<span class="hljs-number">2.7</span>.<span class="hljs-number">4</span>&lt;/version&gt;<br>       &lt;/dependency&gt;<br>       &lt;dependency&gt;<br>           &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;<br>           &lt;artifactId&gt;hadoop<span class="hljs-literal">-mapreduce-client-core</span>&lt;/artifactId&gt;<br>           &lt;version&gt;<span class="hljs-number">2.7</span>.<span class="hljs-number">4</span>&lt;/version&gt;<br>       &lt;/dependency&gt;<br>       &lt;dependency&gt;<br>           &lt;groupId&gt;junit&lt;/groupId&gt;<br>           &lt;artifactId&gt;junit&lt;/artifactId&gt;<br>           &lt;version&gt;<span class="hljs-number">4.12</span>&lt;/version&gt;<br>       &lt;/dependency&gt;<br>       &lt;dependency&gt;<br>           &lt;groupId&gt;org.apache.zookeeper&lt;/groupId&gt;<br>           &lt;artifactId&gt;zookeeper&lt;/artifactId&gt;<br>           &lt;version&gt;<span class="hljs-number">3.4</span>.<span class="hljs-number">10</span>&lt;/version&gt;<br>       &lt;/dependency&gt;<br>   &lt;/dependencies&gt;<br></code></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/2020052011045868.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 2、创建java类,添加初始化HDFS客户端对象的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.itcast.hdfsdemo;<br><br><span class="hljs-comment">//import javax.security.auth.login.Configuration;</span><br><br><span class="hljs-keyword">import</span> org.apache.hadoop.conf.Configuration;<br><span class="hljs-keyword">import</span> org.apache.hadoop.fs.FileSystem;<br><span class="hljs-keyword">import</span> org.apache.hadoop.fs.Path;<br><span class="hljs-keyword">import</span> org.junit.After;<br><span class="hljs-keyword">import</span> org.junit.Before;<br><span class="hljs-keyword">import</span> org.junit.Test;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@project</span>: hadoopDemo</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@description</span>:</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span>: dell</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span>: 2020/5/20 - 1:21</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span>: 1.0</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@website</span>:</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HDFS_CRUD</span> &#123;<br>    <span class="hljs-type">FileSystem</span> <span class="hljs-variable">fs</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-meta">@Before</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-comment">// 构造一个配置参数对象,设置一个参数：我们要访问的hdfs的URI</span><br>        <span class="hljs-type">Configuration</span> <span class="hljs-variable">conf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Configuration</span>();<br>        <span class="hljs-comment">// 这里指定使用的是HDFS文件系统</span><br>        conf.set(<span class="hljs-string">&quot;fs.defaultFS&quot;</span>, <span class="hljs-string">&quot;hdfs://hadoop01:9000&quot;</span>);<br>        <span class="hljs-comment">// 通过如下的方式进行客户端身份的设置</span><br>        System.setProperty(<span class="hljs-string">&quot;HADOOP_USER_NAME&quot;</span>, <span class="hljs-string">&quot;root&quot;</span>);<br>        <span class="hljs-comment">// 通过FileSystem的静态方法获取文件系统客户端对象</span><br>        fs = FileSystem.get(conf);<br>    &#125;<br><br>    <span class="hljs-meta">@After</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">close</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-comment">// 关闭资源</span><br>        fs.close();<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p><strong>(3)    在本地创建文本文件并上传到HDFS</strong><br>1、在本地创建文件：<br><img src="https://img-blog.csdnimg.cn/20200520110923162.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2、添加上传文件测试方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testAddFileToHdfs</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>      <span class="hljs-comment">// 要上传的文件所在本地路径</span><br>      <span class="hljs-type">Path</span> <span class="hljs-variable">src</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">&quot;D:\\Workspaces\\hadoopWorkspace\\data\\test/put/hdfs_java.txt&quot;</span>);<br>      <span class="hljs-comment">// 要上传到hdfs的目标路径</span><br>      <span class="hljs-type">Path</span> <span class="hljs-variable">dst</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">&quot;/49/test/&quot;</span>);<br>      <span class="hljs-comment">// 上传文件方法</span><br>      fs.copyFromLocalFile(src, dst);<br>  &#125;<br></code></pre></td></tr></table></figure>
+<p>3、启动hadoop集群，运行测试方法进行测试<br><img src="https://img-blog.csdnimg.cn/20200520111156736.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>(4)    从HDFS将上传的文件下载到本地</strong><br>1、添加下载文件的测试方法</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powershell">// 从hdfs中复制文件到本地文件系统<br>  @Test<br>  public void testDownloadFileToLocal() throws IllegalArgumentException, IOException &#123;<br>      // 下载文件<br>      fs.copyToLocalFile(new Path(<span class="hljs-string">&quot;/49/test/hdfs_java.txt&quot;</span>), new Path(<span class="hljs-string">&quot;D:\\Workspaces\\hadoopWorkspace\\data\\test/get/&quot;</span>));<br>  &#125;<br></code></pre></td></tr></table></figure>
+<p>2、启动集群，运行方法测试<br><img src="https://img-blog.csdnimg.cn/20200520111401122.png" alt="在这里插入图片描述"></p>
+<hr>
+<center><font size=4 face="华文行楷">**有问题多尝试解决，可评论留言遇到的问题**</font></center>
+---
+
+
+
+<h2 id="3-5-使用MapReduce实现倒排索引"><a href="#3-5-使用MapReduce实现倒排索引" class="headerlink" title="3.5 使用MapReduce实现倒排索引"></a>3.5 使用MapReduce实现倒排索引</h2><blockquote>
+<p>在3.4中的工程里面新建包：cn.itcast.mr.invertedIndex</p>
+</blockquote>
+<p><strong>(1)    收集数据，根据来源将数据存储在多个文本文件中</strong><br><img src="https://img-blog.csdnimg.cn/20200520201112239.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>(2)    编写Map阶段程序代码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.mr.invertedIndex;<br><br><span class="hljs-keyword">import</span> org.apache.commons.lang.StringUtils;<br><span class="hljs-keyword">import</span> org.apache.hadoop.io.LongWritable;<br><span class="hljs-keyword">import</span> org.apache.hadoop.io.Text;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.Mapper;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileSplit;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@project</span>: hadoopDemo</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@description</span>:</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span>: dell</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span>: 2020/5/20 - 12:07</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span>: 1.0</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@website</span>:</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">InvertedIndexMapper</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Mapper</span>&lt;LongWritable, Text,Text,Text&gt; &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">Text</span> <span class="hljs-variable">keyInfo</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Text</span>();<span class="hljs-comment">// 存储单词和 URL 组合</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Text</span> <span class="hljs-variable">valueInfo</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Text</span>(<span class="hljs-string">&quot;1&quot;</span>);<span class="hljs-comment">// 存储词频,初始化为1</span><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">map</span><span class="hljs-params">(LongWritable key, Text value, Context context)</span><br>            <span class="hljs-keyword">throws</span> IOException, InterruptedException &#123;<br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@description</span>: 在该方法中将K1和V1转为K2和V2</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@param</span>: [key:K1行偏移量, value：V1行文本数据, context：上下文对象]</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@date</span>: 2020/5/20 - 12:11</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@return</span>: void</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">line</span> <span class="hljs-operator">=</span> value.toString();<br>        String[] fields = StringUtils.split(line, <span class="hljs-string">&quot; &quot;</span>);<span class="hljs-comment">// 得到字段数组</span><br>        <span class="hljs-type">FileSplit</span> <span class="hljs-variable">fileSplit</span> <span class="hljs-operator">=</span> (FileSplit) context.getInputSplit();<span class="hljs-comment">// 得到这行数据所在的文件切片</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">fileName</span> <span class="hljs-operator">=</span> fileSplit.getPath().getName();<span class="hljs-comment">// 根据文件切片得到文件名</span><br>        <span class="hljs-keyword">for</span> (String field : fields) &#123;<br>            <span class="hljs-comment">// key值由单词和URL组成，如“MapReduce:file1”</span><br>            keyInfo.set(field + <span class="hljs-string">&quot;:&quot;</span> + fileName);<br>            context.write(keyInfo, valueInfo);<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>(3)    编写Combine阶段程序代码（可选）</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.mr.invertedIndex;<br><br><span class="hljs-keyword">import</span> org.apache.hadoop.io.Text;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.Reducer;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@project</span>: hadoopDemo</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@description</span>:</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span>: dell</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span>: 2020/5/20 - 12:16</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span>: 1.0</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@website</span>:</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">InvertedIndexCombiner</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Reducer</span>&lt;Text, Text, Text, Text&gt; &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">Text</span> <span class="hljs-variable">info</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Text</span>();<br><br>    <span class="hljs-comment">// 输入： &lt;MapReduce:file3 &#123;1,1,...&#125;&gt;</span><br>    <span class="hljs-comment">// 输出：&lt;MapReduce file3:2&gt;</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">reduce</span><span class="hljs-params">(Text key, Iterable&lt;Text&gt; values, Context context)</span><br>            <span class="hljs-keyword">throws</span> IOException, InterruptedException, IOException &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<span class="hljs-comment">// 统计词频</span><br>        <span class="hljs-keyword">for</span> (Text value : values) &#123;<br>            sum += Integer.parseInt(value.toString());<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">splitIndex</span> <span class="hljs-operator">=</span> key.toString().indexOf(<span class="hljs-string">&quot;:&quot;</span>);<br>        <span class="hljs-comment">// 重新设置 value 值由 URL 和词频组成</span><br>        info.set(key.toString().substring(splitIndex + <span class="hljs-number">1</span>) + <span class="hljs-string">&quot;:&quot;</span> + sum);<br>        <span class="hljs-comment">// 重新设置 key 值为单词</span><br>        key.set(key.toString().substring(<span class="hljs-number">0</span>, splitIndex));<br>        context.write(key, info);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>(4)    编写Reduce阶段程序代码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.mr.invertedIndex;<br><br><span class="hljs-keyword">import</span> org.apache.hadoop.io.Text;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.Reducer;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@project</span>: hadoopDemo</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@description</span>:</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span>: dell</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span>: 2020/5/20 - 19:04</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span>: 1.0</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@website</span>:</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">InvertedIndexReducer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Reducer</span>&lt;Text, Text, Text, Text&gt; &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">Text</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Text</span>();<br><br>    <span class="hljs-comment">// 输入：&lt;MapReduce file3:2&gt;</span><br>    <span class="hljs-comment">// 输出：&lt;MapReduce file1:1;file2:1;file3:2;&gt;</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">reduce</span><span class="hljs-params">(Text key, Iterable&lt;Text&gt; values, Context context)</span><br>            <span class="hljs-keyword">throws</span> IOException, InterruptedException &#123;<br>        <span class="hljs-comment">// 生成文档列表</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">fileList</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>();<br>        <span class="hljs-keyword">for</span> (Text value : values) &#123;<br>            fileList += value.toString() + <span class="hljs-string">&quot;;&quot;</span>;<br>        &#125;<br><br>        result.set(fileList);<br>        context.write(key, result);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>(5)    实现Driver主驱动程序并测试运行</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.mr.invertedIndex;<br><br><span class="hljs-keyword">import</span> org.apache.hadoop.conf.Configuration;<br><span class="hljs-keyword">import</span> org.apache.hadoop.fs.Path;<br><span class="hljs-keyword">import</span> org.apache.hadoop.io.Text;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.Job;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@project</span>: hadoopDemo</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@description</span>:</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span>: dell</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span>: 2020/5/20 - 19:17</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span>: 1.0</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@website</span>:</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">InvertedIndexDriver</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException,<br>            ClassNotFoundException, InterruptedException &#123;<br>        <span class="hljs-comment">//保存Job任务对象</span><br>        <span class="hljs-type">Configuration</span> <span class="hljs-variable">conf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Configuration</span>();<br>        <span class="hljs-type">Job</span> <span class="hljs-variable">job</span> <span class="hljs-operator">=</span> Job.getInstance(conf);<br><br>        <span class="hljs-comment">//设置Job任务对象</span><br>        job.setJarByClass(InvertedIndexDriver.class);<br>        job.setMapperClass(InvertedIndexMapper.class);<br>        job.setCombinerClass(InvertedIndexCombiner.class);<br>        job.setReducerClass(InvertedIndexReducer.class);<br><br>        job.setOutputKeyClass(Text.class);<br>        job.setOutputValueClass(Text.class);<br><br>        FileInputFormat.setInputPaths(job, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">&quot;D:\\Workspaces\\hadoopWorkspace\\workspace\\hadoopDemo\\src\\main\\resources\\mrdata&quot;</span>));<br>        <span class="hljs-comment">// 指定处理完成之后的结果所保存的位置</span><br>        FileOutputFormat.setOutputPath(job, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">&quot;D:\\Workspaces\\hadoopWorkspace\\workspace\\hadoopDemo\\src\\main\\resources\\output&quot;</span>));<br><br>        <span class="hljs-comment">//启动Job任务 ：向 yarn 集群提交这个 job</span><br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> job.waitForCompletion(<span class="hljs-literal">true</span>);<br><br>        System.exit(res ? <span class="hljs-number">0</span> : <span class="hljs-number">1</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p><strong>(6)运行结果</strong><br><img src="https://img-blog.csdnimg.cn/2020052020200047.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<hr>
+<center><font size=5 face="华文行楷">**有问题多尝试解决，可评论留言遇到的问题**</font></center>
+---
+
+
+
+<h1 id="四、遇到的问题"><a href="#四、遇到的问题" class="headerlink" title="四、遇到的问题"></a>四、遇到的问题</h1><h2 id="实验一："><a href="#实验一：" class="headerlink" title="实验一："></a>实验一：</h2><p>  <strong>1、jdk安装成功，却使用的系统自带jdk</strong></p>
+<blockquote>
+<p>参考本文：jdk安装 —&gt;查看当前系统自带jdk并卸载：<br>注：<a target="_blank" rel="noopener" href="https://blog.csdn.net/magicianjun/article/details/78530129?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522158841850819725219935502%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=158841850819725219935502&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v25-5">参考:here</a></p>
+</blockquote>
+<p><strong>2、无法启动 NodeManager</strong></p>
+<blockquote>
+<p>本机配置不满足，修改yarn-siet.xml文件.添加下面内容：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">&lt;!-- 设置内存 --&gt;<br>&lt;property&gt;<br>    &lt;name&gt;yarn.nodemanager.resource.memory-mb&lt;/name&gt;<br>    &lt;value&gt;1600&lt;/value&gt;<br>&lt;/property&gt;<br>&lt;!-- 设置cpu 核数 --&gt;<br>&lt;property&gt;<br>    &lt;name&gt;yarn.nodemanager.resource.cpu-vcores&lt;/name&gt;<br>    &lt;value&gt;1&lt;/value&gt;<br>&lt;/property&gt;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>注:<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30922589/article/details/96040227">参考：here</a>    </p>
+</blockquote>
+<p><strong>3、执行词频统计一直处于接受，未运行</strong></p>
+<blockquote>
+<p>属于服务未全部启动，请确保下图服务启动：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200509175253705.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<h2 id="实验二："><a href="#实验二：" class="headerlink" title="实验二："></a>实验二：</h2><p><strong>1、运行报错：无法连接到hadoop01:9000</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">java.net.ConnectException: Call From DESKTOP<span class="hljs-literal">-AUK8T9H</span>/<span class="hljs-number">192.168</span>.<span class="hljs-number">121.5</span> to hadoop01:<span class="hljs-number">9000</span> failed on connection exception: java.net.ConnectException: Connection refused: no further <br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>解决：Hadoop集群未开启导致，将集群开启即可。</p>
+</blockquote>
+<p><strong>2、配置完成却运行报错:</strong></p>
+<blockquote>
+<p>解决：查询原因是因为：jdk路径出现空格导致。重新安装jdk至无空格和中文的路径下即可。</p>
+</blockquote>
+<p><strong>3、Driver主驱动程序进行测试运行报错：</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">file:/D:/Workspaces/hadoopWorkspace/workspace/hadoopDemo/src/main/resources/output already exists<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>解决：通过删除已存在的输出目录进行解决</p>
+</blockquote>
+<blockquote>
+<p>更新日期：2020.5.20</p>
+</blockquote>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/05/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/" data-id="ckhn7g6ic001fi0vcfahmfvj8" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/06/09/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BB%20Windows%2010%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            正版免费激活 Windows 10安装教程
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/05/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">nCov项目总结文档</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+  <div class="gitalk" id="gitalk-container"></div>
+  
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '805efc781a7e3c77968c',
+      clientSecret: 'af34e634e272e62b21230690b662f0482a5678df',
+      repo: 'kleinlsl.github.io',
+      owner: 'kleinlsl',
+      admin: ['kleinlsl'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 月色很柔</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="月色很柔"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

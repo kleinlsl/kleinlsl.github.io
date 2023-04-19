@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="个人简单博客">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Ubuntu18.04 Server搭建和使用记录 |
+    
+    月色很柔</title>
+  
+    <link rel="shortcut icon" href="/images/hexo.svg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="月色很柔" type="application/atom+xml">
+</head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-搭建Ubuntu18.4servers服务器全记录" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      Ubuntu18.04 Server搭建和使用记录
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time datetime="2020-10-03T11:14:16.000Z" itemprop="datePublished">2020-10-03</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <blockquote>
+<p>记录自己搭建Ubuntu18.04 Server的全部过程，有不足之处请见谅！！！</p>
+</blockquote>
+<h2 id="1、前置工作"><a href="#1、前置工作" class="headerlink" title="1、前置工作"></a>1、前置工作</h2><p>本文做出以下假设：</p>
+<ul>
+<li>您已熟悉Linux操作系统</li>
+<li>您拥有(或能够独立创建)一台Ubuntu Server</li>
+</ul>
+<p>本文采用Vmware 虚拟机创建Ubuntu 18.04 Server</p>
+<ul>
+<li>镜像获取：<a target="_blank" rel="noopener" href="http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/?_ga=2.128866185.407240186.1601692120-588330145.1601692120">Ubuntu 18.04.5 LTS (Bionic Beaver)</a></li>
+<li>Vmware：<a target="_blank" rel="noopener" href="https://www.vmware.com/cn/products/workstation-pro/workstation-pro-evaluation.html">VMware15.5</a></li>
+<li>SecureCRT：<a target="_blank" rel="noopener" href="https://www.vandyke.com/download/securecrt/6.7/index.html">SecureCRT</a></li>
+</ul>
+<p>搭建Ubuntu18.04 Server 教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41971768/article/details/108908496">VMware 安装 Ubuntu Server 18.04.5 LTS</a></p>
+<blockquote>
+<a id="more"></a>
+</blockquote>
+<h2 id="2、Server准备工作"><a href="#2、Server准备工作" class="headerlink" title="2、Server准备工作"></a>2、Server准备工作</h2><ul>
+<li><p>设置root密码：<code>sudo passwd root</code></p>
+</li>
+<li><p>更改镜像源：</p>
+<ul>
+<li><p>备份源配置文件： <code>sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code></p>
+</li>
+<li><p>在源配置文件前添加阿里云镜像源配置 : <code>sudo vim /etc/apt/sources.list</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell">deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse<br>deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse<br> <br>deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse<br>deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse<br> <br>deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse<br>deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse<br> <br>deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse<br>deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse<br> <br>deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse<br>deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>执行更新命令 : <code>sudo apt-get clean</code>  、<code>sudo apt-get update</code></p>
+</li>
+<li><p>查看Java、Python、MySql、Tomcat、nginx、SqlServer环境</p>
+</li>
+<li><p>Java: <code>java -version</code></p>
+</li>
+<li><p>Python: <code>python 或 python3</code></p>
+</li>
+<li><p>MySql：<code>mysql -version</code></p>
+</li>
+<li><p>Redis： <code>redis-server -v</code>  </p>
+</li>
+<li><p>Tomcat：{待补充}</p>
+</li>
+<li><p>Docker：<code>docker -v</code></p>
+</li>
+<li><p>nginx：{待补充}</p>
+</li>
+<li><p>SqlServer：{待补充}</p>
+</li>
+</ul>
+<h3 id="2-0-安装文件上传工具"><a href="#2-0-安装文件上传工具" class="headerlink" title="2.0 安装文件上传工具"></a>2.0 安装文件上传工具</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">安装命令：apt-get install lrzsz -y<br><br>使用命令：rz # 上传<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-1-安装Mysql环境"><a href="#2-1-安装Mysql环境" class="headerlink" title="2.1 安装Mysql环境"></a>2.1 安装Mysql环境</h3><ul>
+<li><p>安装Mysql：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get install mysql-server<br>apt-get install mysql-client<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>检测安装是否成功：<code>mysql</code> </p>
+</li>
+<li><p>修改bind-address（允许远程主机访问）： <code>vim /etc/mysql/mysql.conf.d/mysqld.cnf</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs shell"><br>[mysqld_safe]<br>socket          = /var/run/mysqld/mysqld.sock<br>nice            = 0<br><br>[mysqld]<br><span class="hljs-meta">#</span><br><span class="hljs-meta">#</span><span class="bash"> * Basic Settings</span><br><span class="hljs-meta">#</span><br>user            = mysql<br>pid-file        = /var/run/mysqld/mysqld.pid<br>socket          = /var/run/mysqld/mysqld.sock<br>port            = 3306<br>basedir         = /usr<br>datadir         = /var/lib/mysql<br>tmpdir          = /tmp<br>lc-messages-dir = /usr/share/mysql<br>skip-external-locking<br><span class="hljs-meta">#</span><br><span class="hljs-meta">#</span><span class="bash"> Instead of skip-networking the default is now to listen only on</span><br><span class="hljs-meta">#</span><span class="bash"> localhost <span class="hljs-built_in">which</span> is more compatible and is not less secure.</span><br><span class="hljs-meta">#</span><span class="bash"> bind-address          = 127.0.0.1</span><br><span class="hljs-meta">#</span><span class="bash"> 注释掉绑定的ip地址</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>mysql -u root -p123456    默认安装的话密码是任何字符都可以，也就是没有密码。</p>
+</blockquote>
+</li>
+<li><p>修改默认编码格式：<code>vim  /etc/mysql/mysql.conf.d/mysqld.cnf</code></p>
+<ul>
+<li>更改前编码：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">mysql&gt;</span><span class="bash"> STATUS</span><br>--------------<br>mysql  Ver 14.14 Distrib 5.7.31, for Linux (x86_64) using  EditLine wrapper<br><br>Connection id:          6<br>Current database:<br>Current user:           root@localhost<br>SSL:                    Not in use<br>Current pager:          stdout<br>Using outfile:          &#x27;&#x27;<br>Using delimiter:        ;<br>Server version:         5.7.31-0ubuntu0.18.04.1 (Ubuntu)<br>Protocol version:       10<br>Connection:             Localhost via UNIX socket<br>Server characterset:    latin1     # <br>Db     characterset:    latin1	   # 默认编码，需要修改为utf-8<br>Client characterset:    utf8<br>Conn.  characterset:    utf8<br>UNIX socket:            /var/run/mysqld/mysqld.sock<br>Uptime:                 26 min 3 sec<br><br>Threads: 1  Questions: 15  Slow queries: 0  Opens: 105  Flush tables: 1  Open tables: 98  Queries per second avg: 0.009<br>--------------<br><br><span class="hljs-meta">mysql&gt;</span><span class="bash"> </span><br></code></pre></td></tr></table></figure>
+
+<pre><code>* 更改：`root@ubuntu:vim  /etc/mysql/mysql.conf.d/mysqld.cnf`</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs shell">[mysqld]<br><span class="hljs-meta">#</span><br><span class="hljs-meta">#</span><span class="bash"> * Basic Settings</span><br><span class="hljs-meta">#</span><br>user            = mysql<br>pid-file        = /var/run/mysqld/mysqld.pid<br>socket          = /var/run/mysqld/mysqld.sock<br>port            = 3306<br>basedir         = /usr<br>datadir         = /var/lib/mysql<br>tmpdir          = /tmp<br>lc-messages-dir = /usr/share/mysql<br>skip-external-locking<br>character-set-server=utf8    # 添加该句<br><span class="hljs-meta">#</span><br><span class="hljs-meta">#</span><span class="bash"> Instead of skip-networking the default is now to listen only on</span><br><span class="hljs-meta">#</span><span class="bash"> localhost <span class="hljs-built_in">which</span> is more compatible and is not less secure.</span><br><span class="hljs-meta">#</span><span class="bash"> bind-address          = 127.0.0.1</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>重启服务，更改后编码：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs plain">mysql&gt; STATUS<br>--------------<br>mysql  Ver 14.14 Distrib 5.7.31, for Linux (x86_64) using  EditLine wrapper<br><br>Connection id:          2<br>Current database:<br>Current user:           root@localhost<br>SSL:                    Not in use<br>Current pager:          stdout<br>Using outfile:          &#39;&#39;<br>Using delimiter:        ;<br>Server version:         5.7.31-0ubuntu0.18.04.1 (Ubuntu)<br>Protocol version:       10<br>Connection:             Localhost via UNIX socket<br>Server characterset:    utf8<br>Db     characterset:    utf8<br>Client characterset:    utf8<br>Conn.  characterset:    utf8<br>UNIX socket:            &#x2F;var&#x2F;run&#x2F;mysqld&#x2F;mysqld.sock<br>Uptime:                 5 sec<br><br>Threads: 1  Questions: 5  Slow queries: 0  Opens: 105  Flush tables: 1  Open tables: 98  Queries per second avg: 1.000<br>--------------<br><br>mysql&gt; <br></code></pre></td></tr></table></figure>
+</li>
+<li><p>授权远程登录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; IDENTIFIED BY &#39;123456&#39; WITH GRANT OPTION;<br>Query OK, 0 rows affected, 1 warning (0.00 sec)<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">mysql&gt; FLUSH PRIVILEGES;<br>Query OK, 0 rows affected (0.00 sec)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>进行远程连接: 使用Navicat进行连接，如果不能连接；请百度开放Ubuntu的3306端口。</p>
+</li>
+<li><p>修改MySql用户密码：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42410605/article/details/96496394">{待补充}</a></p>
+</li>
+</ul>
+<h3 id="2-2-安装Java环境"><a href="#2-2-安装Java环境" class="headerlink" title="2.2 安装Java环境"></a>2.2 安装Java环境</h3><ul>
+<li>下载JDK</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">https://www.oracle.com/technetwork/java/javase/downloads/index.html<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>安装JDK</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">上传jdk到/<span class="hljs-built_in">export</span>/software路径下去，井解压</span><br><br>tar -zxvf jdk-8u161-linux-x64.tar.gz -C /export/servers/<br><br>mv jdk1.8.0_161 jdk<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置JDK环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs shell">vi /etc/profile<br><br>添加以下内容：<br><br>export JAVA_HOME=/export/servers/jdk<br><br>export PATH=$PATH:$JAVA_HOME/bin<br><br>export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar<br><br>修改完成之后记得source /etc/profle生效<br><br>source /etc/profile<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>JDK环境验证</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">java -version<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="2-3-配置python环境"><a href="#2-3-配置python环境" class="headerlink" title="2.3 配置python环境"></a>2.3 配置python环境</h3><ul>
+<li><p>检测python3、pip3：<code>python3</code>、<code>pip3 install numpy</code></p>
+</li>
+<li><p>安装python3、pip3：<code>apt-get install python3</code>、<code>apt-get install python3-pip</code></p>
+</li>
+<li><p>收集和安装依赖：</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip： <br><br>pip freeze &gt; requirements.txt<br>pip install -r requirements.txt<br><br>conda：<br><br>conda list -e &gt; requirements.txt<br>conda install --yes --file requirements.txt<br><br></code></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>安装conda环境：<a target="_blank" rel="noopener" href="https://www.anaconda.com/products/individual">官网</a></p>
+<ul>
+<li><p>选择合适的Anaconda版本地址：<a target="_blank" rel="noopener" href="https://repo.anaconda.com/archive/Anaconda3-2020.07-Linux-x86_64.sh">https://repo.anaconda.com/archive/Anaconda3-2020.07-Linux-x86_64.sh</a></p>
+</li>
+<li><p>下载安装包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /export/software/<br>wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh<br>bash Anaconda3-4.4.0-Linux-x86_64.sh<br></code></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>一路回车；</p>
+</blockquote>
+<ul>
+<li><p>修改环境变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">vi ~/.bashrc<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 在bashrc文件的最后添加：export PATH=”/home/用户名/anaconda3/bin:$PATH”。（vi编辑器中按i进入编辑模式） </p>
+<p>如：<code>export PATH=&quot;/root/anaconda3/bin:$PATH&quot;</code></p>
+</blockquote>
+</li>
+<li><p>更新 <code>.bashrc</code> 使得环境变量生效： <code>source ~/.bashrc</code> </p>
+</li>
+<li><p>更改镜像源：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">修改了清华源，<br><br>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/<br>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/<br>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/<br>conda config --set show_channel_urls yes<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>升级conda：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">conda update conda<br>conda update anaconda<br>conda update python<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/22678445">conda管理python环境</a>：</p>
+<ul>
+<li><p>环境管理：</p>
+</li>
+<li><p>conda常用命令</p>
+<ul>
+<li>查看当前系统下的环境</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">conda info -e<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>创建新的环境</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text"># 指定python版本为2.7，注意至少需要指定python版本或者要安装的包# 后一种情况下，自动安装最新python版本<br>conda create -n env_name python=2.7<br># 同时安装必要的包<br>conda create -n env_name numpy matplotlib python=2.7<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>环境切换</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">  # 切换到新环境# linux/Mac下需要使用source activate env_name<br>  activate env_name<br>  #退出环境，也可以使用`activate root`切回root环境<br>deactivate env_name<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>移除环境</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">conda remove -n env_name --all<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>给某个特定环境安装package </p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">conda install -n env_name pandas<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>查看已经安装的package</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">  conda list<br>  # 指定查看某环境下安装的package<br>conda list -n env_name<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查找包</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">conda search pyqtgraph<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<ul>
+<li><p>更新包</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">conda update numpy<br>conda update anaconda<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>卸载包</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">conda remove numpy<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-Redis环境配置-here"><a href="#2-4-Redis环境配置-here" class="headerlink" title="2.4 Redis环境配置:here"></a>2.4 Redis环境配置:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/pinuocao/p/12402225.html">here</a></h3><ul>
+<li><p>安装redis：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> sudo apt-get install redis-server</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>或者：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> wget http://download.redis.io/releases/redis-5.0.5.tar.gz</span><br>解压：tar -zxf redis-5.0.5.tar.gz<br>进入redis目录：cd redis-5.0.5<br>编译：make<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置：参照<a target="_blank" rel="noopener" href="https://www.cnblogs.com/pinuocao/p/12402225.html">here</a></p>
+</li>
+</ul>
+<h3 id="2-5-Tomcat-：官网"><a href="#2-5-Tomcat-：官网" class="headerlink" title="2.5 Tomcat ：官网"></a>2.5 Tomcat ：<a target="_blank" rel="noopener" href="http://tomcat.apache.org/">官网</a></h3><ul>
+<li><p>下载Tomcat 9.0.38:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">wget https://mirror.bit.edu.cn/apache/tomcat/tomcat-9/v9.0.38/bin/apache-tomcat-9.0.38.tar.gz<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>解压到指定目录：<code> tar -zxvf apache-tomcat-9.0.38.tar.gz -C /export/servers/</code></p>
+</li>
+<li><p>重命名文件名：<code>mv apache-tomcat-9.0.38/ tomcat9</code></p>
+</li>
+<li><p>更改启动脚本<code>startup.sh</code>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"><span class="hljs-built_in">set</span> java environment</span><br>export JAVA_HOME=/export/servers/jdk<br>export JRE_HOME=$&#123;JAVA_HOME&#125;/jre<br>export CLASSPATH=.:%&#123;JAVA_HOME&#125;/lib:%&#123;JRE_HOME&#125;/lib<br>export PATH=$&#123;JAVA_HOME&#125;/bin:$PATH<br><br><span class="hljs-meta">#</span><span class="bash">tomcat</span><br>export TOMCAT_HOME=/export/servers/tomcat9<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>启动Tomcat： <code>./startup.sh </code></p>
+</li>
+</ul>
+<h3 id="2-6-Docker-环境安装"><a href="#2-6-Docker-环境安装" class="headerlink" title="2.6 Docker 环境安装"></a>2.6 Docker 环境安装</h3><p>安装参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/docker/ubuntu-docker-install.html">菜鸟教程</a></p>
+<ul>
+<li><p>查看Linux的IP地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ip addr<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用客户端连接Linux</p>
+</li>
+</ul>
+<h4 id="2-6-1-在Linux上安装docker"><a href="#2-6-1-在Linux上安装docker" class="headerlink" title="2.6.1 在Linux上安装docker"></a>2.6.1 <strong>在Linux上安装docker</strong></h4><p>步骤：</p>
+<ul>
+<li><p>检查内核版本，必须是3.10及以上：<code>uname -r</code></p>
+</li>
+<li><p>安装docker： <code>yum install docker</code>  或  <a target="_blank" rel="noopener" href="https://www.runoob.com/docker/ubuntu-docker-install.html">参考菜鸟教程</a>  、<a target="_blank" rel="noopener" href="https://blog.csdn.net/sun_hui_/article/details/100581161">使用阿里云镜像</a></p>
+</li>
+<li><p>启动docker：<code>systemctl start docker</code></p>
+</li>
+<li><p>查看docker版本： <code>docker -v</code></p>
+</li>
+<li><p>开机启动docker: <code>systemctl enable docker</code></p>
+</li>
+<li><p>停止docker： <code>systemctl stop docker</code></p>
+</li>
+</ul>
+<h4 id="2-6-2-Docker常用命令-amp-操作"><a href="#2-6-2-Docker常用命令-amp-操作" class="headerlink" title="2.6.2 Docker常用命令&amp;操作"></a>2.6.2 <strong>Docker常用命令&amp;操作</strong></h4><h5 id="2-6-2-1-镜像操作"><a href="#2-6-2-1-镜像操作" class="headerlink" title="2.6.2.1 镜像操作"></a>2.6.2.1 <strong>镜像操作</strong></h5><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>检索</td>
+<td>docker search 关键字 eg：docker search redis</td>
+<td>我们经常要去docker hub上检索镜像的详细信息，如镜像的tag</td>
+</tr>
+<tr>
+<td>拉取</td>
+<td>docker pull 镜像名:tag</td>
+<td>:tag是可选的，tag表示标签</td>
+</tr>
+<tr>
+<td>列表</td>
+<td>docker images</td>
+<td>查看所有的本地镜像</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>docker rmi images-id</td>
+<td>删除指定的本地镜像</td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a></p>
+<h5 id="2-6-2-2-容器操作"><a href="#2-6-2-2-容器操作" class="headerlink" title="2.6.2.2 容器操作"></a>2.6.2.2 容器操作</h5><p>软件镜像（QQ安装程序)—-运行镜像—-产生一个容器(正在运行的软件，运行的QQ) ;</p>
+<p>步骤：</p>
+<ul>
+<li>搜索镜像：<code>docker search tomcat</code></li>
+<li>拉取镜像：<code>docker pull tomcat</code></li>
+<li>根据镜像启动容器： <code>docker run --name mytomcat -d tomcat:latest</code></li>
+<li>查看运行中的容器：<code>docker ps</code></li>
+<li>停止运行中的容器：<code>docker stop 容器的id</code></li>
+<li>查看所有的容器： <code>docker ps -a</code></li>
+<li>启动容器： <code>docker start 容器id</code></li>
+<li>删除一个容器：<code>docker rm 容器id</code></li>
+<li>启动一个做了端口映射的tomcat： <code>docker run -d -p 8888:8080 tomcat</code><ul>
+<li>-d:后台运行</li>
+<li>-p：将主机端口映射到容器的一个端口   主机端口:容器内部端口</li>
+</ul>
+</li>
+<li>关闭Linux的防火墙：<ul>
+<li>查看防火墙状态：<code>service firewalld status</code></li>
+<li>关闭防火墙：<code>service firewalld stop</code></li>
+</ul>
+</li>
+<li>查看容器的日志： <code>docker logs container-name/container-id</code></li>
+<li>更多命令参看：[https: //docs.docker .com/engine/reference/commandline/docker/](https: //docs.docker .com/engine/reference/commandline/docker/)<ul>
+<li>可以参考每一个镜像的文档</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-6-2-3-安装MySql示例"><a href="#2-6-2-3-安装MySql示例" class="headerlink" title="2.6.2.3 安装MySql示例"></a>2.6.2.3 安装MySql示例</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull mysql<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>错误的启动</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run --name mysql01 -d mysql<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>正确的启动</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run --name mysql101 -e MYSQL_ROOT_PASSWORD=123456 -d mysql<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>做了端口映射</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -p3306:3306 --name mysql102 -e MYSQL_ROOT_PASSWORD=123456 -d mysql<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>几个其他的高级操作</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run --name mysql03 -v /conf/mysql:/etc/mysq1/conf.d -e MSQL_ROOT_PASSMORD=my-secret-pw-d mysql:tag<br><br><span class="hljs-meta">#</span><span class="bash"> 把主机的/conf/mysql文件夹挂载到 mysqldocker容器的/etc/mysq1/conf.d文件夹里面改mysql的配置文件就只需要把mysql配置文件放在自定义的文件夹下(/conf/mysql)</span><br><br>docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci<br><span class="hljs-meta">#</span><span class="bash"> 指定mysql的一些配置参数</span><br><br></code></pre></td></tr></table></figure>
+
+<h5 id="2-6-2-4-安装zookeeper"><a href="#2-6-2-4-安装zookeeper" class="headerlink" title="2.6.2.4 安装zookeeper"></a>2.6.2.4 安装zookeeper</h5><blockquote>
+<p>CAP原则又称CAP定理，指的是在一个分布式系统中，一致性（Consistency）、可用性（Availability）、分区容错性（Partition tolerance）。CAP 原则指的是，这三个要素最多只能同时实现两点，不可能三者兼顾。</p>
+</blockquote>
+<ul>
+<li>zookeeper 是CP 强一致性的</li>
+</ul>
+<blockquote>
+<p> 访问<a target="_blank" rel="noopener" href="https://hub.docker.com/">hub.docker.com</a> 主要是获得安装软件的信息及文档 </p>
+</blockquote>
+<ul>
+<li>安装步骤：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">klein@klein:~$ docker -v   # 查看docker版本<br>klein@klein:~$ docker search zookeeper   # 搜索镜像<br>klein@klein:~$ sudo docker pull zookeeper   # 拉取镜像<br>klein@klein:~$ docker images  # 查看已安装镜像<br>root@klein:/home/klein# docker start zookeeper #启动zookeeper<br>root@klein:/home/klein# docker ps -a    # 查看启动镜像进程<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>进入zookeeper shell终端</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) root@klein:/home/klein# docker exec -it zk0 bash<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>启动zookeeper 服务</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">root@73dd67ae6722:/apache-zookeeper-3.6.2-bin# cd bin/<br>root@73dd67ae6722:/apache-zookeeper-3.6.2-bin/bin# ./zkServer.sh start<br>ZooKeeper JMX enabled by default<br>Using config: /conf/zoo.cfg<br>Starting zookeeper ... already running as process 120.<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>启动客户端： </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">root@73dd67ae6722:/apache-zookeeper-3.6.2-bin/bin# ./zkCli.sh <br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>在客户端操作</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs shell">[zk: localhost:2181(CONNECTED) 0] ls /<br>[services, zookeeper]<br>[zk: localhost:2181(CONNECTED) 1] ls<br>ls [-s] [-w] [-R] path<br>[zk: localhost:2181(CONNECTED) 2] ls /services <br>[cloud-provider-payment]<br>[zk: localhost:2181(CONNECTED) 3] ls /services/cloud-provider-payment <br>[305ca35d-55fc-4b21-a8c8-74582694c48c]<br>[zk: localhost:2181(CONNECTED) 4] ls /services/cloud-provider-payment/305ca35d-55fc-4b21-a8c8-74582694c48c <br>[]<br>[zk: localhost:2181(CONNECTED) 5] get /services/cloud-provider-payment/305ca35d-55fc-4b21-a8c8-74582694c48c <br>&#123;&quot;name&quot;:&quot;cloud-provider-payment&quot;,&quot;id&quot;:&quot;305ca35d-55fc-4b21-a8c8-74582694c48c&quot;,&quot;address&quot;:&quot;DESKTOP-AUK8T9H&quot;,&quot;port&quot;:8004,&quot;sslPort&quot;:null,&quot;payload&quot;:&#123;&quot;@class&quot;:&quot;org.springframework.cloud.zookeeper.discovery.ZookeeperInstance&quot;,&quot;id&quot;:&quot;application-1&quot;,&quot;name&quot;:&quot;cloud-provider-payment&quot;,&quot;metadata&quot;:&#123;&#125;&#125;,&quot;registrationTimeUTC&quot;:1606791533908,&quot;serviceType&quot;:&quot;DYNAMIC&quot;,&quot;uriSpec&quot;:&#123;&quot;parts&quot;:[&#123;&quot;value&quot;:&quot;scheme&quot;,&quot;variable&quot;:true&#125;,&#123;&quot;value&quot;:&quot;://&quot;,&quot;variable&quot;:false&#125;,&#123;&quot;value&quot;:&quot;address&quot;,&quot;variable&quot;:true&#125;,&#123;&quot;value&quot;:&quot;:&quot;,&quot;variable&quot;:false&#125;,&#123;&quot;value&quot;:&quot;port&quot;,&quot;variable&quot;:true&#125;]&#125;&#125;<br>[zk: localhost:2181(CONNECTED) 6] <br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>json解析后的内容</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;cloud-provider-payment&quot;</span>,<br>  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;305ca35d-55fc-4b21-a8c8-74582694c48c&quot;</span>,<br>  <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;DESKTOP-AUK8T9H&quot;</span>,<br>  <span class="hljs-attr">&quot;port&quot;</span>: <span class="hljs-number">8004</span>,<br>  <span class="hljs-attr">&quot;sslPort&quot;</span>: <span class="hljs-literal">null</span>,<br>  <span class="hljs-attr">&quot;payload&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;@class&quot;</span>: <span class="hljs-string">&quot;org.springframework.cloud.zookeeper.discovery.ZookeeperInstance&quot;</span>,<br>    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;application-1&quot;</span>,<br>    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;cloud-provider-payment&quot;</span>,<br>    <span class="hljs-attr">&quot;metadata&quot;</span>: &#123;&#125;<br>  &#125;,<br>  <span class="hljs-attr">&quot;registrationTimeUTC&quot;</span>: <span class="hljs-number">1606791533908</span>,<br>  <span class="hljs-attr">&quot;serviceType&quot;</span>: <span class="hljs-string">&quot;DYNAMIC&quot;</span>,<br>  <span class="hljs-attr">&quot;uriSpec&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;parts&quot;</span>: [<br>      &#123;<br>        <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;scheme&quot;</span>,<br>        <span class="hljs-attr">&quot;variable&quot;</span>: <span class="hljs-literal">true</span><br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;://&quot;</span>,<br>        <span class="hljs-attr">&quot;variable&quot;</span>: <span class="hljs-literal">false</span><br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;address&quot;</span>,<br>        <span class="hljs-attr">&quot;variable&quot;</span>: <span class="hljs-literal">true</span><br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;:&quot;</span>,<br>        <span class="hljs-attr">&quot;variable&quot;</span>: <span class="hljs-literal">false</span><br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;port&quot;</span>,<br>        <span class="hljs-attr">&quot;variable&quot;</span>: <span class="hljs-literal">true</span><br>      &#125;<br>    ]<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="3、Linux系统目录结构"><a href="#3、Linux系统目录结构" class="headerlink" title="3、Linux系统目录结构"></a>3、Linux系统目录结构</h2><table>
+<thead>
+<tr>
+<th><strong>目录</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/</td>
+<td>虚拟目录的根目录，通常不会在这里存储文件</td>
+</tr>
+<tr>
+<td>/bin</td>
+<td>二进制目录，存放用户级的GNU工具</td>
+</tr>
+<tr>
+<td>/boot</td>
+<td>启动目录，存放启动文件</td>
+</tr>
+<tr>
+<td>/dev</td>
+<td>设备目录，系统在这里创建设备节点</td>
+</tr>
+<tr>
+<td>/etc</td>
+<td>系统配置文件目录</td>
+</tr>
+<tr>
+<td>/home</td>
+<td>主目录，系统在这里创建用户目录</td>
+</tr>
+<tr>
+<td>/lib</td>
+<td>库目录，存放系统和应用程序的库文件</td>
+</tr>
+<tr>
+<td>/media</td>
+<td>媒体目录，可移动媒体设备的常用挂载点</td>
+</tr>
+<tr>
+<td>/mnt</td>
+<td>挂载目录，另一个可移动媒体设备的常用挂载点</td>
+</tr>
+<tr>
+<td>/opt</td>
+<td>可选目录，常用于存放第三方软件包和数据文件</td>
+</tr>
+<tr>
+<td>/proc</td>
+<td>进程目录，存放现有硬件及当前进程的相关信息</td>
+</tr>
+<tr>
+<td>/root</td>
+<td>root用户的主目录</td>
+</tr>
+<tr>
+<td>/sbin</td>
+<td>系统二进制目录，存放许多gnu管理员级工具</td>
+</tr>
+<tr>
+<td>/run</td>
+<td>运行目录，存放系统运作时的运行时数据</td>
+</tr>
+<tr>
+<td>/srv</td>
+<td>服务目录，存放本地服务的相关文件</td>
+</tr>
+<tr>
+<td>/sys</td>
+<td>系统目录，存放系统硬件信息的相关文件</td>
+</tr>
+<tr>
+<td>/tmp</td>
+<td>临时目录，可以在该目录中创建删除临时工作文件</td>
+</tr>
+<tr>
+<td>/usr</td>
+<td>用户二进制目录，大量用户级的gnu工具和数据文件存储</td>
+</tr>
+<tr>
+<td>/var</td>
+<td>可变目录，用以存放经常变化的文件，比如日志文件</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>个人目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir -p /export/data      # 存放一些数据文件<br><br>mkdir -p /export/software  # 存放安装包<br><br>mkdir -p /export/servers   # 软件安装目录：jdk、tomcat等<br><br>cd /home/username/         # 进入用户个人空间<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/" data-id="ckhn7g6i9001di0vc46di5emy" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            Intellij  连接远程服务器代码实时同步
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/06/09/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BB%20Windows%2010%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">正版免费激活 Windows 10安装教程</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+  <div class="gitalk" id="gitalk-container"></div>
+  
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '805efc781a7e3c77968c',
+      clientSecret: 'af34e634e272e62b21230690b662f0482a5678df',
+      repo: 'kleinlsl.github.io',
+      owner: 'kleinlsl',
+      admin: ['kleinlsl'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 月色很柔</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="月色很柔"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

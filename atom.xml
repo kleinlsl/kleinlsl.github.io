@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>月色很柔</title>
+  
+  <subtitle>没事早点睡，有空多学习。就能和月色一样柔</subtitle>
+  <link href="https://kleinlsl.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://kleinlsl.github.io/"/>
+  <updated>2022-02-13T14:08:40.460Z</updated>
+  <id>https://kleinlsl.github.io/</id>
+  
+  <author>
+    <name>卢松林</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Tomcat Debug</title>
+    <link href="https://kleinlsl.github.io/2021/12/16/20210923-Tomcat%20debug/"/>
+    <id>https://kleinlsl.github.io/2021/12/16/20210923-Tomcat%20debug/</id>
+    <published>2021-12-16T06:14:16.000Z</published>
+    <updated>2022-02-13T14:08:40.460Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;Tomcat-Debug&quot;&gt;&lt;a href=&quot;#Tomcat-Debug&quot; class=&quot;headerlink&quot; title=&quot;Tomcat Debug&quot;&gt;&lt;/a&gt;Tomcat Debug&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;记录一次Tomcat Debug操作&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;1、搭建环境&quot;&gt;&lt;a href=&quot;#1、搭建环境&quot; class=&quot;headerlink&quot; title=&quot;1、搭建环境&quot;&gt;&lt;/a&gt;1、搭建环境&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;准备 &lt;code&gt;centos7&lt;/code&gt; 服务器&lt;/li&gt;
+&lt;li&gt;安装&lt;code&gt;Jdk8&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;安装tomcat&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    
+    <category term="Tomcat" scheme="https://kleinlsl.github.io/tags/Tomcat/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MyBatis Generator 详细配置 demo</title>
+    <link href="https://kleinlsl.github.io/2020/12/16/MyBatis-Generator/"/>
+    <id>https://kleinlsl.github.io/2020/12/16/MyBatis-Generator/</id>
+    <published>2020-12-16T06:14:16.000Z</published>
+    <updated>2020-12-16T06:20:04.234Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;MyBatis-Generator-详细配置-demo&quot;&gt;&lt;a href=&quot;#MyBatis-Generator-详细配置-demo&quot; class=&quot;headerlink&quot; title=&quot;MyBatis Generator 详细配置 demo&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://www.cnblogs.com/xuxiaobai13/p/11846772.html&quot;&gt;MyBatis Generator 详细配置 demo&lt;/a&gt;&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;MyBatis Generator 是 MyBatis 提供的一个代码生成工具。可以帮我们生成 表对应的持久化对象(po)、操作数据库的接口(dao)、CRUD sql的xml(mapper)。&lt;/p&gt;
+&lt;p&gt;MyBatis Generator 是一个独立工具，你可以下载它的jar包来运行、也可以在 Ant 和 maven 运行。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;目前已知的代码生成器有两种： &lt;a href=&quot;https://baomidou.com/&quot;&gt;MyBatis-Plus&lt;/a&gt;  和 &lt;a href=&quot;http://mybatis.org/generator/index.html&quot;&gt;MyBatis Generator&lt;/a&gt; ;前者是后者的加强版，对于MyBatis-Plus的使用可以参见： &lt;a href=&quot;https://blog.csdn.net/qq_41971768/article/details/111178082&quot;&gt;MyBatis-Plus 3.4.1 代码生成器 配置demo&lt;/a&gt; &lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    
+    <category term="MyBatis" scheme="https://kleinlsl.github.io/tags/MyBatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MyBatis-Plus 代码生成器</title>
+    <link href="https://kleinlsl.github.io/2020/12/14/MyBatis-plus%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/"/>
+    <id>https://kleinlsl.github.io/2020/12/14/MyBatis-plus%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/</id>
+    <published>2020-12-14T08:14:16.000Z</published>
+    <updated>2022-02-13T13:47:16.461Z</updated>
+    
+    
+    <summary type="html">MyBatis-Plus 代码生成器</summary>
+    
+    
+    
+    
+    <category term="MyBatis" scheme="https://kleinlsl.github.io/tags/MyBatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VMware 虚拟机给Ubuntu根分区扩容</title>
+    <link href="https://kleinlsl.github.io/2020/11/13/VM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%99Ubuntu%E6%A0%B9%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/"/>
+    <id>https://kleinlsl.github.io/2020/11/13/VM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%99Ubuntu%E6%A0%B9%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/</id>
+    <published>2020-11-13T01:14:16.000Z</published>
+    <updated>2020-11-13T02:00:14.494Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;用VMware安装了Ubuntu service 18.04 ，刚开始给了30G磁盘空间，使用发现空间不够了，想对磁盘进行扩容。但是直接在VMware点击扩展后发现Ubuntu容量并没有变化，原因是需要在Ubuntu里面进行处理：对分区进行合并。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>auto.js蚂蚁森林收能量</title>
+    <link href="https://kleinlsl.github.io/2020/11/01/auto.js%E8%9A%82%E8%9A%81%E6%A3%AE%E6%9E%97%E6%94%B6%E8%83%BD%E9%87%8F/"/>
+    <id>https://kleinlsl.github.io/2020/11/01/auto.js%E8%9A%82%E8%9A%81%E6%A3%AE%E6%9E%97%E6%94%B6%E8%83%BD%E9%87%8F/</id>
+    <published>2020-11-01T11:14:16.000Z</published>
+    <updated>2020-11-01T05:14:29.599Z</updated>
+    
+    
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;在网上看了一些自动收能量的脚本&lt;/li&gt;
+&lt;li&gt;写了一个脚本&lt;/li&gt;
+&lt;li&gt;使用AutoJs运行&lt;ul&gt;
+&lt;li&gt;AutoJS下载地址 :&lt;a href=&quot;https://github.com/kleinlsl/auto_alipay/releases/download/auto_alipay_v1.0/Auto.js.apk&quot;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>进程防杀笔记</title>
+    <link href="https://kleinlsl.github.io/2020/10/23/%E8%BF%9B%E7%A8%8B%E9%98%B2%E6%9D%80%E7%AC%94%E8%AE%B0/"/>
+    <id>https://kleinlsl.github.io/2020/10/23/%E8%BF%9B%E7%A8%8B%E9%98%B2%E6%9D%80%E7%AC%94%E8%AE%B0/</id>
+    <published>2020-10-23T11:14:16.000Z</published>
+    <updated>2022-02-13T13:47:16.487Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;一、Linux的信号量（signal）&quot;&gt;&lt;a href=&quot;#一、Linux的信号量（signal）&quot; class=&quot;headerlink&quot; title=&quot;一、Linux的信号量（signal）&quot;&gt;&lt;/a&gt;一、Linux的信号量（signal）&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;信号是进程之间相互传递消息的一种方法，信号被称为软中断信号，是进程控制的一部分，用来通知进程发生了异步事件， 进程之间可以互相通过系统调用 &lt;code&gt;kill&lt;/code&gt; 发送软中断信号。&lt;/p&gt;
+&lt;p&gt;信号只是用来通知某进程发生了什么，并不给进程传递数据。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>IDEA和maven配置多仓库的解决方案</title>
+    <link href="https://kleinlsl.github.io/2020/10/15/IDEA%E5%92%8Cmaven%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>https://kleinlsl.github.io/2020/10/15/IDEA%E5%92%8Cmaven%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</id>
+    <published>2020-10-15T02:14:16.000Z</published>
+    <updated>2022-02-13T13:47:16.443Z</updated>
+    
+    
+    <summary type="html">通过maven的配置文件优先级和IDEA的settings实现多仓库</summary>
+    
+    
+    
+    <category term="Maven" scheme="https://kleinlsl.github.io/categories/Maven/"/>
+    
+    
+    <category term="Maven" scheme="https://kleinlsl.github.io/tags/Maven/"/>
+    
+    <category term="IDEA" scheme="https://kleinlsl.github.io/tags/IDEA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于MapReduce编程模型的内连接算法设计与实现</title>
+    <link href="https://kleinlsl.github.io/2020/10/07/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/"/>
+    <id>https://kleinlsl.github.io/2020/10/07/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/</id>
+    <published>2020-10-07T04:14:16.000Z</published>
+    <updated>2022-02-13T13:47:16.484Z</updated>
+    
+    
+    <summary type="html">基于MapReduce编程模型的内连接算法设计与实现</summary>
+    
+    
+    
+    <category term="Hadoop" scheme="https://kleinlsl.github.io/categories/Hadoop/"/>
+    
+    
+    <category term="MapReduce" scheme="https://kleinlsl.github.io/tags/MapReduce/"/>
+    
+    <category term="内连接" scheme="https://kleinlsl.github.io/tags/%E5%86%85%E8%BF%9E%E6%8E%A5/"/>
+    
+    <category term="Hadoop" scheme="https://kleinlsl.github.io/tags/Hadoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Intellij  连接远程服务器代码实时同步</title>
+    <link href="https://kleinlsl.github.io/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/"/>
+    <id>https://kleinlsl.github.io/2020/10/05/Intellij%20%20%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/</id>
+    <published>2020-10-05T00:14:16.000Z</published>
+    <updated>2020-10-29T04:00:32.953Z</updated>
+    
+    
+    <summary type="html">Intellij  连接远程服务器代码实时同步</summary>
+    
+    
+    
+    
+    <category term="Idea" scheme="https://kleinlsl.github.io/tags/Idea/"/>
+    
+    <category term="Ubuntu" scheme="https://kleinlsl.github.io/tags/Ubuntu/"/>
+    
+    <category term="Vmware" scheme="https://kleinlsl.github.io/tags/Vmware/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu18.04 Server搭建和使用记录</title>
+    <link href="https://kleinlsl.github.io/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/"/>
+    <id>https://kleinlsl.github.io/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/</id>
+    <published>2020-10-03T11:14:16.000Z</published>
+    <updated>2020-12-30T09:06:14.495Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;记录自己搭建Ubuntu18.04 Server的全部过程，有不足之处请见谅！！！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;1、前置工作&quot;&gt;&lt;a href=&quot;#1、前置工作&quot; class=&quot;headerlink&quot; title=&quot;1、前置工作&quot;&gt;&lt;/a&gt;1、前置工作&lt;/h2&gt;&lt;p&gt;本文做出以下假设：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;您已熟悉Linux操作系统&lt;/li&gt;
+&lt;li&gt;您拥有(或能够独立创建)一台Ubuntu Server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本文采用Vmware 虚拟机创建Ubuntu 18.04 Server&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;镜像获取：&lt;a href=&quot;http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/?_ga=2.128866185.407240186.1601692120-588330145.1601692120&quot;&gt;Ubuntu 18.04.5 LTS (Bionic Beaver)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Vmware：&lt;a href=&quot;https://www.vmware.com/cn/products/workstation-pro/workstation-pro-evaluation.html&quot;&gt;VMware15.5&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;SecureCRT：&lt;a href=&quot;https://www.vandyke.com/download/securecrt/6.7/index.html&quot;&gt;SecureCRT&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;搭建Ubuntu18.04 Server 教程：&lt;a href=&quot;https://blog.csdn.net/qq_41971768/article/details/108908496&quot;&gt;VMware 安装 Ubuntu Server 18.04.5 LTS&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>正版免费激活 Windows 10安装教程</title>
+    <link href="https://kleinlsl.github.io/2020/06/09/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BB%20Windows%2010%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"/>
+    <id>https://kleinlsl.github.io/2020/06/09/%E6%AD%A3%E7%89%88%E5%85%8D%E6%BF%80%E6%B4%BB%20Windows%2010%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</id>
+    <published>2020-06-09T14:51:16.000Z</published>
+    <updated>2020-11-13T01:57:47.825Z</updated>
+    
+    
+    <summary type="html">记录使用 hexo+GitHub搭建个人博客</summary>
+    
+    
+    
+    <category term="工具篇" scheme="https://kleinlsl.github.io/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/"/>
+    
+    
+    <category term="Windows" scheme="https://kleinlsl.github.io/tags/Windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>大数据平台核心技术-实验记录</title>
+    <link href="https://kleinlsl.github.io/2020/05/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/"/>
+    <id>https://kleinlsl.github.io/2020/05/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/</id>
+    <published>2020-05-20T03:14:16.000Z</published>
+    <updated>2023-04-19T15:00:02.508Z</updated>
+    
+    
+    <summary type="html">&lt;hr&gt;
+&lt;center&gt;&lt;font size=5 face=&quot;华文行楷&quot;&gt;**有问题多尝试解决，可评论留言遇到的问题**&lt;/font&gt;&lt;/center&gt;
+&lt;center&gt;&lt;font size=5 face=&quot;华文行楷&quot;&gt;**博客表述不清的地方请留言，看到后会更新博客**&lt;/font&gt;&lt;/center&gt;
+&lt;center&gt;&lt;font size=5 face=&quot;华文行楷&quot;&gt;**本文仅供参考**&lt;/font&gt;&lt;/center&gt;
+---
+
+
+&lt;h1 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot; title=&quot;一、前言&quot;&gt;&lt;/a&gt;一、前言&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;学校：许昌学院&lt;br&gt;学院：信息工程学院&lt;br&gt;实验环境：&lt;br&gt;操作系统：Linux (CentOS 6.7)   JDK版本：1.8 (8u161)   Hadoop版本：2.7.4&lt;br&gt;虚拟机：VMware Workstation Pro 15.5&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>nCov项目总结文档</title>
+    <link href="https://kleinlsl.github.io/2020/05/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/"/>
+    <id>https://kleinlsl.github.io/2020/05/06/nCov%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%96%87%E6%A1%A3/</id>
+    <published>2020-05-06T03:14:16.000Z</published>
+    <updated>2023-04-19T15:00:02.492Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;﻿&lt;a href=&quot;http://39.99.140.59:8002/&quot;&gt;TOC&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;通过Flask搭建web/Echarts可视化大屏，并定时获取数据。&lt;/p&gt;
+&lt;p&gt;参考视频：&lt;a href=&quot;https://www.bilibili.com/video/BV177411j7qJ?p=1&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;参考效果：&lt;a href=&quot;http://cov.aiiyx.cn/&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>使用百度 Ai Studio GPU算力</title>
+    <link href="https://kleinlsl.github.io/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/"/>
+    <id>https://kleinlsl.github.io/2020/04/20/%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%20Ai%20Studio%20GPU%E7%AE%97%E5%8A%9B/</id>
+    <published>2020-04-20T14:14:16.000Z</published>
+    <updated>2023-04-19T15:00:02.498Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;@&lt;a href=&quot;https://blog.csdn.net/qq_41971768/article/details/105645906&quot;&gt;TOC&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;继上次找到Google Colab 免费GPU之后，又发现了&lt;a href=&quot;https://aistudio.baidu.com/aistudio/usercenter&quot;&gt;百度AI studio&lt;/a&gt;云平台的GPU算力。&lt;/p&gt;
+&lt;p&gt;百度的是相当优惠：每日使用gpu就可以获得12小时的算力卡，连续五天还可以额外获得48小时算力卡。&lt;/p&gt;
+&lt;p&gt;搭载的是 飞桨PaddlePaddle 框架，目前并不支持tensorflow-gpu。但是自己可以通过以下配置来使用tensorflow-gpu.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Google Colab 免费GPU算力</title>
+    <link href="https://kleinlsl.github.io/2020/04/20/%E4%BD%BF%E7%94%A8Google%20Colab%20%E5%85%8D%E8%B4%B9GPU/"/>
+    <id>https://kleinlsl.github.io/2020/04/20/%E4%BD%BF%E7%94%A8Google%20Colab%20%E5%85%8D%E8%B4%B9GPU/</id>
+    <published>2020-04-20T04:14:16.000Z</published>
+    <updated>2023-04-19T15:00:02.496Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;﻿@&lt;a href=&quot;https://blog.csdn.net/qq_41971768/article/details/105639794&quot;&gt;TOC&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;1、前言&quot;&gt;&lt;a href=&quot;#1、前言&quot; class=&quot;headerlink&quot; title=&quot;1、前言&quot;&gt;&lt;/a&gt;1、前言&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;最近在做一些需要GPU算力的项目，自己的电脑的算力不够用。找到了 &lt;a href=&quot;https://research.google.com/colaboratory/unregistered.html&quot;&gt;Google Colab（Colaboratory）&lt;/a&gt; ，作为Google推出的免费的云端GPU服务。&lt;/p&gt;
+&lt;p&gt;官方对其的说明是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Colaboratory 是一个研究项目，可免费使用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://kleinlsl.github.io/2020/01/15/hello-world/"/>
+    <id>https://kleinlsl.github.io/2020/01/15/hello-world/</id>
+    <published>2020-01-15T09:14:16.000Z</published>
+    <updated>2020-10-04T01:39:04.385Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;code class=&quot;hljs bash&quot;&gt;$ hexo new &lt;span class=&quot;hljs-string&quot;&gt;&amp;quot;My New Post&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Java 基础</title>
+    <link href="https://kleinlsl.github.io/2020/01/14/Java%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    <id>https://kleinlsl.github.io/2020/01/14/Java%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</id>
+    <published>2020-01-14T11:14:16.000Z</published>
+    <updated>2021-03-14T10:14:21.763Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1、Java-基础&quot;&gt;&lt;a href=&quot;#1、Java-基础&quot; class=&quot;headerlink&quot; title=&quot;1、Java 基础&quot;&gt;&lt;/a&gt;1、Java 基础&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Java</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://kleinlsl.github.io/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://kleinlsl.github.io/tags/Java/"/>
+    
+    <category term="Spring" scheme="https://kleinlsl.github.io/tags/Spring/"/>
+    
+    <category term="MySql" scheme="https://kleinlsl.github.io/tags/MySql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图书查询系统</title>
+    <link href="https://kleinlsl.github.io/2019/03/21/%E5%9B%BE%E4%B9%A6%E6%9F%A5%E8%AF%A2%E7%B3%BB%E7%BB%9F/"/>
+    <id>https://kleinlsl.github.io/2019/03/21/%E5%9B%BE%E4%B9%A6%E6%9F%A5%E8%AF%A2%E7%B3%BB%E7%BB%9F/</id>
+    <published>2019-03-21T11:14:16.000Z</published>
+    <updated>2023-04-19T15:00:02.502Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;@&lt;a href=&quot;https://blog.csdn.net/qq_41971768/article/details/88713826&quot;&gt;TOC&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;1、数据结构课程设计&quot;&gt;&lt;a href=&quot;#1、数据结构课程设计&quot; class=&quot;headerlink&quot; title=&quot;1、数据结构课程设计&quot;&gt;&lt;/a&gt;1、数据结构课程设计&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20190321191903232.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70&quot; alt=&quot;在这里插入图片描述&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;2、题目要求&quot;&gt;&lt;a href=&quot;#2、题目要求&quot; class=&quot;headerlink&quot; title=&quot;2、题目要求&quot;&gt;&lt;/a&gt;2、题目要求&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20190321191311187.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTcxNzY4,size_16,color_FFFFFF,t_70&quot; alt=&quot;在这里插入图片描述&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>hexo+github搭建个人博客</title>
+    <link href="https://kleinlsl.github.io/2019/01/15/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://kleinlsl.github.io/2019/01/15/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
+    <published>2019-01-15T11:14:16.000Z</published>
+    <updated>2022-02-13T13:47:16.470Z</updated>
+    
+    
+    <summary type="html">记录使用 hexo+GitHub搭建个人博客</summary>
+    
+    
+    
+    <category term="Hexo" scheme="https://kleinlsl.github.io/categories/Hexo/"/>
+    
+    
+    <category term="Hexo" scheme="https://kleinlsl.github.io/tags/Hexo/"/>
+    
+    <category term="Node.js" scheme="https://kleinlsl.github.io/tags/Node-js/"/>
+    
+    <category term="git" scheme="https://kleinlsl.github.io/tags/git/"/>
+    
+  </entry>
+  
+</feed>

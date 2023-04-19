@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="个人简单博客">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    
+    月色很柔</title>
+  
+    <link rel="shortcut icon" href="/images/hexo.svg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="月色很柔" type="application/atom+xml">
+</head>
+
+<body>
+<main class="content">
+  <section class="jumbotron">
+  <div class="video">
+    
+      <div class="video-frame">
+        <img src="/images/ocean/overlay-hero.png" alt="Decorative image frame">
+      </div>
+    
+    <div class="video-media">
+      <video playsinline="" autoplay="" loop="" muted="" data-autoplay=""
+             poster="/images/ocean/ocean.png" x5-video-player-type="h5">
+        <source src="/images/ocean/ocean.mp4" type="video/mp4">
+        <source src="/images/ocean/ocean.ogv" type="video/ogg">
+        <source src="/images/ocean/ocean.webm" type="video/webm">
+        <p>Your user agent does not support the HTML5 Video element.</p>
+      </video>
+      <div class="video-overlay"></div>
+    </div>
+    <div class="video-inner text-center text-white">
+      <h1><a href="/">月色很柔</a></h1>
+      <p>没事早点睡，有空多学习。就能和月色一样柔</p>
+      <div><img src="/images/hexo-inverted.svg" class="brand" alt="月色很柔"></div>
+    </div>
+    <div class="video-learn-more">
+      <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
+    </div>
+  </div>
+</section>
+
+<div id="landingpage">
+  <section class="outer">
+    <article class="articles">
+      
+      <h1 class="page-type-title"></h1>
+      
+        
+          <article id="post-搭建Ubuntu18.4servers服务器全记录" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/">Ubuntu18.04 Server搭建和使用记录</a>
+    </h2>
+  
+  
+  <div class="article-topping">
+    <i class="fe fe-umbrella"></i>
+  </div>
+
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time datetime="2020-10-03T11:14:16.000Z" itemprop="datePublished">2020-10-03</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <blockquote>
+<p>记录自己搭建Ubuntu18.04 Server的全部过程，有不足之处请见谅！！！</p>
+</blockquote>
+<h2 id="1、前置工作"><a href="#1、前置工作" class="headerlink" title="1、前置工作"></a>1、前置工作</h2><p>本文做出以下假设：</p>
+<ul>
+<li>您已熟悉Linux操作系统</li>
+<li>您拥有(或能够独立创建)一台Ubuntu Server</li>
+</ul>
+<p>本文采用Vmware 虚拟机创建Ubuntu 18.04 Server</p>
+<ul>
+<li>镜像获取：<a target="_blank" rel="noopener" href="http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/?_ga=2.128866185.407240186.1601692120-588330145.1601692120">Ubuntu 18.04.5 LTS (Bionic Beaver)</a></li>
+<li>Vmware：<a target="_blank" rel="noopener" href="https://www.vmware.com/cn/products/workstation-pro/workstation-pro-evaluation.html">VMware15.5</a></li>
+<li>SecureCRT：<a target="_blank" rel="noopener" href="https://www.vandyke.com/download/securecrt/6.7/index.html">SecureCRT</a></li>
+</ul>
+<p>搭建Ubuntu18.04 Server 教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41971768/article/details/108908496">VMware 安装 Ubuntu Server 18.04.5 LTS</a></p>
+<blockquote>
+                                                        
+                                                            <a class="article-more-link" href="/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/10/03/%E6%90%AD%E5%BB%BAUbuntu18.4servers%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A8%E8%AE%B0%E5%BD%95/" data-id="ckhn7g6i9001di0vc46di5emy" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-20210923-Tomcat debug" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2021/12/16/20210923-Tomcat%20debug/">Tomcat Debug</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2021/12/16/20210923-Tomcat%20debug/" class="article-date">
+  <time datetime="2021-12-16T06:14:16.000Z" itemprop="datePublished">2021-12-16</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <h1 id="Tomcat-Debug"><a href="#Tomcat-Debug" class="headerlink" title="Tomcat Debug"></a>Tomcat Debug</h1><blockquote>
+<p>记录一次Tomcat Debug操作</p>
+</blockquote>
+<h2 id="1、搭建环境"><a href="#1、搭建环境" class="headerlink" title="1、搭建环境"></a>1、搭建环境</h2><ul>
+<li>准备 <code>centos7</code> 服务器</li>
+<li>安装<code>Jdk8</code></li>
+<li>安装tomcat</li>
+</ul>
+                                                        
+                                                            <a class="article-more-link" href="/2021/12/16/20210923-Tomcat%20debug/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2021/12/16/20210923-Tomcat%20debug/" data-id="ckzlbtawu00006spe31pnfl18" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tomcat/" rel="tag">Tomcat</a></li></ul>
+
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-MyBatis-Generator" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/12/16/MyBatis-Generator/">MyBatis Generator 详细配置 demo</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/12/16/MyBatis-Generator/" class="article-date">
+  <time datetime="2020-12-16T06:14:16.000Z" itemprop="datePublished">2020-12-16</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <h1 id="MyBatis-Generator-详细配置-demo"><a href="#MyBatis-Generator-详细配置-demo" class="headerlink" title="MyBatis Generator 详细配置 demo"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuxiaobai13/p/11846772.html">MyBatis Generator 详细配置 demo</a></h1><blockquote>
+<p>MyBatis Generator 是 MyBatis 提供的一个代码生成工具。可以帮我们生成 表对应的持久化对象(po)、操作数据库的接口(dao)、CRUD sql的xml(mapper)。</p>
+<p>MyBatis Generator 是一个独立工具，你可以下载它的jar包来运行、也可以在 Ant 和 maven 运行。</p>
+</blockquote>
+<blockquote>
+<p>目前已知的代码生成器有两种： <a target="_blank" rel="noopener" href="https://baomidou.com/">MyBatis-Plus</a>  和 <a target="_blank" rel="noopener" href="http://mybatis.org/generator/index.html">MyBatis Generator</a> ;前者是后者的加强版，对于MyBatis-Plus的使用可以参见： <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41971768/article/details/111178082">MyBatis-Plus 3.4.1 代码生成器 配置demo</a> </p>
+</blockquote>
+                                                        
+                                                            <a class="article-more-link" href="/2020/12/16/MyBatis-Generator/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/12/16/MyBatis-Generator/" data-id="ckir1025a00008cvc3o031vbn" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MyBatis/" rel="tag">MyBatis</a></li></ul>
+
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-MyBatis-plus之代码生成器" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/12/14/MyBatis-plus%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/">MyBatis-Plus 代码生成器</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/12/14/MyBatis-plus%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/" class="article-date">
+  <time datetime="2020-12-14T08:14:16.000Z" itemprop="datePublished">2020-12-14</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <blockquote>
+<p> 全新的 <code>MyBatis-Plus</code> 3.0 版本基于 JDK8，提供了 <code>lambda</code> 形式的调用，所以安装集成 MP3.0 要求如下： </p>
+<p> <a target="_blank" rel="noopener" href="https://mybatis.plus/guide/config.html">官方文档</a></p>
+</blockquote>
+                                                        
+                                                            <a class="article-more-link" href="/2020/12/14/MyBatis-plus%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/12/14/MyBatis-plus%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/" data-id="ckiob9r920000ikvceow1bndq" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MyBatis/" rel="tag">MyBatis</a></li></ul>
+
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-VM虚拟机给Ubuntu根分区扩容" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/11/13/VM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%99Ubuntu%E6%A0%B9%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/">VMware 虚拟机给Ubuntu根分区扩容</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/11/13/VM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%99Ubuntu%E6%A0%B9%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/" class="article-date">
+  <time datetime="2020-11-13T01:14:16.000Z" itemprop="datePublished">2020-11-13</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <blockquote>
+<p>用VMware安装了Ubuntu service 18.04 ，刚开始给了30G磁盘空间，使用发现空间不够了，想对磁盘进行扩容。但是直接在VMware点击扩展后发现Ubuntu容量并没有变化，原因是需要在Ubuntu里面进行处理：对分区进行合并。</p>
+</blockquote>
+                                                        
+                                                            <a class="article-more-link" href="/2020/11/13/VM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%99Ubuntu%E6%A0%B9%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/11/13/VM%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%99Ubuntu%E6%A0%B9%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/" data-id="ckhn7g6hi0007i0vcca5ua1rv" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-auto.js蚂蚁森林收能量" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/11/01/auto.js%E8%9A%82%E8%9A%81%E6%A3%AE%E6%9E%97%E6%94%B6%E8%83%BD%E9%87%8F/">auto.js蚂蚁森林收能量</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/11/01/auto.js%E8%9A%82%E8%9A%81%E6%A3%AE%E6%9E%97%E6%94%B6%E8%83%BD%E9%87%8F/" class="article-date">
+  <time datetime="2020-11-01T11:14:16.000Z" itemprop="datePublished">2020-11-01</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <ul>
+<li>在网上看了一些自动收能量的脚本</li>
+<li>写了一个脚本</li>
+<li>使用AutoJs运行<ul>
+<li>AutoJS下载地址 :<a target="_blank" rel="noopener" href="https://github.com/kleinlsl/auto_alipay/releases/download/auto_alipay_v1.0/Auto.js.apk">here</a></li>
+</ul>
+</li>
+</ul>
+                                                        
+                                                            <a class="article-more-link" href="/2020/11/01/auto.js%E8%9A%82%E8%9A%81%E6%A3%AE%E6%9E%97%E6%94%B6%E8%83%BD%E9%87%8F/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/11/01/auto.js%E8%9A%82%E8%9A%81%E6%A3%AE%E6%9E%97%E6%94%B6%E8%83%BD%E9%87%8F/" data-id="ckhn7g6hk0009i0vc3zdrfzqk" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-进程防杀笔记" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/10/23/%E8%BF%9B%E7%A8%8B%E9%98%B2%E6%9D%80%E7%AC%94%E8%AE%B0/">进程防杀笔记</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/10/23/%E8%BF%9B%E7%A8%8B%E9%98%B2%E6%9D%80%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2020-10-23T11:14:16.000Z" itemprop="datePublished">2020-10-23</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <h2 id="一、Linux的信号量（signal）"><a href="#一、Linux的信号量（signal）" class="headerlink" title="一、Linux的信号量（signal）"></a>一、Linux的信号量（signal）</h2><blockquote>
+<p>信号是进程之间相互传递消息的一种方法，信号被称为软中断信号，是进程控制的一部分，用来通知进程发生了异步事件， 进程之间可以互相通过系统调用 <code>kill</code> 发送软中断信号。</p>
+<p>信号只是用来通知某进程发生了什么，并不给进程传递数据。</p>
+</blockquote>
+                                                        
+                                                            <a class="article-more-link" href="/2020/10/23/%E8%BF%9B%E7%A8%8B%E9%98%B2%E6%9D%80%E7%AC%94%E8%AE%B0/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/10/23/%E8%BF%9B%E7%A8%8B%E9%98%B2%E6%9D%80%E7%AC%94%E8%AE%B0/" data-id="ckhn7g6ia001ei0vc6o9mb1pc" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-IDEA和maven配置多仓库的解决方案" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/10/15/IDEA%E5%92%8Cmaven%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">IDEA和maven配置多仓库的解决方案</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/10/15/IDEA%E5%92%8Cmaven%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="article-date">
+  <time datetime="2020-10-15T02:14:16.000Z" itemprop="datePublished">2020-10-15</time>
+</a>
+                            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Maven/">Maven</a>
+  </div>
+
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <blockquote>
+<p>maven的配置文件优先级： <strong>pom.xml&gt; user settings &gt; global settings</strong> ;</p>
+<p>通过maven的配置文件优先级和IDEA的settings(设置)实现多仓库;</p>
+</blockquote>
+                                                        
+                                                            <a class="article-more-link" href="/2020/10/15/IDEA%E5%92%8Cmaven%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/10/15/IDEA%E5%92%8Cmaven%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" data-id="ckhn7g6h90001i0vc97pfbcvc" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDEA/" rel="tag">IDEA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maven/" rel="tag">Maven</a></li></ul>
+
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-基于MapReduce编程模型的内连接算法设计与实现" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/10/07/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">基于MapReduce编程模型的内连接算法设计与实现</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/10/07/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" class="article-date">
+  <time datetime="2020-10-07T04:14:16.000Z" itemprop="datePublished">2020-10-07</time>
+</a>
+                            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Hadoop/">Hadoop</a>
+  </div>
+
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                    <h2 align=center>摘  要</h2>
+<p>
+    信息技术和互联网的发展使得每天都会产生海量的数据，这些数据具有结构复杂、数据量大的特性。连接操作是大数据中常用的且耗时的操作。Map Reduce编程模型的提出，使得大数据处理有了基本的思路。本文通过Map Reduce编程模型设计算法实现内连接操作，并通过TPC-H基准程序生成的数据集，进行算法的正确性检验和算法的性能测试。实验结果表明，本文所设计算法是正确可行的，并且在Map Reduce编程模型下其处理大量数据时有明显的优势。
+</p>
+
+<blockquote>
+<p>关键词：MapReduce；Hadoop；内连接；HDFS；TPC-H</p>
+</blockquote>
+                                                        
+                                                            <a class="article-more-link" href="/2020/10/07/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="https://kleinlsl.github.io/2020/10/07/%E5%9F%BA%E4%BA%8EMapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%86%85%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" data-id="ckhn7g6hr000ki0vc84d24bcf" class="article-share-link">
+                                            Share
+                                        </a>
+									
+										
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MapReduce/" rel="tag">MapReduce</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E8%BF%9E%E6%8E%A5/" rel="tag">内连接</a></li></ul>
+
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+    </article>
+    
+  
+    
+      <nav class="page-nav">
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next</a>
+      </nav>
+    
+  </section>
+</div>
+
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-bar-chart"></i> <span id="busuanzi_value_site_pv"></span></li>
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 月色很柔</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="月色很柔"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>
